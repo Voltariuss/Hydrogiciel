@@ -1,3 +1,5 @@
+console.log("yeas");
+
 new Chart(document.getElementById("line-chart"), {
   type: 'line',
   data: {

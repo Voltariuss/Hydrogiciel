@@ -1,0 +1,3 @@
+class Barrage extends Cible {
+    
+}
