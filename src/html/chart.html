@@ -1,18 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" type="text/css" href="../css/style.css">
-	<title>Graphique</title>
-</head>
-<body>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="stylesheet" type="text/css" href="../css/chart.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gridstack@1.0.0/dist/gridstack.min.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+		<title>Graphique</title>
+	</head>
+	<body>
 
-	<canvas id="line-chart" width="800" height="450"></canvas>
-	
-	<script src="../js/chartjs_install/node_modules/chart.js/dist/Chart.js"></script>
-	<script src="../js/graph.js"></script>
-	
-</body>
+		<div class="jumbotron text-center">
+		  <h1>Gestion des barrages</h1>
+		  <p>Suivez facilement l'évolution des mesures !</p>
+		</div>
+		<button type="button" id="ajouter" class="btn btn-info">
+			Ajouter un graphique  <span class="glyphicon glyphicon-plus"></span>
+		</button>
+		<button type="button" id="toutSupprimer" class="btn btn-danger">
+			Supprimer tous les graphiques  <span class="glyphicon glyphicon-trash"></span>
+		</button>
+
+		<div id="grid" class="grid-stack"></div>
+
+		<div id="modaleZoomGr" class="modale">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="titreModale"></h5>
+		        <button type="button" class="close" aria-label="Fermer">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+		      </div>
+		      <div class="modal-body">
+		        <button type="button" id="modifier" class="btn btn-warning">
+		        	Modifier  <span class="glyphicon glyphicon-pencil"></span>
+		        </button>
+		      </div>
+		    </div>
+		</div>
+
+		<div id="modaleConfigG" class="modale">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="titreModale"></h5>
+		        <button type="button" class="close" aria-label="Fermer">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+		      </div>
+		      <div class="modal-body">
+
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+				  <li class="nav-item">
+				    <a class="nav-link active" data-toggle="tab" href="#barrage" role="tab" aria-controls="barrage"
+				      aria-selected="true">Barrage</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" data-toggle="tab" href="#turbine" role="tab" aria-controls="turbine"
+				      aria-selected="false">Turbine</a>
+				  </li>
+				</ul>
+				<div class="tab-content" id="myTabContent">
+				  <div class="tab-pane fade show active" id="barrage" role="tabpanel">Raw</div>
+				  <div class="tab-pane fade" id="turbine" role="tabpanel">Etsy</div>
+				</div>
+
+
+		        <button type="button" id="annuler" class="btn btn-secondary">
+		        	Annuler
+		        </button>
+		        <button type="button" id="valider" class="btn btn-secondary">
+		        	Valider
+		        </button>
+		      </div>
+		    </div>
+		</div>
+
+		
+		<script src="https://cdn.jsdelivr.net/npm/gridstack@1.0.0/dist/gridstack.all.js"></script>
+		<script src="../js/chartjs_install/node_modules/chart.js/dist/Chart.js"></script>
+		<script src="../js/graph.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	</body>
 </html>
+
+
+
+
+
+
