@@ -1,0 +1,5 @@
+Gris clair : #F2F2F2
+Vert clair : #b1cbbb
+Bleu clair : #deeaee
+Rose : #eea29a
+Rouge : #c94c4c

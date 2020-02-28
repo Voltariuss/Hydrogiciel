@@ -1,0 +1,26 @@
+/* Le contour de la modale */
+.modale {
+  display: none; /* Cachée par défaut */
+  position: fixed; /* Reste en place */
+  z-index: 1; /* S'affiche devant tout le reste */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Autorise le scroll si besoin */
+  background-color: rgba(0,0,0,0.4); /* Couleur de l'arriere-plan */
+}
+
+/* La fenêtre modale */
+.modal-content {
+  /* Placement */
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;/* Bordures */
+  width: 80% !important; /* Taille */
+}
+
+
+
+
+

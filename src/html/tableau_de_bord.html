@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+		<!-- Pour organiser les graphiques dans le dashboard -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gridstack@1.0.0/dist/gridstack.min.css" />
+		<!-- Pour le design -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+		<!-- Pour le multiselect dans la modale de création de graphique -->
+		<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+		<!-- Nos fichiers -->
+		<link rel="stylesheet" type="text/css" href="../css/tableau_de_bord.css">
+		<link rel="stylesheet" type="text/css" href="../css/modales.css">
+		<link rel="stylesheet" type="text/css" href="../css/CSS_Modale_Ajout/multi-select.css">
+
+		<title>Graphique</title>
+	</head>
+	<body>
+
+		<div class="jumbotron text-center">
+		  <h1>Gestion des barrages</h1>
+		  <p>Suivez facilement l'évolution des mesures !</p>
+		</div>
+		<button type="button" id="ajouter" class="btn btn-info">
+			Ajouter un graphique  <span class="glyphicon glyphicon-plus"></span>
+		</button>
+		<button type="button" id="toutSupprimer" class="btn btn-danger">
+			Supprimer tous les graphiques  <span class="glyphicon glyphicon-trash"></span>
+		</button>
+
+		<div id="grid" class="grid-stack"></div>
+
+		<div id="modaleZoomGr" class="modale">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="titreModale"></h5>
+		        <button type="button" class="close" aria-label="Fermer">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+		      </div>
+		      <div class="modal-body">
+		        <button type="button" id="modifier" class="btn btn-warning">
+		        	Modifier  <span class="glyphicon glyphicon-pencil"></span>
+		        </button>
+		      </div>
+		    </div>
+		</div>
+
+		<div id="modaleConfigG" class="modale">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="titreModale"></h5>
+		        <button type="button" class="close" aria-label="Fermer">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+		      </div>
+		      <div class="modal-body">
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+				  <li class="nav-item active">
+				    <a class="nav-link active" data-toggle="tab" href="#barrage" role="tab" aria-controls="barrage"
+				      aria-selected="true" aria-expanded="true">Barrage</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" data-toggle="tab" href="#turbine" role="tab" aria-controls="turbine"
+				      aria-selected="false">Turbine</a>
+				  </li>
+				</ul>
+				<div class="tab-content" id="myTabContent">
+				  <div class="tab-pane fade show active in" id="barrage" role="tabpanel">
+				  	
+
+				  	<form>
+
+
+				  		<label for="hihi">Barrages concernés</label>
+				  		<span id ="hihi" class="cibles-concernes"></span>
+
+<!-- 					  <div class="form-group">
+					    <label for="exampleFormControlInput1">Email address</label>
+					    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+					  </div> -->
+<!-- 					  <div class="form-group">
+					    <label for="exampleFormControlSelect1">Example select</label>
+					    <select class="form-control" id="exampleFormControlSelect1">
+					      <option>1</option>
+					      <option>2</option>
+					      <option>3</option>
+					      <option>4</option>
+					      <option>5</option>
+					    </select>
+					  </div> -->
+					  <div class="form-group">
+					    <label for="exampleFormControlSelect1">Attribut X</label>
+					    <select multiple class="form-control" id="exampleFormControlSelect1">
+					      <option>1</option>
+					      <option>2</option>
+					      <option>3</option>
+					      <option>4</option>
+					      <option>5</option>
+					    </select>
+					  </div>
+
+					  <div class="form-group">
+					    <label for="exampleFormControlSelect2">Attribut Y</label>
+					    <select multiple class="form-control" id="exampleFormControlSelect2">
+					      <option>1</option>
+					      <option>2</option>
+					      <option>3</option>
+					      <option>4</option>
+					      <option>5</option>
+					    </select>
+					  </div>
+
+						  <!-- Checkbox -->
+						<div class="form-check">
+							<label class="form-check-label" for="defaultCheck2">
+						    Temps réel
+						  </label>
+						  <input class="form-check-input" type="checkbox" value="" id="defaultCheck" disabled>
+						</div>
+
+						<label class="form-check-label" for="defaultCheck2">
+						    Type de graphique
+						</label>
+						<!-- Radio Button -->
+						<div class="form-check">
+						  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+						  <label class="form-check-label" for="exampleRadios1">
+						    Bâtons
+						  </label>
+						</div>
+						<div class="form-check">
+						  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+						  <label class="form-check-label" for="exampleRadios2">
+						    Points
+						  </label>
+						</div>
+						<div class="form-check disabled">
+						  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+						  <label class="form-check-label" for="exampleRadios3">
+						    Courbes
+						  </label>
+						</div>
+
+
+
+
+						<div class="form-group row">
+						  <label for="example-date-input" class="col-2 col-form-label">Date de début</label>
+						  <div class="col-10">
+						    <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+						  </div>
+						</div>
+
+						<div class="form-group row">
+						  <label for="example-date-input" class="col-2 col-form-label">Date de fin</label>
+						  <div class="col-10">
+						    <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+						  </div>
+						</div>
+
+					</form>
+
+				  </div>
+
+
+				  <div class="tab-pane fade" id="turbine" role="tabpanel">
+				  	
+
+
+				  </div>
+				</div>
+
+
+		        <button type="button" id="annuler" class="btn btn-secondary">
+		        	Annuler
+		        </button>
+		        <button type="button" id="valider" class="btn btn-secondary">
+		        	Valider
+		        </button>
+		      </div>
+		    </div>
+		</div>
+
+		<!-- Pour organiser les graphiques dans le dashboard -->
+		<script src="https://cdn.jsdelivr.net/npm/gridstack@1.0.0/dist/gridstack.all.js"></script>
+		<!-- Pour designer les graphiques -->
+		<script src="../js/plugins/node_modules/chart.js/dist/Chart.js"></script>
+		<!-- Pour le multiselect dans la modale de création de graphique -->
+		<script src="../js/plugins/node_modules/select-pure/dist/bundle.min.js"></script>
+		<!-- Pour le design -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+		<!-- Nos fichiers -->
+		<script src="../js/TableauDeBord.js"></script>
+	</body>
+</html>
