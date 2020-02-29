@@ -10,11 +10,16 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 		<!-- Pour le multiselect dans la modale de création de graphique -->
 		<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<!-- Pour la carte du rhône -->
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+	   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+	   crossorigin=""/>
 
 		<!-- Nos fichiers -->
 		<link rel="stylesheet" type="text/css" href="../css/tableau_de_bord.css">
 		<link rel="stylesheet" type="text/css" href="../css/modales.css">
 		<link rel="stylesheet" type="text/css" href="../css/CSS_Modale_Ajout/multi-select.css">
+
 
 		<title>Graphique</title>
 	</head>
@@ -31,6 +36,17 @@
 			Supprimer tous les graphiques  <span class="glyphicon glyphicon-trash"></span>
 		</button>
 
+		<button type="button" id="charger" class="btn btn-info">
+			Charger<span class="glyphicon glyphicon-cog"></span>
+		</button>
+		<button type="button" id="sauvegarder" class="btn btn-info">
+			Sauvegarder<span class="glyphicon glyphicon-download-alt"></span>
+		</button>
+		
+		<span class="glyphicon glyphicon-question-sign"></span>
+
+
+
 		<div id="grid" class="grid-stack"></div>
 
 		<div id="modaleZoomGr" class="modale">
@@ -45,6 +61,9 @@
 		        <button type="button" id="modifier" class="btn btn-warning">
 		        	Modifier  <span class="glyphicon glyphicon-pencil"></span>
 		        </button>
+		        <button type="button" id="modifier" class="btn btn-warning">
+		        	Supprimer  <span class="glyphicon glyphicon-trash"></span>
+		        </button>
 		      </div>
 		    </div>
 		</div>
@@ -56,6 +75,7 @@
 		        <button type="button" class="close" aria-label="Fermer">
 				  <span aria-hidden="true">&times;</span>
 				</button>
+				<span class="glyphicon glyphicon-info-sign"></span>
 		      </div>
 		      <div class="modal-body">
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -185,6 +205,8 @@
 		    </div>
 		</div>
 
+		<div id="maDid" style="height: 400px; width: 350px;"></div>
+
 		<!-- Pour organiser les graphiques dans le dashboard -->
 		<script src="https://cdn.jsdelivr.net/npm/gridstack@1.0.0/dist/gridstack.all.js"></script>
 		<!-- Pour designer les graphiques -->
@@ -193,6 +215,11 @@
 		<script src="../js/plugins/node_modules/select-pure/dist/bundle.min.js"></script>
 		<!-- Pour le design -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+		<!-- Pour la carte du rhône -->
+		 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+	   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+	   crossorigin=""></script>
+
 
 		<!-- Nos fichiers -->
 		<script src="../js/TableauDeBord.js"></script>

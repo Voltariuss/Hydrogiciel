@@ -193,3 +193,29 @@ var instance = new SelectPure(".cibles-concernes", {
     inlineIcon: false, // custom cross icon for multiple select.
     icon: "fa fa-times" // uses Font Awesome
 });
+
+
+
+
+    var mymap = L.map('maDid').setView([44.717657, 4.810037], 7);
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 18,
+      id: 'mapbox/outdoors-v11',
+      tileSize: 512,
+      zoomOffset: -1,
+      accessToken: 'pk.eyJ1IjoiZmFubnlydmVsIiwiYSI6ImNrNzdibDg2MDA0NGMzZm55ZXN0bzdkazAifQ.JS6naLdyKP8GfgfZBLyoVg'
+  }).addTo(mymap);
+
+    var monIcone = L.icon({
+    iconUrl: '../ressources/barrage_icone.png', /* Image à FOND TRANSPARENT !! */
+    shadowUrl: '', /* Pas obligatoire, mais avec une ombre, ca fait plus pro */
+    iconSize: [33, 33],
+    //shadowSize: [50, 20],
+    iconAnchor: [30, 20],
+    //shadowAnchor: [10, 20],
+    popupAnchor: [0, -24]
+  });
+    var monMarqueur = L.marker([45.702591, 4.844217], {icon:monIcone},{title:"Barrage de",alt:"",draggable:true})
+          .addTo(mymap);
