@@ -17,10 +17,10 @@
   margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;/* Bordures */
-  width: 80% !important; /* Taille */
+  width: 45% !important; /* Taille */
 }
 
-
-
-
-
+.modal-body {
+  display: flex;
+  align-items: center;
+}

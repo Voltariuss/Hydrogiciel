@@ -12,200 +12,230 @@
 		<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<!-- Pour la carte du rhône -->
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-	   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-	   crossorigin=""/>
+	    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+	    crossorigin=""/>
 
 		<!-- Nos fichiers -->
 		<link rel="stylesheet" type="text/css" href="../css/tableau_de_bord.css">
 		<link rel="stylesheet" type="text/css" href="../css/modales.css">
-		<link rel="stylesheet" type="text/css" href="../css/CSS_Modale_Ajout/multi-select.css">
+		<link rel="stylesheet" type="text/css" href="../css/modaleCarteB.css">
+		<link rel="stylesheet" type="text/css" href="../css/CSSModaleConfigG/modaleConfigG.css">
+		<link rel="stylesheet" type="text/css" href="../css/CSSModaleConfigG/multi-select.css">
 
-
-		<title>Graphique</title>
+		<title>Hydrogiciel</title>
 	</head>
 	<body>
 
+		<!-- Entête -->
+
 		<div class="jumbotron text-center">
-		  <h1>Gestion des barrages</h1>
-		  <p>Suivez facilement l'évolution des mesures !</p>
+			<h1>Gestion des barrages</h1>
+			<p>Suivez facilement l'évolution des mesures !</p>
 		</div>
-		<button type="button" id="ajouter" class="btn btn-info">
+
+		<!-- Options -->
+
+		<button type="button" id="ajouterG" class="btn btn-info">
 			Ajouter un graphique  <span class="glyphicon glyphicon-plus"></span>
 		</button>
-		<button type="button" id="toutSupprimer" class="btn btn-danger">
+		<button type="button" id="supprimerTousGs" class="btn btn-danger">
 			Supprimer tous les graphiques  <span class="glyphicon glyphicon-trash"></span>
 		</button>
 
-		<button type="button" id="charger" class="btn btn-info">
+		<button type="button" id="chargerGs" class="btn btn-info">
 			Charger<span class="glyphicon glyphicon-cog"></span>
 		</button>
-		<button type="button" id="sauvegarder" class="btn btn-info">
+		<button type="button" id="sauvegarderGs" class="btn btn-info">
 			Sauvegarder<span class="glyphicon glyphicon-download-alt"></span>
 		</button>
 		
 		<span class="glyphicon glyphicon-question-sign"></span>
 
+		<!-- Grille -->
 
-
-		<div id="grid" class="grid-stack"></div>
-
-		<div id="modaleZoomGr" class="modale">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h5 class="titreModale"></h5>
-		        <button type="button" class="close" aria-label="Fermer">
-				  <span aria-hidden="true">&times;</span>
-				</button>
-		      </div>
-		      <div class="modal-body">
-		        <button type="button" id="modifier" class="btn btn-warning">
-		        	Modifier  <span class="glyphicon glyphicon-pencil"></span>
-		        </button>
-		        <button type="button" id="modifier" class="btn btn-warning">
-		        	Supprimer  <span class="glyphicon glyphicon-trash"></span>
-		        </button>
-		      </div>
-		    </div>
+		<div id="grid" class="grid-stack">
+			<h1 id="grilleVide">Pas de mesures à suivre</h1>
 		</div>
+
+		<div id="modaleZoomG" class="modale">
+		    <div class="modal-content">
+		    	<div class="modal-header">
+		        	<h5 class="titreModale"></h5>
+		        	<button type="button" class="close" aria-label="Fermer">
+				  		<span aria-hidden="true">&times;</span>
+					</button>
+		      	</div>
+		     	<div class="modal-body">
+		        	<button type="button" id="modifierG" class="btn btn-warning">
+		        		Modifier  <span class="glyphicon glyphicon-pencil"></span>
+		        	</button>
+		        	<button type="button" id="supprimerG" class="btn btn-warning">
+		        		Supprimer  <span class="glyphicon glyphicon-trash"></span>
+		        	</button>
+		      	</div> <!-- Fin modal-body -->
+		    </div> <!-- Fin modal-content -->
+		</div> <!-- Fin modaleZoomG -->
+
+		<div id="modaleCarteB" class="modale">
+		    <div class="modal-content">
+				<div class="modal-header">
+					<h1 class="titreModale">Sélection du barrage d’où proviennent les mesures du graphique</h1>
+					<button type="button" class="close" aria-label="Fermer">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div id="carteBarrages" style="height: 400px; width: 350px;"></div>
+					<div id="indications">
+						<p>
+							Cliquez sur l’un des barrages représentés par des carrés oranges 
+							pour concevoir un graphique à partir des mesures de ce dernier.
+						</p>
+						<p>
+							Si vous souhaitez comparer deux barrages dans votre graphique, 
+							selectionnez-en un pour le moment et ajoutez l’autre par la suite.
+						</p>
+						<button type="button" id="annulerCarteB" class="btn btn-secondary">
+			        		Annuler
+			        	</button>
+					</div>
+				</div> <!-- Fin modal-body -->
+		    </div> <!-- Fin modal-content -->
+		</div> <!-- Fin ModaleCarteB -->
 
 		<div id="modaleConfigG" class="modale">
 		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h5 class="titreModale"></h5>
-		        <button type="button" class="close" aria-label="Fermer">
-				  <span aria-hidden="true">&times;</span>
-				</button>
-				<span class="glyphicon glyphicon-info-sign"></span>
-		      </div>
-		      <div class="modal-body">
-				<ul class="nav nav-tabs" id="myTab" role="tablist">
-				  <li class="nav-item active">
-				    <a class="nav-link active" data-toggle="tab" href="#barrage" role="tab" aria-controls="barrage"
-				      aria-selected="true" aria-expanded="true">Barrage</a>
-				  </li>
-				  <li class="nav-item">
-				    <a class="nav-link" data-toggle="tab" href="#turbine" role="tab" aria-controls="turbine"
-				      aria-selected="false">Turbine</a>
-				  </li>
-				</ul>
-				<div class="tab-content" id="myTabContent">
-				  <div class="tab-pane fade show active in" id="barrage" role="tabpanel">
-				  	
+		      	<div class="modal-header">
+		        	<h1 class="titreModale">Configuration du graphique</h1>
+		        	<button type="button" class="close" aria-label="Fermer">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<span class="glyphicon glyphicon-info-sign"></span>
+		      	</div>
+		      	<div class="modal-body">
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
+						<li class="nav-item active">
+							<a class="nav-link active" data-toggle="tab" href="#barrage" role="tab" aria-controls="barrage"
+							aria-selected="true" aria-expanded="true">Barrage</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#turbine" role="tab" aria-controls="turbine"
+						 	aria-selected="false">Turbine</a>
+						</li>
+					</ul>
+					<div class="tab-content" id="myTabContent">
+				  		<div class="tab-pane fade show active in" id="barrage" role="tabpanel">
+				  			<form>
+						  		<label for="barragesConcernes">Barrages concernés</label>
+						  		<span id ="barragesConcernes" class="ciblesConcernees"></span>
 
-				  	<form>
+		<!-- 					  <div class="form-group">
+							    <label for="exampleFormControlInput1">Email address</label>
+							    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+							  </div> -->
+		<!-- 					  <div class="form-group">
+							    <label for="exampleFormControlSelect1">Example select</label>
+							    <select class="form-control" id="exampleFormControlSelect1">
+							      <option>1</option>
+							      <option>2</option>
+							      <option>3</option>
+							      <option>4</option>
+							      <option>5</option>
+							    </select>
+							  </div> -->
+							  	<div id="attributs">
+							  		<div class="form-group">
+										<label for="exampleFormControlSelect1">Attribut X</label>
+										<select multiple class="form-control" id="exampleFormControlSelect1">
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+											<option>5</option>
+										</select>
+									</div>
 
+									<div class="form-group">
+										<label for="exampleFormControlSelect2">Attribut Y</label>
+										<select multiple class="form-control" id="exampleFormControlSelect2">
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+											<option>5</option>
+										</select>
+									</div>
+							  	</div>
 
-				  		<label for="hihi">Barrages concernés</label>
-				  		<span id ="hihi" class="cibles-concernes"></span>
+							  	<div id="autresAttributs">
+							  		<div id="colonne1">
+							  			<!-- Checkbox -->
+										<div class="form-check">
+											<label class="form-check-label" for="defaultCheck2">
+										    	Temps réel
+										  	</label>
+										 	<input class="form-check-input" type="checkbox" value="" id="defaultCheck" disabled>
+										</div>
 
-<!-- 					  <div class="form-group">
-					    <label for="exampleFormControlInput1">Email address</label>
-					    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-					  </div> -->
-<!-- 					  <div class="form-group">
-					    <label for="exampleFormControlSelect1">Example select</label>
-					    <select class="form-control" id="exampleFormControlSelect1">
-					      <option>1</option>
-					      <option>2</option>
-					      <option>3</option>
-					      <option>4</option>
-					      <option>5</option>
-					    </select>
-					  </div> -->
-					  <div class="form-group">
-					    <label for="exampleFormControlSelect1">Attribut X</label>
-					    <select multiple class="form-control" id="exampleFormControlSelect1">
-					      <option>1</option>
-					      <option>2</option>
-					      <option>3</option>
-					      <option>4</option>
-					      <option>5</option>
-					    </select>
-					  </div>
+										<label class="form-check-label" for="defaultCheck2">
+										    Type de graphique
+										</label>
 
-					  <div class="form-group">
-					    <label for="exampleFormControlSelect2">Attribut Y</label>
-					    <select multiple class="form-control" id="exampleFormControlSelect2">
-					      <option>1</option>
-					      <option>2</option>
-					      <option>3</option>
-					      <option>4</option>
-					      <option>5</option>
-					    </select>
-					  </div>
+										<!-- Radio Button -->
+										<div class="form-check">
+											<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+											<label class="form-check-label" for="exampleRadios1">
+												Bâtons
+											</label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+											<label class="form-check-label" for="exampleRadios2">
+										    	Points
+											</label>
+										</div>
+										<div class="form-check disabled">
+											<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+											<label class="form-check-label" for="exampleRadios3">
+										    	Courbes
+											</label>
+										</div>
+							  		</div>
 
-						  <!-- Checkbox -->
-						<div class="form-check">
-							<label class="form-check-label" for="defaultCheck2">
-						    Temps réel
-						  </label>
-						  <input class="form-check-input" type="checkbox" value="" id="defaultCheck" disabled>
-						</div>
+							  		<div id="dates">
+							  			<div class="form-group row">
+											<label for="example-date-input" class="col-2 col-form-label">Date de début</label>
+											<div class="col-10">
+												<input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+											</div>
+										</div>
 
-						<label class="form-check-label" for="defaultCheck2">
-						    Type de graphique
-						</label>
-						<!-- Radio Button -->
-						<div class="form-check">
-						  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-						  <label class="form-check-label" for="exampleRadios1">
-						    Bâtons
-						  </label>
-						</div>
-						<div class="form-check">
-						  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-						  <label class="form-check-label" for="exampleRadios2">
-						    Points
-						  </label>
-						</div>
-						<div class="form-check disabled">
-						  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-						  <label class="form-check-label" for="exampleRadios3">
-						    Courbes
-						  </label>
-						</div>
+										<div class="form-group row">
+											<label for="example-date-input" class="col-2 col-form-label">Date de fin</label>
+											<div class="col-10">
+										    	<input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+										 	</div>
+										</div>
+							  		</div>
+							  	</div>
+							</form>
+						</div> <!-- Fin onglet barrage -->
+						<div class="tab-pane fade" id="turbine" role="tabpanel">
+							
+						</div> <!-- Fin onglet turbine -->
+					</div> <!-- Fin des onglets -->
 
+			        <button type="button" id="annulerAjoutG" class="btn btn-secondary">
+			        	Annuler
+			        </button>
+			        <button type="button" id="validerAjoutG" class="btn btn-secondary">
+			        	Valider
+			        </button>
+				</div> <!-- Fin modal-body -->
+			</div> <!-- Fin modal-content -->
+		</div> <!-- Fin ModaleConfigG -->
 
-
-
-						<div class="form-group row">
-						  <label for="example-date-input" class="col-2 col-form-label">Date de début</label>
-						  <div class="col-10">
-						    <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
-						  </div>
-						</div>
-
-						<div class="form-group row">
-						  <label for="example-date-input" class="col-2 col-form-label">Date de fin</label>
-						  <div class="col-10">
-						    <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
-						  </div>
-						</div>
-
-					</form>
-
-				  </div>
-
-
-				  <div class="tab-pane fade" id="turbine" role="tabpanel">
-				  	
-
-
-				  </div>
-				</div>
-
-
-		        <button type="button" id="annuler" class="btn btn-secondary">
-		        	Annuler
-		        </button>
-		        <button type="button" id="valider" class="btn btn-secondary">
-		        	Valider
-		        </button>
-		      </div>
-		    </div>
-		</div>
-
-		<div id="maDid" style="height: 400px; width: 350px;"></div>
+		<!-- Scripts -->
 
 		<!-- Pour organiser les graphiques dans le dashboard -->
 		<script src="https://cdn.jsdelivr.net/npm/gridstack@1.0.0/dist/gridstack.all.js"></script>
@@ -216,12 +246,12 @@
 		<!-- Pour le design -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 		<!-- Pour la carte du rhône -->
-		 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-	   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-	   crossorigin=""></script>
-
+		<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+	    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+	    crossorigin=""></script>
 
 		<!-- Nos fichiers -->
 		<script src="../js/TableauDeBord.js"></script>
+
 	</body>
 </html>

@@ -1,0 +1,13 @@
+#indications{
+	width: 40%;
+	font-size: 18px;
+
+}
+
+#carteBarrages{
+
+}
+
+#modaleCarteB .modal-body{
+	justify-content: space-around;
+}
