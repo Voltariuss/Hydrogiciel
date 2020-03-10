@@ -126,27 +126,18 @@
 					<div class="tab-content" id="myTabContent">
 				  		<div class="tab-pane fade show active in" id="barrage" role="tabpanel">
 				  			<form>
+				  				<div class="form-group">
+									<label for="titre">Titre du graphique</label>
+								 	<input class="form-control" id="titre">
+								</div>
+
 						  		<label for="barragesConcernes">Barrages concernés</label>
 						  		<span id ="barragesConcernes" class="ciblesConcernees"></span>
 
-		<!-- 					  <div class="form-group">
-							    <label for="exampleFormControlInput1">Email address</label>
-							    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-							  </div> -->
-		<!-- 					  <div class="form-group">
-							    <label for="exampleFormControlSelect1">Example select</label>
-							    <select class="form-control" id="exampleFormControlSelect1">
-							      <option>1</option>
-							      <option>2</option>
-							      <option>3</option>
-							      <option>4</option>
-							      <option>5</option>
-							    </select>
-							  </div> -->
 							  	<div id="attributs">
 							  		<div class="form-group">
-										<label for="exampleFormControlSelect1">Attribut X</label>
-										<select multiple class="form-control" id="exampleFormControlSelect1">
+										<label for="mesureX">Mesure X</label>
+										<select multiple class="form-control" id="mesureX">
 											<option>1</option>
 											<option>2</option>
 											<option>3</option>
@@ -156,8 +147,8 @@
 									</div>
 
 									<div class="form-group">
-										<label for="exampleFormControlSelect2">Attribut Y</label>
-										<select multiple class="form-control" id="exampleFormControlSelect2">
+										<label for="mesureY">Mesure Y</label>
+										<select multiple class="form-control" id="mesureY">
 											<option>1</option>
 											<option>2</option>
 											<option>3</option>
@@ -171,32 +162,32 @@
 							  		<div id="colonne1">
 							  			<!-- Checkbox -->
 										<div class="form-check">
-											<label class="form-check-label" for="defaultCheck2">
+											<label class="form-check-label" for="tempsReel">
 										    	Temps réel
 										  	</label>
-										 	<input class="form-check-input" type="checkbox" value="" id="defaultCheck" disabled>
+										 	<input class="form-check-input" type="checkbox" id="tempsReel" disabled>
 										</div>
 
-										<label class="form-check-label" for="defaultCheck2">
+										<label class="form-check-label">
 										    Type de graphique
 										</label>
 
 										<!-- Radio Button -->
 										<div class="form-check">
-											<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-											<label class="form-check-label" for="exampleRadios1">
+											<input class="form-check-input" type="radio" name="typeGRadioB" id="typeBaton" value="baton" checked>
+											<label class="form-check-label" for="typeBaton">
 												Bâtons
 											</label>
 										</div>
 										<div class="form-check">
-											<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-											<label class="form-check-label" for="exampleRadios2">
+											<input class="form-check-input" type="radio" name="typeGRadioB" id="typePoints" value="points">
+											<label class="form-check-label" for="typePoints">
 										    	Points
 											</label>
 										</div>
 										<div class="form-check disabled">
-											<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-											<label class="form-check-label" for="exampleRadios3">
+											<input class="form-check-input" type="radio" name="typeGRadioB" id="typeCourbe" value="courbe">
+											<label class="form-check-label" for="typeCourbe">
 										    	Courbes
 											</label>
 										</div>
@@ -204,16 +195,16 @@
 
 							  		<div id="dates">
 							  			<div class="form-group row">
-											<label for="example-date-input" class="col-2 col-form-label">Date de début</label>
+											<label for="dateDebut" class="col-2 col-form-label">Date de début</label>
 											<div class="col-10">
-												<input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+												<input class="form-control" type="date" value="2011-08-19" id="dateDebut">
 											</div>
 										</div>
 
 										<div class="form-group row">
-											<label for="example-date-input" class="col-2 col-form-label">Date de fin</label>
+											<label for="dateFin" class="col-2 col-form-label">Date de fin</label>
 											<div class="col-10">
-										    	<input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+										    	<input class="form-control" type="date" value="2011-08-19" id="dateFin">
 										 	</div>
 										</div>
 							  		</div>

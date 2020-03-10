@@ -1,3 +1,83 @@
+//Main
+
+var grille = GridStack.init();
+var graphiqueOuvert = null;
+var nombreGs = 0;
+
+var modaleZoomG = document.getElementById("modaleZoomG");
+var croixZoomG = document.getElementsByClassName("close")[0];
+
+var modaleCarteB = document.getElementById("modaleCarteB");
+var croixCarteB = document.getElementsByClassName("close")[1];
+var carteBAnnuler = document.getElementById("annulerCarteB");
+
+var modaleConfigG = document.getElementById("modaleConfigG");
+var croixConfigG = document.getElementsByClassName("close")[2];
+var configGAnnuler = document.getElementById("annulerAjoutG");
+var configGValider = document.getElementById("validerAjoutG");
+
+var modaleChargerGs = document.getElementById("modaleChargerGs");
+var croixChargerGs = document.getElementsByClassName("close")[3];
+var annulerChargerGs = document.getElementById("annulerChargerGs");
+var validerChargerGs = document.getElementById("validerChargerGs");
+
+//Initialisation de la grille
+grille.opts.minWidth=200;
+redimensionnerTousLesGraphiques();
+
+//Liaison des fonctions
+window.onresize = redimensionnerTousLesGraphiques;
+document.getElementById('ajouterG').onclick = selectionnerBarrage;
+document.getElementById('supprimerTousGs').onclick = supprimerTousLesGraphiques;
+document.getElementById('chargerGs').onclick = function(){
+  modaleChargerGs.style.display = "block";
+};
+
+//Zoom sur un graphique
+croixZoomG.onclick = function(){
+  modaleZoomG.style.display = "none";
+};
+
+//Choix du barrage sur la carte
+croixCarteB.onclick = function(){
+  modaleCarteB.style.display = "none";
+};
+carteBAnnuler.onclick = function(){
+  modaleCarteB.style.display = "none";
+};
+
+//Configuration du graphique
+croixConfigG.onclick = annulerAjoutG;
+configGAnnuler.onclick = annulerAjoutG;
+configGValider.onclick = confirmerAjoutG;
+
+//Chargement des graphiques enregistrés
+croixChargerGs.onclick = function(){
+  modaleChargerGs.style.display = "none";
+};
+annulerChargerGs.onclick = function(){
+  modaleChargerGs.style.display = "none";
+};
+validerChargerGs.onclick = function(){
+  modaleChargerGs.style.display = "none";
+}
+
+window.onclick = function(event){
+  if (event.target == modaleZoomG) {
+    modaleZoomG.style.display = "none";
+  }
+  if (event.target == modaleConfigG) {
+    modaleConfigG.style.display = "none";
+  }
+  if (event.target == modaleCarteB) {
+    modaleCarteB.style.display = "none";
+  }
+  if (event.target == modaleChargerGs) {
+    modaleChargerGs.style.display = "none";
+  }
+};
+
+
 //Fonctions
 function selectionnerBarrage()
 {
@@ -12,60 +92,9 @@ function configurerGraphique(barrage){
 	modaleConfigG.style.display = "block";
 }
 
-function ajouterGraphique(barrage)
+function supprimerGraphiqueVue()
 {
-  if(nombreGs == 0){
-    document.getElementById('grilleVide').style.display = 'none'
-  }
-  //let idSupprimer = "supprimerG"+ nombreGs;
-  let contenant = '<div class="grid-stack-item"><div class="grid-stack-item-content"><button type="button" class="supprimerG btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button><canvas class="graphique"></canvas></div></div>';
-  var graphique = grille.addWidget(contenant, {width:4, height:5, minWidth:4, minHeight:4});
-  redimensionnerGraphique(graphique);
-  new Chart(document.getElementsByClassName("graphique")[nombreGs], {
-	  type: 'line',
-	  data: {
-	    labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999],
-	    datasets: [{ 
-	        data: [86,114,106,106,107,111,133,221,783],
-	        label: "Africa",
-	        borderColor: "#3e95cd",
-	        fill: false
-	      }, { 
-	        data: [282,350,411,502,635,809,947,1402,3700],
-	        label: "Asia",
-	        borderColor: "#8e5ea2",
-	        fill: false
-	      }, { 
-	        data: [168,170,178,190,203,276,408,547,675],
-	        label: "Europe",
-	        borderColor: "#3cba9f",
-	        fill: false
-	      }, { 
-	        data: [40,20,10,16,24,38,74,167,508],
-	        label: "Latin America",
-	        borderColor: "#e8c3b9",
-	        fill: false
-	      }, { 
-	        data: [6,3,2,2,7,26,82,172,312],
-	        label: "North America",
-	        borderColor: "#c45850",
-	        fill: false
-	      }
-	    ]},
-		options: {
-			title: {
-			  display: true,
-			  text: 'World population per region (in millions)'
-			}
-		}
-	});
-		graphique.ondblclick = agrandirGraphique;
-    document.getElementsByClassName("supprimerG")[nombreGs].onclick = supprimerGraphique;
-    ++nombreGs;
-	}
-
-function supprimerGraphique()
-{
+  if(SupprimerGraphique(this.parentElement.parentElement.getAttribute("idGraphique"));
 
   grille.removeWidget(this.parentElement.parentElement);
   --nombreGs;
@@ -74,7 +103,7 @@ function supprimerGraphique()
   }
 }
 
-function supprimerTousLesGraphiques()
+function supprimerTousLesGraphiquesVue()
 {
   grille.removeAll();
   nombreGs=0;
@@ -136,103 +165,43 @@ function annulerAjoutG(){
 }
 
 function confirmerAjoutG(){
+  
+  var donnees = {
+    'id': '',
+    'titre' : document.getElementById('titre').value,
+    'typeG' : document.querySelector('input[name=typeGRadioB]:checked').value,
+    'tempsReel' : '',
+    'mesureX' : document.getElementById('mesureX').value,
+    'mesureY' : document.getElementById('mesureY').value,
+    'dateDebut' : document.getElementById('dateDebut').value,
+    'dateFin' : document.getElementById('dateFin').value,
+    'cibles' : document.getElementById('barragesConcernes').value,
+  }
+
+  document.getElementById('tempsReel').value;
+
+
+
+
 	modaleConfigG.style.display = "none";
 	viderFormConfigG();
-	ajouterGraphique(barrage);
+  informations = AjouterGraphique(donnees);
+  if(informations.id!=-1)
+  {
+
+    if(nombreGs == 0){
+      document.getElementById('grilleVide').style.display = 'none'
+    }
+    let contenant = '<div class="grid-stack-item"><div class="grid-stack-item-content"><button type="button" idGraphique="'+ informations.id +'" class="supprimerG btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button><canvas class="graphique"></canvas></div></div>';
+    var graphique = grille.addWidget(contenant, {width:4, height:5, minWidth:4, minHeight:4});
+    redimensionnerGraphique(graphique);
+    new Chart(document.getElementsByClassName("graphique")[nombreGs], informations.chart);
+    graphique.ondblclick = agrandirGraphique;
+    document.getElementsByClassName("supprimerG")[nombreGs].onclick = supprimerGraphiqueVue;
+    ++nombreGs;
+  
+  }
 }
-
-//Main
-
-var grille = GridStack.init();
-var graphiqueOuvert = null;
-var nombreGs = 0;
-
-var modaleZoomG = document.getElementById("modaleZoomG");
-var croixZoomG = document.getElementsByClassName("close")[0];
-
-var modaleCarteB = document.getElementById("modaleCarteB");
-var croixCarteB = document.getElementsByClassName("close")[1];
-var carteBAnnuler = document.getElementById("annulerCarteB");
-
-var modaleConfigG = document.getElementById("modaleConfigG");
-var croixConfigG = document.getElementsByClassName("close")[2];
-var configGAnnuler = document.getElementById("annulerAjoutG");
-var configGValider = document.getElementById("validerAjoutG");
-
-var modaleChargerGs = document.getElementById("modaleChargerGs");
-var croixChargerGs = document.getElementsByClassName("close")[3];
-var annulerChargerGs = document.getElementById("annulerChargerGs");
-var validerChargerGs = document.getElementById("validerChargerGs");
-
-//Initialisation de la grille
-grille.opts.minWidth=200;
-redimensionnerTousLesGraphiques();
-
-//Lier fonctions
-window.onresize = redimensionnerTousLesGraphiques;
-document.getElementById('ajouterG').onclick = selectionnerBarrage;
-document.getElementById('supprimerTousGs').onclick = supprimerTousLesGraphiques;
-document.getElementById('chargerGs').onclick = function(){
-  modaleChargerGs.style.display = "block";
-};
-
-//Zoom sur un graphique
-croixZoomG.onclick = function(){
-  modaleZoomG.style.display = "none";
-};
-
-//Choix du barrage sur la carte
-croixCarteB.onclick = function(){
-  modaleCarteB.style.display = "none";
-};
-carteBAnnuler.onclick = function(){
-  modaleCarteB.style.display = "none";
-};
-
-//Configuration du graphique
-croixConfigG.onclick = annulerAjoutG;
-configGAnnuler.onclick = annulerAjoutG;
-configGValider.onclick = confirmerAjoutG;
-
-//Chargement des graphiques enregistrés
-croixChargerGs.onclick = function(){
-  modaleChargerGs.style.display = "none";
-};
-annulerChargerGs.onclick = function(){
-  modaleChargerGs.style.display = "none";
-};
-validerChargerGs.onclick = function(){
-  modaleChargerGs.style.display = "none";
-}
-
-
-
-window.onclick = function(event){
-  if (event.target == modaleZoomG) {
-    modaleZoomG.style.display = "none";
-  }
-  if (event.target == modaleConfigG) {
-    modaleConfigG.style.display = "none";
-  }
-  if (event.target == modaleCarteB) {
-    modaleCarteB.style.display = "none";
-  }
-  if (event.target == modaleChargerGs) {
-    modaleChargerGs.style.display = "none";
-  }
-};
-//console.table(grille);
-
-
-
-//Supprimer un graphique
-//grille.removeWidget(test);
-//Redimensionner un graphique
-//grille.resize(test, 6, 4);
-
-
-
-
 
 var instance = new SelectPure(".ciblesConcernees", {
     options: [
