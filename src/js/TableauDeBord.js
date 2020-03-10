@@ -159,6 +159,11 @@ var croixConfigG = document.getElementsByClassName("close")[2];
 var configGAnnuler = document.getElementById("annulerAjoutG");
 var configGValider = document.getElementById("validerAjoutG");
 
+var modaleChargerGs = document.getElementById("modaleChargerGs");
+var croixChargerGs = document.getElementsByClassName("close")[3];
+var annulerChargerGs = document.getElementById("annulerChargerGs");
+var validerChargerGs = document.getElementById("validerChargerGs");
+
 //Initialisation de la grille
 grille.opts.minWidth=200;
 redimensionnerTousLesGraphiques();
@@ -167,6 +172,9 @@ redimensionnerTousLesGraphiques();
 window.onresize = redimensionnerTousLesGraphiques;
 document.getElementById('ajouterG').onclick = selectionnerBarrage;
 document.getElementById('supprimerTousGs').onclick = supprimerTousLesGraphiques;
+document.getElementById('chargerGs').onclick = function(){
+  modaleChargerGs.style.display = "block";
+};
 
 //Zoom sur un graphique
 croixZoomG.onclick = function(){
@@ -186,6 +194,18 @@ croixConfigG.onclick = annulerAjoutG;
 configGAnnuler.onclick = annulerAjoutG;
 configGValider.onclick = confirmerAjoutG;
 
+//Chargement des graphiques enregistrés
+croixChargerGs.onclick = function(){
+  modaleChargerGs.style.display = "none";
+};
+annulerChargerGs.onclick = function(){
+  modaleChargerGs.style.display = "none";
+};
+validerChargerGs.onclick = function(){
+  modaleChargerGs.style.display = "none";
+}
+
+
 
 window.onclick = function(event){
   if (event.target == modaleZoomG) {
@@ -196,6 +216,9 @@ window.onclick = function(event){
   }
   if (event.target == modaleCarteB) {
     modaleCarteB.style.display = "none";
+  }
+  if (event.target == modaleChargerGs) {
+    modaleChargerGs.style.display = "none";
   }
 };
 //console.table(grille);
