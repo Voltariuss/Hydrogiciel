@@ -114,6 +114,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
   //Initialisation de la grille
   grille.opts.minWidth = 200;
   redimensionnerTousLesGraphiques();
+  document.getElementById('grilleVide').style.display = 'block';
+  document.getElementById('grid').style.display = 'none';
 
   //Liaison des fonctions
   window.onresize = redimensionnerTousLesGraphiques;
@@ -186,7 +188,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
       grille.removeWidget(this.parentElement.parentElement);
       --nombreGs;
       if (nombreGs == 0) {
-        document.getElementById('grilleVide').style.display = 'block'
+        document.getElementById('grilleVide').style.display = 'block';
+        document.getElementById('grid').style.display = 'none';
       }
     }
   }
@@ -299,7 +302,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
     if (informations.id != -1) {
 
       if (nombreGs == 0) {
-        document.getElementById('grilleVide').style.display = 'none'
+        document.getElementById('grilleVide').style.display = 'none';
+        document.getElementById('grid').style.display = 'block';
       }
       let contenant = '<div class="grid-stack-item" idGraphique="' + informations.id + '" ><div class="grid-stack-item-content"><button type="button" class="supprimerG btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button><canvas class="graphique"></canvas></div></div>';
       var graphique = grille.addWidget(contenant, { width: 4, height: 5, minWidth: 4, minHeight: 4 });
