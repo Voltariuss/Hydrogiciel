@@ -12,8 +12,17 @@ class Graphique {
     dateFin;    //date de fin dugraphique
     disposition;//disposition sur le dashboard
 
-    constructor() {
-        
+    constructor(id, cibles, titre, type, tempsreel, mesureX, mesureY, dateDebut, dateFin, disposition) {
+        this.cibles = cibles;
+        this.id = id;
+        this.titre = titre;
+        this.type = type;
+        this.tempsreel = tempsreel;
+        this.mesureX = mesureX;
+        this.mesureY = mesureY;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.disposition = disposition;
     }
 
     //Permet d'ajouter une cible (barrage/turbine) du graphique
