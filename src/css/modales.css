@@ -14,7 +14,6 @@
 /* La fenêtre modale */
 .modal-content {
   /* Placement */
-  margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;/* Bordures */
   width: 45% !important; /* Taille */
@@ -23,4 +22,8 @@
 .modal-body {
   display: flex;
   align-items: center;
+}
+
+.titreModale{
+  font-size: 24px;
 }

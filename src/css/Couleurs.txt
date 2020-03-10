@@ -1,5 +1,5 @@
 Gris clair : #F2F2F2
 Vert clair : #b1cbbb
-Bleu clair : #deeaee
+Vert plus foncé : #859c8e
 Rose : #eea29a
 Rouge : #c94c4c

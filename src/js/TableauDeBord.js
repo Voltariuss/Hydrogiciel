@@ -8,6 +8,92 @@ document.addEventListener("DOMContentLoaded", function (event) {
   var graphiqueOuvert = null;
   var nombreGs = 0;
 
+    var instance = new SelectPure("#barragesConcernes", {
+    options: [
+      {
+        label: "New York",
+        value: "NY",
+      },
+      {
+        label: "Washington",
+        value: "WA",
+      },
+      {
+        label: "California",
+        value: "CA",
+      },
+      {
+        label: "New Jersey",
+        value: "NJ",
+      },
+      {
+        label: "North Carolina",
+        value: "NC",
+      },
+    ],
+    multiple: true, // default: false
+    autocomplete: true,
+    classNames: {
+      select: "select-pure__select",
+      dropdownShown: "select-pure__select--opened",
+      multiselect: "select-pure__select--multiple",
+      label: "select-pure__label",
+      placeholder: "select-pure__placeholder",
+      dropdown: "select-pure__options",
+      option: "select-pure__option",
+      autocompleteInput: "select-pure__autocomplete",
+      selectedLabel: "select-pure__selected-label",
+      selectedOption: "select-pure__option--selected",
+      placeholderHidden: "select-pure__placeholder--hidden",
+      optionHidden: "select-pure__option--hidden",
+    },
+    inlineIcon: false, // custom cross icon for multiple select.
+    icon: "fa fa-times" // uses Font Awesome
+  });
+
+  var instance2 = new SelectPure("#turbinesConcernees", {
+    options: [
+      {
+        label: "New York",
+        value: "NY",
+      },
+      {
+        label: "Washington",
+        value: "WA",
+      },
+      {
+        label: "California",
+        value: "CA",
+      },
+      {
+        label: "New Jersey",
+        value: "NJ",
+      },
+      {
+        label: "North Carolina",
+        value: "NC",
+      },
+    ],
+    multiple: true, // default: false
+    autocomplete: true,
+    classNames: {
+      select: "select-pure__select",
+      dropdownShown: "select-pure__select--opened",
+      multiselect: "select-pure__select--multiple",
+      label: "select-pure__label",
+      placeholder: "select-pure__placeholder",
+      dropdown: "select-pure__options",
+      option: "select-pure__option",
+      autocompleteInput: "select-pure__autocomplete",
+      selectedLabel: "select-pure__selected-label",
+      selectedOption: "select-pure__option--selected",
+      placeholderHidden: "select-pure__placeholder--hidden",
+      optionHidden: "select-pure__option--hidden",
+    },
+    inlineIcon: false, // custom cross icon for multiple select.
+    icon: "fa fa-times" // uses Font Awesome
+  });
+
   var modaleZoomG = document.getElementById("modaleZoomG");
   var croixZoomG = document.getElementsByClassName("close")[0];
 
@@ -152,6 +238,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   function viderFormConfigG() {
     //Vider tous les champs
+
+    document.getElementById('titreB').value = '';
+    document.getElementById('titreT').value = '';
+/*    instance.reset();
+    instance2.reset();*/
+/*    document.querySelector('input[name=typeGRadioB]:checked').value;
+    document.getElementById('mesureXB').value;
+    document.getElementById('mesureYB').value;
+    document.getElementById('dateDebutB').value;
+    document.getElementById('dateFinB').value;*/
   }
 
   function annulerAjoutG() {
@@ -160,22 +256,42 @@ document.addEventListener("DOMContentLoaded", function (event) {
   }
 
   function confirmerAjoutG() {
+    var donnees;
 
-    var donnees = {
-      'titre': document.getElementById('titre').value,
-      'typeG': document.querySelector('input[name=typeGRadioB]:checked').value,
-      'tempsReel': '',
-      'mesureX': document.getElementById('mesureX').value,
-      'mesureY': document.getElementById('mesureY').value,
-      'dateDebut': document.getElementById('dateDebut').value,
-      'dateFin': document.getElementById('dateFin').value,
-      'cibles': '',
+    if (document.getElementById('barrage').classList.contains('active')){
+      let tempsReel;
+      if(document.getElementById("tempsReelB").checked == true)
+        tempsReel = true;
+      tempsReel = false;
+       
+      donnees = {
+        'titre': document.getElementById('titreB').value,
+        'typeG': document.querySelector('input[name=typeGRadioB]:checked').value,
+        'tempsReel': tempsReel,
+        'mesureX': document.getElementById('mesureXB').value,
+        'mesureY': document.getElementById('mesureYB').value,
+        'dateDebut': document.getElementById('dateDebutB').value,
+        'dateFin': document.getElementById('dateFinB').value,
+        'cibles': instance.value(),
+      }
     }
+    else{
+      let tempsReel;
+      if(document.getElementById("tempsReelT").checked == true)
+        tempsReel = true;
+      tempsReel = false;
 
-    document.getElementById('tempsReel').value;
-
-
-
+      donnees = {
+        'titre': document.getElementById('titreT').value,
+        'typeG': document.querySelector('input[name=typeGRadioT]:checked').value,
+        'tempsReel': tempsReel,
+        'mesureX': document.getElementById('mesureXT').value,
+        'mesureY': document.getElementById('mesureYT').value,
+        'dateDebut': document.getElementById('dateDebutT').value,
+        'dateFin': document.getElementById('dateFinT').value,
+        'cibles': instance2.value(),
+      }
+    }
 
     modaleConfigG.style.display = "none";
     viderFormConfigG();
@@ -196,48 +312,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 
-  var instance = new SelectPure(".ciblesConcernees", {
-    options: [
-      {
-        label: "New York",
-        value: "NY",
-      },
-      {
-        label: "Washington",
-        value: "WA",
-      },
-      {
-        label: "California",
-        value: "CA",
-      },
-      {
-        label: "New Jersey",
-        value: "NJ",
-      },
-      {
-        label: "North Carolina",
-        value: "NC",
-      },
-    ],
-    multiple: true, // default: false
-    autocomplete: true,
-    classNames: {
-      select: "select-pure__select",
-      dropdownShown: "select-pure__select--opened",
-      multiselect: "select-pure__select--multiple",
-      label: "select-pure__label",
-      placeholder: "select-pure__placeholder",
-      dropdown: "select-pure__options",
-      option: "select-pure__option",
-      autocompleteInput: "select-pure__autocomplete",
-      selectedLabel: "select-pure__selected-label",
-      selectedOption: "select-pure__option--selected",
-      placeholderHidden: "select-pure__placeholder--hidden",
-      optionHidden: "select-pure__option--hidden",
-    },
-    inlineIcon: false, // custom cross icon for multiple select.
-    icon: "fa fa-times" // uses Font Awesome
-  });
 
 
   var carteBarrages = L.map('carteBarrages').setView([44.717657, 4.810037], 7);

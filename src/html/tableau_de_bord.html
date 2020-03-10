@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 		<!-- Pour organiser les graphiques dans le dashboard -->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gridstack@1.0.0/dist/gridstack.min.css" />
+		<link rel="stylesheet" href="../js/plugins/node_modules/gridstack/dist/gridstack.min.css" />
 		<!-- Pour le design -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 		<!-- Pour le multiselect dans la modale de création de graphique -->
@@ -23,33 +23,36 @@
 		<link rel="stylesheet" type="text/css" href="../css/CSSModaleConfigG/multi-select.css">
 
 		<title>Hydrogiciel</title>
+		<link rel="icon" href="../ressources/icone.png" type="image/png" />
 	</head>
 	<body>
 
 		<!-- Entête -->
 
 		<div class="jumbotron text-center">
-			<h1>Gestion des barrages</h1>
-			<p>Suivez facilement l'évolution des mesures !</p>
+			<h1>Gestionnaire des barrages</h1>
+			<p>Suivez facilement l'évolution des mesures grâce à Hydrogiciel !</p>
 		</div>
 
 		<!-- Options -->
+		<div id="boutonsDashboard">
+			<button type="button" id="ajouterG" class="btn btn-info">
+				Ajouter un graphique &nbsp;<span class="glyphicon glyphicon-plus"></span>
+			</button>
+			<button type="button" id="supprimerTousGs" class="btn btn-danger">
+				Supprimer tous les graphiques &nbsp;<span class="glyphicon glyphicon-trash"></span>
+			</button>
 
-		<button type="button" id="ajouterG" class="btn btn-info">
-			Ajouter un graphique  <span class="glyphicon glyphicon-plus"></span>
-		</button>
-		<button type="button" id="supprimerTousGs" class="btn btn-danger">
-			Supprimer tous les graphiques  <span class="glyphicon glyphicon-trash"></span>
-		</button>
-
-		<button type="button" id="chargerGs" class="btn btn-info">
-			Charger<span class="glyphicon glyphicon-cog"></span>
-		</button>
-		<button type="button" id="sauvegarderGs" class="btn btn-info">
-			Sauvegarder<span class="glyphicon glyphicon-download-alt"></span>
-		</button>
+			<button type="button" id="chargerGs" class="btn btn-info">
+				Charger &nbsp;<span class="glyphicon glyphicon-cog"></span>
+			</button>
+			<button type="button" id="sauvegarderGs" class="btn btn-info">
+				Sauvegarder &nbsp;<span class="glyphicon glyphicon-download-alt"></span>
+			</button>
+			<span class="glyphicon glyphicon-question-sign"></span>
+		</div>
 		
-		<span class="glyphicon glyphicon-question-sign"></span>
+		
 
 		<!-- Grille -->
 
@@ -79,7 +82,6 @@
 		<div id="modaleCarteB" class="modale">
 		    <div class="modal-content">
 				<div class="modal-header">
-					<h1 class="titreModale">Sélection du barrage d’où proviennent les mesures du graphique</h1>
 					<button type="button" class="close" aria-label="Fermer">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -91,6 +93,7 @@
 							Cliquez sur l’un des barrages représentés par des carrés oranges 
 							pour concevoir un graphique à partir des mesures de ce dernier.
 						</p>
+						<br>
 						<p>
 							Si vous souhaitez comparer deux barrages dans votre graphique, 
 							selectionnez-en un pour le moment et ajoutez l’autre par la suite.
@@ -106,11 +109,11 @@
 		<div id="modaleConfigG" class="modale">
 		    <div class="modal-content">
 		      	<div class="modal-header">
-		        	<h1 class="titreModale">Configuration du graphique</h1>
+		        	<h1 class="titreModale">Configuration du graphique&nbsp;&nbsp;<span class="glyphicon glyphicon-info-sign" style="color: #eea29a"></span></h1>
 		        	<button type="button" class="close" aria-label="Fermer">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<span class="glyphicon glyphicon-info-sign"></span>
+					
 		      	</div>
 		      	<div class="modal-body">
 					<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -123,22 +126,23 @@
 						 	aria-selected="false">Turbine</a>
 						</li>
 					</ul>
-					<div class="tab-content" id="myTabContent">
-				  		<div class="tab-pane fade show active in" id="barrage" role="tabpanel">
+					<div class="tab-content">
+				  		<div class="tab-pane active" id="barrage" role="tabpanel">
 				  			<form>
-				  				<div class="form-group">
-									<label for="titre">Titre du graphique</label>
-								 	<input class="form-control" id="titre">
-								</div>
+				  				<div class="champs">
+					  				<div class="form-group">
+										<label for="titreB">Titre du graphique</label>
+									 	<input class="form-control" id="titreB">
+									</div>
 
-						  		<label for="barragesConcernes">Barrages concernés</label>
-						  		<span id ="barragesConcernes" class="ciblesConcernees"></span>
-
-							  	<div id="attributs">
+							  		<label for="barragesConcernes">Barrages concernés</label>
+							  		<span id ="barragesConcernes" class="ciblesConcernees"></span>
+							  	</div>
+							  	<div class="mesures">
 							  		<div class="form-group">
-										<label for="mesureX">Mesure X</label>
-										<select multiple class="form-control" id="mesureX">
-											<option>1</option>
+										<label for="mesureXB">Mesure X</label>
+										<select multiple class="form-control" id="mesureXB">
+											<option>Mesure 1</option>
 											<option>2</option>
 											<option>3</option>
 											<option>4</option>
@@ -147,8 +151,8 @@
 									</div>
 
 									<div class="form-group">
-										<label for="mesureY">Mesure Y</label>
-										<select multiple class="form-control" id="mesureY">
+										<label for="mesureYB">Mesure Y</label>
+										<select multiple class="form-control" id="mesureYB">
 											<option>1</option>
 											<option>2</option>
 											<option>3</option>
@@ -158,14 +162,14 @@
 									</div>
 							  	</div>
 
-							  	<div id="autresAttributs">
-							  		<div id="colonne1">
+							  	<div class="autresAttributs">
+							  		<div class="colonne1">
 							  			<!-- Checkbox -->
 										<div class="form-check">
-											<label class="form-check-label" for="tempsReel">
+											<label class="form-check-label" for="tempsReelB">
 										    	Temps réel
 										  	</label>
-										 	<input class="form-check-input" type="checkbox" id="tempsReel" disabled>
+										 	<input class="form-check-input" type="checkbox" id="tempsReelB" disabled>
 										</div>
 
 										<label class="form-check-label">
@@ -174,54 +178,140 @@
 
 										<!-- Radio Button -->
 										<div class="form-check">
-											<input class="form-check-input" type="radio" name="typeGRadioB" id="typeBaton" value="baton" checked>
-											<label class="form-check-label" for="typeBaton">
+											<input class="form-check-input" type="radio" name="typeGRadioB" id="typeBatonB" value="baton" checked>
+											<label class="form-check-label radioLabel" for="typeBatonB">
 												Bâtons
 											</label>
 										</div>
 										<div class="form-check">
-											<input class="form-check-input" type="radio" name="typeGRadioB" id="typePoints" value="points">
-											<label class="form-check-label" for="typePoints">
+											<input class="form-check-input" type="radio" name="typeGRadioB" id="typePointsB" value="points">
+											<label class="form-check-label radioLabel" for="typePointsB">
 										    	Points
 											</label>
 										</div>
 										<div class="form-check disabled">
-											<input class="form-check-input" type="radio" name="typeGRadioB" id="typeCourbe" value="courbe">
-											<label class="form-check-label" for="typeCourbe">
+											<input class="form-check-input" type="radio" name="typeGRadioB" id="typeCourbeB" value="courbe">
+											<label class="form-check-label radioLabel" for="typeCourbeB">
 										    	Courbes
 											</label>
 										</div>
 							  		</div>
 
-							  		<div id="dates">
+							  		<div class="dates">
 							  			<div class="form-group row">
-											<label for="dateDebut" class="col-2 col-form-label">Date de début</label>
+											<label for="dateDebutB" class="col-2 col-form-label">Date de début</label>
 											<div class="col-10">
-												<input class="form-control" type="date" value="2011-08-19" id="dateDebut">
+												<input class="form-control" type="date" value="2011-08-19" id="dateDebutB">
 											</div>
 										</div>
 
 										<div class="form-group row">
-											<label for="dateFin" class="col-2 col-form-label">Date de fin</label>
+											<label for="dateFinB" class="col-2 col-form-label">Date de fin</label>
 											<div class="col-10">
-										    	<input class="form-control" type="date" value="2011-08-19" id="dateFin">
+										    	<input class="form-control" type="date" value="2011-08-19" id="dateFinB">
 										 	</div>
 										</div>
 							  		</div>
 							  	</div>
 							</form>
 						</div> <!-- Fin onglet barrage -->
-						<div class="tab-pane fade" id="turbine" role="tabpanel">
-							
+						<div class="tab-pane" id="turbine" role="tabpanel">
+							<form>
+				  				<div class="champs">
+					  				<div class="form-group">
+										<label for="titreT">Titre du graphique</label>
+									 	<input class="form-control" id="titreT">
+									</div>
+
+							  		<label for="turbinesConcernees">Turbines concernées</label>
+							  		<span id ="turbinesConcernees" class="ciblesConcernees"></span>
+							  	</div>
+							  	<div class="mesures">
+							  		<div class="form-group">
+										<label for="mesureXT">Mesure X</label>
+										<select multiple class="form-control" id="mesureXT">
+											<option>Mesure 1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+											<option>5</option>
+										</select>
+									</div>
+
+									<div class="form-group">
+										<label for="mesureYT">Mesure Y</label>
+										<select multiple class="form-control" id="mesureYT">
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+											<option>5</option>
+										</select>
+									</div>
+							  	</div>
+
+							  	<div class="autresAttributs">
+							  		<div class="colonne1">
+							  			<!-- Checkbox -->
+										<div class="form-check">
+											<label class="form-check-label" for="tempsReelT">
+										    	Temps réel
+										  	</label>
+										 	<input class="form-check-input" type="checkbox" id="tempsReelT" disabled>
+										</div>
+
+										<label class="form-check-label">
+										    Type de graphique
+										</label>
+
+										<!-- Radio Button -->
+										<div class="form-check">
+											<input class="form-check-input" type="radio" name="typeGRadioT" id="typeBatonT" value="baton" checked>
+											<label class="form-check-label radioLabel" for="typeBatonT">
+												Bâtons
+											</label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="radio" name="typeGRadioT" id="typePointsT" value="points">
+											<label class="form-check-label radioLabel" for="typePointsT">
+										    	Points
+											</label>
+										</div>
+										<div class="form-check disabled">
+											<input class="form-check-input" type="radio" name="typeGRadioT" id="typeCourbeT" value="courbe">
+											<label class="form-check-label radioLabel" for="typeCourbeT">
+										    	Courbes
+											</label>
+										</div>
+							  		</div>
+
+							  		<div class="dates">
+							  			<div class="form-group row">
+											<label for="dateDebutT" class="col-2 col-form-label">Date de début</label>
+											<div class="col-10">
+												<input class="form-control" type="date" value="2011-08-19" id="dateDebutT">
+											</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="dateFinT" class="col-2 col-form-label">Date de fin</label>
+											<div class="col-10">
+										    	<input class="form-control" type="date" value="2011-08-19" id="dateFinT">
+										 	</div>
+										</div>
+							  		</div>
+							  	</div>
+							</form>
 						</div> <!-- Fin onglet turbine -->
 					</div> <!-- Fin des onglets -->
-
-			        <button type="button" id="annulerAjoutG" class="btn btn-secondary">
-			        	Annuler
-			        </button>
-			        <button type="button" id="validerAjoutG" class="btn btn-secondary">
-			        	Valider
-			        </button>
+					<div id="boutonsConfigG">
+				        <button type="button" id="annulerAjoutG" class="btn btn-secondary">
+				        	Annuler
+				        </button>
+				        <button type="button" id="validerAjoutG" class="btn btn-secondary">
+				        	Valider
+				        </button>
+				    </div>
 				</div> <!-- Fin modal-body -->
 			</div> <!-- Fin modal-content -->
 		</div> <!-- Fin ModaleConfigG -->
@@ -261,7 +351,7 @@
 		<!-- Scripts -->
 
 		<!-- Pour organiser les graphiques dans le dashboard -->
-		<script src="https://cdn.jsdelivr.net/npm/gridstack@1.0.0/dist/gridstack.all.js"></script>
+		<script src="../js/plugins/node_modules/gridstack/dist//gridstack.all.js"></script>
 		<!-- Pour designer les graphiques -->
 		<script src="../js/plugins/node_modules/chart.js/dist/Chart.js"></script>
 		<!-- Pour le multiselect dans la modale de création de graphique -->

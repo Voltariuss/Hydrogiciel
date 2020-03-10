@@ -1,3 +1,45 @@
 body{
 	min-width: 1200px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.jumbotron{
+	width: 100%;
+}
+
+#boutonsDashboard{
+	width:80%;
+	display: flex;
+	justify-content: space-around;
+}
+
+#ajouterG{
+	background-color: #b1cbbb;
+	border-color: #b1cbbb;
+}
+
+#supprimerTousGs{
+	background-color: #eea29a;
+	border-color: #eea29a;
+}
+
+#chargerGs{
+	background-color: #b1cbbb;
+	border-color: #b1cbbb;
+}
+
+#sauvegarderGs{
+	background-color: #eea29a;
+	border-color: #eea29a;
+}
+
+#grilleVide{
+	color: #afafaf;
+	margin-top: 60%;
+}
+
+#grid{
+	width: 100%;
 }

@@ -1,7 +1,10 @@
 #indications{
 	width: 40%;
 	font-size: 18px;
-
+	text-align: justify;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 #carteBarrages{
@@ -10,4 +13,16 @@
 
 #modaleCarteB .modal-body{
 	justify-content: space-around;
+}
+
+#modaleCarteB .modal-content{
+	min-width: 800px;
+	margin: 16% auto;
+}
+
+#annulerCarteB{
+	margin-top: 25px;
+	color: #c94c4c;
+	background-color: #fff;
+	border-color: #c94c4c;
 }
