@@ -8,6 +8,11 @@ class Controller {
         this.graphiques = [];
     }
 
+    Initialisation()
+    {
+        Graphique.initID(0);
+    }
+
     AjouterGraphique(donnees) {
         var graphique = new Graphique(1, donnees.cibles, donnees.titre, donnees.type, donnees.tempsreel, donnees.mesureX, donnees.mesureY, donnees.dateDebut, donnees.dateFin, 0);
         this.graphiques.push(graphique);
@@ -84,7 +89,7 @@ class Controller {
     }
 
     //Ouvrir la configuration d'un fichier
-    OuvrirFichierConfig() {
+    OuvrirFichierConfig(fichier) {
         var gestionFichier = new GestionFichierSauv();
         gestionFichier.OuvrirConfig();
     }

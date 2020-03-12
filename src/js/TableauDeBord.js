@@ -1,14 +1,17 @@
 //Main
 document.addEventListener("DOMContentLoaded", function (event) {
 
-  //controlleur
+  //initialisation des variables
   var controlleur = new Controller();
+  controlleur.Initialisation();
+
+  //initialisation du dashboard
 
   var grille = GridStack.init();
   var graphiqueOuvert = null;
   var nombreGs = 0;
 
-    var instance = new SelectPure("#barragesConcernes", {
+  var instance = new SelectPure("#barragesConcernes", {
     options: [
       {
         label: "New York",
@@ -244,13 +247,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     document.getElementById('titreB').value = '';
     document.getElementById('titreT').value = '';
-/*    instance.reset();
-    instance2.reset();*/
-/*    document.querySelector('input[name=typeGRadioB]:checked').value;
-    document.getElementById('mesureXB').value;
-    document.getElementById('mesureYB').value;
-    document.getElementById('dateDebutB').value;
-    document.getElementById('dateFinB').value;*/
+    /*    instance.reset();
+        instance2.reset();*/
+    /*    document.querySelector('input[name=typeGRadioB]:checked').value;
+        document.getElementById('mesureXB').value;
+        document.getElementById('mesureYB').value;
+        document.getElementById('dateDebutB').value;
+        document.getElementById('dateFinB').value;*/
   }
 
   function annulerAjoutG() {
@@ -261,12 +264,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
   function confirmerAjoutG() {
     var donnees;
 
-    if (document.getElementById('barrage').classList.contains('active')){
+    if (document.getElementById('barrage').classList.contains('active')) {
       let tempsReel;
-      if(document.getElementById("tempsReelB").checked == true)
+      if (document.getElementById("tempsReelB").checked == true)
         tempsReel = true;
       tempsReel = false;
-       
+
       donnees = {
         'titre': document.getElementById('titreB').value,
         'typeG': document.querySelector('input[name=typeGRadioB]:checked').value,
@@ -278,9 +281,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         'cibles': instance.value(),
       }
     }
-    else{
+    else {
       let tempsReel;
-      if(document.getElementById("tempsReelT").checked == true)
+      if (document.getElementById("tempsReelT").checked == true)
         tempsReel = true;
       tempsReel = false;
 
@@ -342,4 +345,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique("barrage");
     });;
+
+
+  //*********************************************** IMPORTER FICHIER ******************************************** */
+
+  document.getElementById("fichierconfiguration").addEventListener("change", function () {
+    var fichier = this.files[0];
+  }, false);
+
+  validerChargerGs.onclick = function () {
+    modaleChargerGs.style.display = "none";
+    if (typeof fichier != "undefined")
+      controlleur.OuvrirFichierConfig(fichier);
+  }
+
 });

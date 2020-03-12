@@ -12,9 +12,11 @@ class Graphique {
     dateFin;    //date de fin dugraphique
     disposition;//disposition sur le dashboard
 
+    static ID;
+
     constructor(id, cibles, titre, type, tempsreel, mesureX, mesureY, dateDebut, dateFin, disposition) {
         this.cibles = cibles;
-        this.id = id;
+        this.id = Graphique.ID++;
         this.titre = titre;
         this.type = type;
         this.tempsreel = tempsreel;
@@ -23,6 +25,13 @@ class Graphique {
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.disposition = disposition;
+    }
+
+    static initID(valeur = 0)
+    {
+        if(typeof Graphique.ID == 'undefined') {
+            Graphique.ID = valeur;
+        }
     }
 
     //Permet d'ajouter une cible (barrage/turbine) du graphique
