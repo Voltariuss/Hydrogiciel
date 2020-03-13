@@ -401,4 +401,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   }
 
+  //*********************************************** EXPORTER FICHIER ******************************************** */
+  document.getElementById("sauvegarderGs").addEventListener("click", function () {
+    controlleur.SauvegarderFichierConfig();
+  }, false);
+
 });

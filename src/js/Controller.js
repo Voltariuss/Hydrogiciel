@@ -63,7 +63,7 @@ class Controller {
     //Creer un fichier de configuration par rapport au tableau de bord actuel
     SauvegarderFichierConfig() {
         var gestionFichier = new GestionFichierSauv();
-        gestionFichier.SauvegarderConfig();
+        gestionFichier.SauvegarderConfig(this.graphiques);
     }
 
 

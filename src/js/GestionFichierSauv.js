@@ -30,9 +30,15 @@ class GestionFichierSauv {
     }
 
     //Permet de sauvegarder le dashboard actuel
-    SauvegarderConfig() {
+    SauvegarderConfig(data) {
 
-        //TODO : générer le fichier de conf a partir des graph
+        var datastring = JSON.stringify(data);
+        //création du fichier json
+        var fs = require('fs');
+        fs.writeFile("test.json", datastring);
+
+        console.log("fichier crée");
+
     }
 
 }
