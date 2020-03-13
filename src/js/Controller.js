@@ -5,63 +5,19 @@ class Controller {
     graphiques; //tableau de graphique
 
     constructor() {
-        this.graphiques = [];
+        Controller.graphiques = [];
     }
 
-    Initialisation()
-    {
+    Initialisation() {
         Graphique.initID(0);
     }
 
     AjouterGraphique(donnees) {
-        var graphique = new Graphique(1, donnees.cibles, donnees.titre, donnees.type, donnees.tempsreel, donnees.mesureX, donnees.mesureY, donnees.dateDebut, donnees.dateFin, 0);
-        this.graphiques.push(graphique);
-
-        //creation de l'objet de retour
-        var chart = {
-            type: 'line',
-            data: {
-                labels: [1500, 1600, 1700, 1750, 1800, 1850, 1900, 1950, 1999],
-                datasets: [{
-                    data: [86, 114, 106, 106, 107, 111, 133, 221, 783],
-                    label: "Africa",
-                    borderColor: "#3e95cd",
-                    fill: false
-                }, {
-                    data: [282, 350, 411, 502, 635, 809, 947, 1402, 3700],
-                    label: "Asia",
-                    borderColor: "#8e5ea2",
-                    fill: false
-                }, {
-                    data: [168, 170, 178, 190, 203, 276, 408, 547, 675],
-                    label: "Europe",
-                    borderColor: "#3cba9f",
-                    fill: false
-                }, {
-                    data: [40, 20, 10, 16, 24, 38, 74, 167, 508],
-                    label: "Latin America",
-                    borderColor: "#e8c3b9",
-                    fill: false
-                }, {
-                    data: [6, 3, 2, 2, 7, 26, 82, 172, 312],
-                    label: "North America",
-                    borderColor: "#c45850",
-                    fill: false
-                }
-                ]
-            },
-            options: {
-                title: {
-                    display: true,
-                    text: graphique.titre
-                }
-            }
-        }
+        var graphique = new Graphique(donnees.cibles, donnees.titre, donnees.type, donnees.tempsreel, donnees.mesureX, donnees.mesureY, donnees.dateDebut, donnees.dateFin, 0);
+        Controller.graphiques.push(graphique);
 
         //retourn l'id du graphique et le chart
-        return { 'id': graphique.id, 'chart': chart };
-
-
+        return { 'id': graphique.id, 'chart': graphique.GenererChart() };
     }
 
     ModifierGraphique(idGraphique, donnees) {
@@ -72,16 +28,16 @@ class Controller {
 
         let res = false;
 
-        console.log(this.graphiques);
+        console.log(Controller.graphiques);
         //Mettre a jour les données
-        this.graphiques.forEach(function (element, index) {
+        Controller.graphiques.forEach(function (element, index) {
             if (element.id == idGraphique) {
-               // this.graphiques.splice(index, 1);
+                // this.graphiques.splice(index, 1);
                 res = true;
             }
         });
 
-        console.log(this.graphiques);
+        console.log(Controller.graphiques);
 
         //informer la vue qu'aucun élement n'a été supprimé
         return res;
@@ -89,9 +45,19 @@ class Controller {
     }
 
     //Ouvrir la configuration d'un fichier
-    OuvrirFichierConfig(fichier) {
+    OuvrirFichierConfig(fichier, data) {
         var gestionFichier = new GestionFichierSauv();
-        gestionFichier.OuvrirConfig();
+        var listeGraphiques = [];
+
+        gestionFichier.OuvrirConfig(fichier, data);
+        Controller.graphiques = gestionFichier.GetGraphique();
+
+
+        Controller.graphiques.forEach(function (element, index) {
+            listeGraphiques.push({ 'id': element.id, 'chart': element.GenererChart() });
+        })
+
+        return listeGraphiques;
     }
 
     //Creer un fichier de configuration par rapport au tableau de bord actuel

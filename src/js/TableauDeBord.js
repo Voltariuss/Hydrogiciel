@@ -348,15 +348,57 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 
   //*********************************************** IMPORTER FICHIER ******************************************** */
-
+  //selection du fichier via l'explorateur de fichier
+  var fichier;
   document.getElementById("fichierconfiguration").addEventListener("change", function () {
-    var fichier = this.files[0];
+    fichier = this.files[0];
   }, false);
 
+  //clic sur le bouton valider
   validerChargerGs.onclick = function () {
     modaleChargerGs.style.display = "none";
-    if (typeof fichier != "undefined")
-      controlleur.OuvrirFichierConfig(fichier);
+    if (typeof fichier != "undefined") {
+
+      //VERIFIER QUE le dashboard n'est pas vide
+      //=> s'il est vide alors demander confirmation a l'utilisateur d'écraser les données
+      //=> supprimer les grpahiques présents si l'utilisateur valide
+      if (nombreGs != 0) {
+        if (confirm("Des données sont encore présente sur le dashboard. Vérifiez que vous les avez bien enregistrées avant d'importer une nouvelle configuration. Dans le cas contraire toutes les données seront perdues. Continuez ?")) {
+          
+          supprimerTousLesGraphiquesVue();
+          
+          //chargement du fichier de config => json (méthode asynchrone => Impossible de la mettre ailleurs car genere des erreurs)
+          fetch("../../configurations/" + fichier.name)
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (data) {
+              //  une fois que les données sont chargées : appeler le controlleur pour generer les données du programme
+              var listeGraphique = controlleur.OuvrirFichierConfig(fichier, data);
+
+              //affichage des graphiques récupérés sur le fichier de configuration
+              listeGraphique.forEach(function (element, index) {
+
+                if (element.id != -1) {
+
+                  if (nombreGs == 0) {
+                    document.getElementById('grilleVide').style.display = 'none';
+                    document.getElementById('grid').style.display = 'block';
+                  }
+                  let contenant = '<div class="grid-stack-item" idGraphique="' + element.id + '" ><div class="grid-stack-item-content"><button type="button" class="supprimerG btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button><canvas class="graphique"></canvas></div></div>';
+                  var graphique = grille.addWidget(contenant, { width: 4, height: 5, minWidth: 4, minHeight: 4 });
+                  redimensionnerGraphique(graphique);
+                  new Chart(document.getElementsByClassName("graphique")[nombreGs], element.chart);
+                  graphique.ondblclick = agrandirGraphique;
+                  document.getElementsByClassName("supprimerG")[nombreGs].onclick = supprimerGraphiqueVue;
+                  ++nombreGs;
+                }
+              });
+            })
+        }
+      }
+    }
+
   }
 
 });
