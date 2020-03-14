@@ -9,6 +9,9 @@
   height: 100%;
   overflow: auto; /* Autorise le scroll si besoin */
   background-color: rgba(0,0,0,0.4); /* Couleur de l'arriere-plan */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /* La fenêtre modale */
@@ -17,11 +20,13 @@
   padding: 20px;
   border: 1px solid #888;/* Bordures */
   width: 45% !important; /* Taille */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .modal-body {
   display: flex;
-  align-items: center;
 }
 
 .titreModale{

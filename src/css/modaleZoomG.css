@@ -1,0 +1,26 @@
+#modaleZoomG .modal-content{
+	min-width: 900px;
+}
+
+#modaleZoomG .modal-header{
+  display: flex;
+  justify-content: space-between;
+}
+
+#modaleZoomG .modal-body{
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+}
+
+#modaleZoomG #graphiqueZoome canvas{
+	width: 800px !important;
+	height: 400px !important;
+}
+
+#modifierG{
+	color: #859c8e;
+	background-color: #fff;
+	border-color: #859c8e;
+	margin-top: 20px;
+}

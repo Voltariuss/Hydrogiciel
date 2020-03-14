@@ -1,3 +1,12 @@
+#modaleCarteB .modal-content{
+	min-width: 800px;
+}
+
+#modaleCarteB .modal-body{
+	justify-content: space-around;
+	align-items: center;
+}
+
 #indications{
 	width: 40%;
 	font-size: 18px;
@@ -5,19 +14,6 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-}
-
-#carteBarrages{
-
-}
-
-#modaleCarteB .modal-body{
-	justify-content: space-around;
-}
-
-#modaleCarteB .modal-content{
-	min-width: 800px;
-	margin: 16% auto;
 }
 
 #annulerCarteB{

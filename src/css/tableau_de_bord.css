@@ -36,9 +36,30 @@ body{
 }
 
 #grilleVide{
+	margin-top: 200px;
 	color: #afafaf;
 }
 
 #grid{
 	width: 100%;
+}
+
+.supprimerG{
+    background-color: #fff;
+    border-color : #eea29a;
+    float: right;
+    margin-top: 10px;
+    margin-right: 15px;
+}
+
+.supprimerG .glyphicon{
+	color: #eea29a;
+}
+
+.supprimerG:hover .glyphicon{
+	color: #fff;
+}
+
+.supprimer:hover {
+	background-color: #c94c4c;
 }

@@ -1,0 +1,31 @@
+#modaleChargerGs .modal-content{
+	min-width: 600px;
+}
+
+#modaleChargerGs .modal-header{
+  display: flex;
+  justify-content: space-between;
+}
+
+#modaleChargerGs .modal-body{
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	min-height: 150px;
+}
+
+.boutonsChargerGs{
+	margin-top: 25px;
+}
+
+#annulerChargerGs{
+	color: #c94c4c;
+	background-color: #fff;
+	border-color: #c94c4c;
+}
+
+#validerChargerGs{
+	color: #859c8e;
+	background-color: #fff;
+	border-color: #859c8e;
+}

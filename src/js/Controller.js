@@ -100,5 +100,39 @@ class Controller {
         gestionFichier.SauvegarderConfig();
     }
 
+    SelectionnerCibles(numBarrage){
+    	var barragesOptions;
+    	//barragesOptions = une fonction 
+    	barragesOptions = [{label:"Barrage n°1", value:"1"}, {label:"Barrage n°2", value:"2"}, {label:"Barrage n°3", value:"3"}, {label:"Barrage n°4", value:"4"}];
+    	let barrageSelectionne = [];
+    	for (let i = 0; i < barragesOptions.length; ++i) {
+    		if(barragesOptions[i].value == numBarrage)
+    		{
+    			barrageSelectionne.push(barragesOptions[i].value);
+    		}
+    	}
+
+    	var turbines;
+    	//turbines = une fonction
+    	turbines = [{'b':1, 't':1}, {'b':1, 't':2}, {'b':1, 't':3}, {'b':2, 't':1}, {'b':2, 't':2}, {'b':3, 't':1}];
+    	let turbinesOptions=[];
+    	let turbinesSelectionnes=[];
+    	let nbTurbines = 0;
+    	for (let i = 0; i < turbines.length; ++i) {
+    		if(turbines[i].b == numBarrage)
+    		{
+    			let turbineOption = {
+				label: "Turbine n°"+ turbines[i].t +" du barrage n°"+turbines[i].b,
+				value: ""+turbines[i].b+"-"+turbines[i].t,
+				};
+
+    			turbinesOptions.push(turbineOption);
+
+    		}
+    	}
+
+    	return {'barragesOptions' : barragesOptions, 'turbinesOptions':turbinesOptions, 'barragesSelectionnes' : barrageSelectionne, 'turbinesSelectionnes':turbinesSelectionnes};
+    }
+
 
 }

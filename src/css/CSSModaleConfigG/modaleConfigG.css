@@ -1,12 +1,16 @@
 #modaleConfigG .modal-content{
-	width: 35% !important;
 	min-width: 600px;
-	margin: 6% auto;
+	max-width: 600px;
 }
 
 #modaleConfigG .modal-body{
 	flex-direction: column;
 	justify-content: center;
+}
+
+#modaleConfigG .modal-header{
+  display: flex;
+  justify-content: space-between;
 }
 
 .nav-tabs>li.active>a, .nav-tabs li a{
@@ -92,19 +96,19 @@ ul {
 	width: 100%;
 }
 
-#boutonsConfigG{
+.boutonsConfigG{
 	display: flex;
 	justify-content: space-around;
 	width: 100%;
 }
 
-#annulerAjoutG{
+#annulerAjoutGB, #annulerAjoutGT{
 	color: #c94c4c;
 	background-color: #fff;
 	border-color: #c94c4c;
 }
 
-#validerAjoutG{
+#validerAjoutGB, #validerAjoutGT{
 	color: #859c8e;
 	background-color: #fff;
 	border-color: #859c8e;
