@@ -90,19 +90,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     document.getElementById("annulerChargerGs").onclick = function () {
       modaleChargerGs.style.display = "none";
     };
-    validerChargerGs.onclick = function () {
-      modaleChargerGs.style.display = "none";
-    }
-    document.getElementById("fichierconfiguration").addEventListener("change", function () {
-      var fichier = this.files[0];
-    }, false);
-    validerChargerGs.onclick = function () {
-      modaleChargerGs.style.display = "none";
-      if (typeof fichier != "undefined"){
-        controlleur.OuvrirFichierConfig(fichier);
-        alert('Le chargement a bien été effectué');
-      }
-    }
 
   // Fermer les modales par un clic sur l'extérieur de la modale
     window.onclick = function (event) {
@@ -133,10 +120,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
   document.getElementById('chargerGs').onclick = function () {
     modaleChargerGs.style.display = "flex";
   };
-  document.getElementById('sauvegarderGs').onclick = function(){
-    alert("La sauvegarde a bien été effectuée.");
-  };
-
 
   //Fonctions
 
@@ -302,11 +285,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 
-  /*function supprimerTousLesGraphiquesVue() {
+  function supprimerTousLesGraphiquesVue() {
     grille.removeAll();
     nombreGs = 0;
     document.getElementById('grilleVide').style.display = 'block'
-  }*/
+  }
 
   //Ouvre la modale de zoom sur un graphique
   function agrandirGraphique(contexte) {
@@ -348,51 +331,113 @@ document.addEventListener("DOMContentLoaded", function (event) {
   L.marker([45.702591, 4.844217], { icon: monIcone }, { title: "Barrage de", alt: "", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(1);
-    });;
+    });
 
   /*L.marker([45.702591, 4.844217], { icon: monIcone }, { title: "Barrage de", alt: "", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(2);
-    });;
+    });
 
   L.marker([45.702591, 4.844217], { icon: monIcone }, { title: "Barrage de", alt: "", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(3);
-    });;
+    });
 
   L.marker([45.702591, 4.844217], { icon: monIcone }, { title: "Barrage de", alt: "", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(4);
-    });;
+    });
 
   L.marker([45.702591, 4.844217], { icon: monIcone }, { title: "Barrage de", alt: "", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(5);
-    });;
+    });
 
   L.marker([45.702591, 4.844217], { icon: monIcone }, { title: "Barrage de", alt: "", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(6);
-    });;
+    });
 
   L.marker([45.702591, 4.844217], { icon: monIcone }, { title: "Barrage de", alt: "", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(7);
-    });;
+    });
 
   L.marker([45.702591, 4.844217], { icon: monIcone }, { title: "Barrage de", alt: "", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(8);
-    });;
+    });
 
   L.marker([45.702591, 4.844217], { icon: monIcone }, { title: "Barrage de", alt: "", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(9);
-    });;
+    });
 
   L.marker([45.702591, 4.844217], { icon: monIcone }, { title: "Barrage de", alt: "", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(10);
-    });;*/
+    });*/
 
+
+  //*********************************************** IMPORTER FICHIER ******************************************** */
+  //selection du fichier via l'explorateur de fichier
+  var fichier;
+  document.getElementById("fichierconfiguration").addEventListener("change", function () {
+    fichier = this.files[0];
+  }, false);
+
+  //clic sur le bouton valider
+  validerChargerGs.onclick = function () {
+    modaleChargerGs.style.display = "none";
+    if (typeof fichier != "undefined") {
+
+      //VERIFIER QUE le dashboard n'est pas vide
+      //=> s'il est vide alors demander confirmation a l'utilisateur d'écraser les données
+      //=> supprimer les grpahiques présents si l'utilisateur valide
+      if (nombreGs != 0) {
+        if (confirm("Des données sont encore présente sur le dashboard. Vérifiez que vous les avez bien enregistrées avant d'importer une nouvelle configuration. Dans le cas contraire toutes les données seront perdues. Continuez ?")) {
+          
+          supprimerTousLesGraphiquesVue();
+          
+          //chargement du fichier de config => json (méthode asynchrone => Impossible de la mettre ailleurs car genere des erreurs)
+          fetch("../../configurations/" + fichier.name)
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (data) {
+              //  une fois que les données sont chargées : appeler le controlleur pour generer les données du programme
+              var listeGraphique = controlleur.OuvrirFichierConfig(fichier, data);
+
+              //affichage des graphiques récupérés sur le fichier de configuration
+              listeGraphique.forEach(function (element, index) {
+
+                if (element.id != -1) {
+
+                  if (nombreGs == 0) {
+                    document.getElementById('grilleVide').style.display = 'none';
+                    document.getElementById('grid').style.display = 'block';
+                  }
+                  let contenant = '<div class="grid-stack-item" idGraphique="' + element.id + '" ><div class="grid-stack-item-content"><button type="button" class="supprimerG btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button><canvas class="graphique"></canvas></div></div>';
+                  var graphique = grille.addWidget(contenant, { width: 4, height: 5, minWidth: 4, minHeight: 4 });
+                  redimensionnerGraphique(graphique);
+                  new Chart(document.getElementsByClassName("graphique")[nombreGs], element.chart);
+                  graphique.ondblclick = agrandirGraphique;
+                  document.getElementsByClassName("supprimerG")[nombreGs].onclick = supprimerGraphiqueVue;
+                  ++nombreGs;
+                }
+              });
+            })
+        }
+      }
+      alert('Le chargement a bien été effectué');
+    }
+
+  }
+
+  //*********************************************** EXPORTER FICHIER ******************************************** */
+  document.getElementById("sauvegarderGs").addEventListener("click", function () {
+    controlleur.SauvegarderFichierConfig();
+    alert("La sauvegarde a bien été effectuée.");
+  }, false);
+  
 });
