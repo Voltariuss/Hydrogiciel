@@ -1,5 +1,6 @@
 #modaleSauvegarderGs .modal-content{
 	min-width: 500px;
+	max-width: 600px;
 }
 
 #modaleSauvegarderGs .modal-header{
