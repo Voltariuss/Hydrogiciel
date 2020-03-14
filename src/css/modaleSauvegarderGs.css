@@ -1,0 +1,39 @@
+#modaleSauvegarderGs .modal-content{
+	min-width: 500px;
+}
+
+#modaleSauvegarderGs .modal-header{
+  display: flex;
+  justify-content: space-between;
+}
+
+#modaleSauvegarderGs .modal-body{
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	/*min-height: 150px;*/
+}
+
+#formSauvegarderGs{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	/*min-height: 150px;*/
+}
+
+.boutonsSauvegarderGs{
+	margin-top: 10px;
+}
+
+#annulerSauvegarderGs{
+	color: #c94c4c;
+	background-color: #fff;
+	border-color: #c94c4c;
+}
+
+#validerSauvegarderGs{
+	color: #859c8e;
+	background-color: #fff;
+	border-color: #859c8e;
+}

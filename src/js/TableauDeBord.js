@@ -91,6 +91,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
       modaleChargerGs.style.display = "none";
     };
 
+  // Modale de sauvegarde du tableau de bord
+    var modaleSauvegarderGs = document.getElementById("modaleSauvegarderGs");
+
+    document.getElementsByClassName("close")[3].onclick = function () {
+      modaleSauvegarderGs.style.display = "none";
+    };
+    document.getElementById("annulerSauvegarderGs").onclick = function () {
+      modaleSauvegarderGs.style.display = "none";
+    };
+
   // Fermer les modales par un clic sur l'extérieur de la modale
     window.onclick = function (event) {
       if (event.target == modaleZoomG) {
@@ -107,6 +117,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
       if (event.target == modaleChargerGs) {
         modaleChargerGs.style.display = "none";
       }
+      if (event.target == modaleSauvegarderGs) {
+        modaleSauvegarderGs.style.display = "none";
+      }
     };
 
   //Liaison des fonctions
@@ -119,6 +132,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
   //document.getElementById('supprimerTousGs').onclick = supprimerTousLesGraphiques;
   document.getElementById('chargerGs').onclick = function () {
     modaleChargerGs.style.display = "flex";
+  };
+
+  document.getElementById('sauvegarderGs').onclick = function () {
+    modaleSauvegarderGs.style.display = "flex";
   };
 
   //Fonctions
@@ -435,7 +452,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   }
 
   //*********************************************** EXPORTER FICHIER ******************************************** */
-  document.getElementById("sauvegarderGs").addEventListener("click", function () {
+  document.getElementById("validerSauvegarderGs").addEventListener("change", function () {
     controlleur.SauvegarderFichierConfig();
     alert("La sauvegarde a bien été effectuée.");
   }, false);

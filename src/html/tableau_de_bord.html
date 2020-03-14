@@ -22,6 +22,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/modales.css">
 	<link rel="stylesheet" type="text/css" href="../css/modaleCarteB.css">
 	<link rel="stylesheet" type="text/css" href="../css/modaleChargerGs.css">
+	<link rel="stylesheet" type="text/css" href="../css/modaleSauvegarderGs.css">
 	<link rel="stylesheet" type="text/css" href="../css/modaleZoomG.css">
 	<link rel="stylesheet" type="text/css" href="../css/CSSModaleConfigG/modaleConfigG.css">
 	<link rel="stylesheet" type="text/css" href="../css/CSSModaleConfigG/multi-select.css">
@@ -349,9 +350,6 @@
 	</div> <!-- Fin ModaleConfigG -->
 
 
-
-
-
 	<div id="modaleChargerGs" class="modale">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -378,6 +376,37 @@
 			</div> <!-- Fin modal-body -->
 		</div> <!-- Fin modal-content -->
 	</div> <!-- Fin modaleChargerGs -->
+
+
+	<div id="modaleSauvegarderGs" class="modale">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="titreModale">Sauvegarde du tableau de bord&nbsp;&nbsp;
+					<span class="glyphicon glyphicon-info-sign" style="color: #eea29a"></span>
+				</h1>
+				<button type="button" class="close" aria-label="Fermer">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form id="formSauvegarderGs">
+					<div class="form-group">
+						<label for="nomFichier">Nom du fichier de sauvegarde</label>
+						<input class="form-control" id="nomFichier" required>
+					</div>
+
+					<div class="boutonsSauvegarderGs">
+						<button type="submit" id="annulerSauvegarderGs" class="btn btn-secondary">
+							Annuler
+						</button>
+						<button type="submit" id="validerSauvegarderGs" class="btn btn-secondary">
+							Valider
+						</button>
+					</div>
+				</form>
+			</div> <!-- Fin modal-body -->
+		</div> <!-- Fin modal-content -->
+	</div> <!-- Fin modaleSauvegarderGs -->
 
 
 
