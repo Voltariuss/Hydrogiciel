@@ -18,12 +18,11 @@ io.sockets.on('connection', function (socket) {
     socket.emit('message', 'Vous êtes bien connecté !');
     // Quand le serveur reçoit un signal de type "message" du client    
     socket.on('message', function (message) {
-        if (message == "get")
+        if (message == "getCatalogue")
         {
-        	console.log("get demandée");
         	const options = {
-			    hostname: 'google.com',
-			    port: 80,
+			    hostname: '127.0.0.1',
+			    port: 8081,
 			    path: '/',
 			    method: 'GET'
 			};
@@ -43,7 +42,22 @@ io.sockets.on('connection', function (socket) {
 			});
 
 			req.end();
-        }
+		}
+		if (message == "getFlux1")
+		{
+			const socket2 = io.connect('http://127.0.0.1:8088');
+
+			/*console.log(socket2.id); // undefined
+
+			socket2.on('connect', () => {
+			  console.log(socket2.id);
+			});
+
+			socket2.on('data', () => {
+				console.log("datas");
+			})*/
+		}
+ 
     });	
 });
 
