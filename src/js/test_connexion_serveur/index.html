@@ -8,7 +8,7 @@
     <body>
         <h1>Communication avec socket.io !</h1>
 
-        <p><input type="button" value="Get catalogue" id="btnCatalogue" /></p>
+        <p><input type="button" value="Get catalogue" id="btnCatalogue"/></p>
 
         <p><input type="button" value="Get flux 1" id="btnFlux1" onclick="getFlux1()" /></p>
 
@@ -17,41 +17,12 @@
         <script src="/socket.io/socket.io.js"></script>
         <script>
             var socket = io.connect('http://localhost:8080');
-            var socket2 = io.connect('http://localhost:8088', {forceNew: true});
-
-            socket.on('message', function(message) {
-                alert('Le serveur a un message pour vous : ' + message);
-            })
-            
             socket.emit('message', 'getCatalogue');
             
-            socket2.on('message', function(message){
-                alert('Le serveur a un message pour vous : ' + message);
+            socket.on('retourCatalogue', (stringData) => {
+                alert("J'ai reçu le catalogue ! " + stringData);
             })
 
-            socket2.on('data', function(message){
-                alert('Le serveur a un message pour vous : ' + message);
-            })
-
-            socket2.on('connect', function(message){
-                alert('connection au serveur');
-                console.log(socket2.connected);
-            })
-
-            socket2.on('pong', function(ms) {
-                console.log('ping : ' + ms + ' ms');
-            })
-
-            socket2.on('error', (error) => {
-                console.log(error);
-            })
-
-            function getFlux1() {
-                /*socket2.emit('message', 'GET\r\n\r\n', (data) => {
-                  console.log(data); // data will be 'woot'
-                }));*/
-                socket2.emit('ping');
-            }
         </script>
     </body>
 </html>
