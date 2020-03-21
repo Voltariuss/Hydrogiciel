@@ -94,12 +94,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
   // Modale de sauvegarde du tableau de bord
   var modaleSauvegarderGs = document.getElementById("modaleSauvegarderGs");
 
-  document.getElementsByClassName("close")[3].onclick = function () {
-    modaleSauvegarderGs.style.display = "none";
-  };
-  document.getElementById("annulerSauvegarderGs").onclick = function () {
-    modaleSauvegarderGs.style.display = "none";
-  };
+    document.getElementsByClassName("close")[4].onclick = function () {
+      modaleSauvegarderGs.style.display = "none";
+    };
+    document.getElementById("annulerSauvegarderGs").onclick = function () {
+      modaleSauvegarderGs.style.display = "none";
+    };
 
   // Fermer les modales par un clic sur l'extérieur de la modale
   window.onclick = function (event) {
@@ -238,7 +238,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         'titre': document.getElementById('titreB').value,
         'typeG': document.querySelector('input[name=typeGRadioB]:checked').value,
         'tempsReel': tempsReel,
-        'mesureX': document.getElementById('mesureXB').value,
+        'mesureX': "temps",
         'mesureY': document.getElementById('mesureYB').value,
         'dateDebut': document.getElementById('dateDebutB').value,
         'dateFin': document.getElementById('dateFinB').value,
@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         'titre': document.getElementById('titreT').value,
         'typeG': document.querySelector('input[name=typeGRadioT]:checked').value,
         'tempsReel': tempsReel,
-        'mesureX': document.getElementById('mesureXT').value,
+        'mesureX': "temps",
         'mesureY': document.getElementById('mesureYT').value,
         'dateDebut': document.getElementById('dateDebutT').value,
         'dateFin': document.getElementById('dateFinT').value,
@@ -345,55 +345,172 @@ document.addEventListener("DOMContentLoaded", function (event) {
   });
 
   /*Les marqueurs de barrages*/
-  L.marker([45.702591, 4.844217], { icon: monIcone }, { title: "Barrage de", alt: "", draggable: true })
+  L.marker([46.052688, 5.812742], { icon: monIcone }, { title: "Barrage de Génissiat", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(1);
+    }).bindTooltip("Barrage de Génissiat", 
+    {
+        permanent: false, 
+        direction: 'right'
     });
 
-  /*L.marker([45.702591, 4.844217], { icon: monIcone }, { title: "Barrage de", alt: "", draggable: true })
+  L.marker([45.971026, 5.834477], { icon: monIcone }, { title: "Barrage de Seyssel", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(2);
+    }).bindTooltip("Barrage de Seyssel", 
+    {
+        permanent: false, 
+        direction: 'right'
     });
 
-  L.marker([45.702591, 4.844217], { icon: monIcone }, { title: "Barrage de", alt: "", draggable: true })
+  L.marker([45.932623, 5.861024], { icon: monIcone }, { title: "Barrage de Motz", alt: "", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(3);
     });
 
-  L.marker([45.702591, 4.844217], { icon: monIcone }, { title: "Barrage de", alt: "", draggable: true })
+  L.marker([45.808716, 5.782619], { icon: monIcone }, { title: "Barrage de Lavours", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(4);
+    }).bindTooltip("Barrage de Lavours", 
+    {
+        permanent: false, 
+        direction: 'right'
     });
 
-  L.marker([45.702591, 4.844217], { icon: monIcone }, { title: "Barrage de", alt: "", draggable: true })
+  L.marker([45.804527, 5.786442], { icon: monIcone }, { title: "Barrage de Savières", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(5);
+    }).bindTooltip("Barrage de Savières", 
+    {
+        permanent: false, 
+        direction: 'right'
     });
 
-  L.marker([45.702591, 4.844217], { icon: monIcone }, { title: "Barrage de", alt: "", draggable: true })
+  L.marker([45.635730, 5.654446], { icon: monIcone }, { title: "Barrage de Champagneux", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(6);
+    }).bindTooltip("Barrage de Champagneux", 
+    {
+        permanent: false, 
+        direction: 'right'
     });
 
-  L.marker([45.702591, 4.844217], { icon: monIcone }, { title: "Barrage de", alt: "", draggable: true })
+  L.marker([45.845608, 5.417778], { icon: monIcone }, { title: "Barrage de Villebois", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(7);
+    }).bindTooltip("Barrage de Villebois", 
+    {
+        permanent: false, 
+        direction: 'right'
     });
 
-  L.marker([45.702591, 4.844217], { icon: monIcone }, { title: "Barrage de", alt: "", draggable: true })
+  L.marker([45.693129, 4.838661], { icon: monIcone }, { title: "Barrage de Pierre-Bénite", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(8);
+    }).bindTooltip("Barrage de Pierre-Bénite", 
+    {
+        permanent: false, 
+        direction: 'right'
     });
 
-  L.marker([45.702591, 4.844217], { icon: monIcone }, { title: "Barrage de", alt: "", draggable: true })
+  L.marker([45.494219, 4.826962], { icon: monIcone }, { title: "Barrage de Vaugris", alt: "", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(9);
+    }).bindTooltip("Barrage de Vaugris", 
+    {
+        permanent: false, 
+        direction: 'right'
     });
 
-  L.marker([45.702591, 4.844217], { icon: monIcone }, { title: "Barrage de", alt: "", draggable: true })
+  L.marker([45.380646, 4.757379], { icon: monIcone }, { title: "Barrage de Saint-Pierre-de-Bœuf", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(10);
-    });*/
+    }).bindTooltip("Barrage de Saint-Pierre-de-Bœuf", 
+    {
+        permanent: false, 
+        direction: 'right'
+    });
+
+  L.marker([45.135982, 4.807925], { icon: monIcone }, { title: "Barrage d'Arras-sur-Rhône", draggable: true })
+    .addTo(carteBarrages).on('click', function (e) {
+      configurerGraphique(11);
+    }).bindTooltip("Barrage d'Arras-sur-Rhône", 
+    {
+        permanent: false, 
+        direction: 'right'
+    });
+
+  L.marker([45.010351, 4.839375], { icon: monIcone }, { title: "Barrage de la Roche-de-Glun", draggable: true })
+    .addTo(carteBarrages).on('click', function (e) {
+      configurerGraphique(12);
+    }).bindTooltip("Barrage de la Roche-de-Glun", 
+    {
+        permanent: false, 
+        direction: 'right'
+    });
+
+  L.marker([44.852279, 4.843354], { icon: monIcone }, { title: "Barrage de Charmes-sur-Rhône", draggable: true })
+    .addTo(carteBarrages).on('click', function (e) {
+      configurerGraphique(13);
+    }).bindTooltip("Barrage de Charmes-sur-Rhône", 
+    {
+        permanent: false, 
+        direction: 'right'
+    });
+
+  L.marker([44.737318, 4.763191], { icon: monIcone }, { title: "Barrage de Le Pouzin", draggable: true })
+    .addTo(carteBarrages).on('click', function (e) {
+      configurerGraphique(14);
+    }).bindTooltip("Barrage de Le Pouzin", 
+    {
+        permanent: false, 
+        direction: 'right'
+    });
+
+  L.marker([44.438388, 4.682232], { icon: monIcone }, { title: "Barrage de Donzère", draggable: true })
+    .addTo(carteBarrages).on('click', function (e) {
+      configurerGraphique(15);
+    }).bindTooltip("Barrage de Donzère", 
+    {
+        permanent: false, 
+        direction: 'right'
+    });
+
+  L.marker([44.095847, 4.722915], { icon: monIcone }, { title: "Barrage de Caderousse", draggable: true })
+    .addTo(carteBarrages).on('click', function (e) {
+      configurerGraphique(16);
+    }).bindTooltip("Barrage de Caderousse", 
+    {
+        permanent: false, 
+        direction: 'right'
+    });
+
+  L.marker([44.013529, 4.828372], { icon: monIcone }, { title: "Barrage de Sauveterre", draggable: true })
+    .addTo(carteBarrages).on('click', function (e) {
+      configurerGraphique(17);
+    }).bindTooltip("Barrage de Sauveterre", 
+    {
+        permanent: false, 
+        direction: 'right'
+    });
+
+  L.marker([43.995965, 4.817001], { icon: monIcone }, { title: "Barrage de Villeneuve", draggable: true })
+    .addTo(carteBarrages).on('click', function (e) {
+      configurerGraphique(18);
+    }).bindTooltip("Barrage de Villeneuve", 
+    {
+        permanent: false, 
+        direction: 'right'
+    });
+
+  L.marker([43.824221, 4.643205], { icon: monIcone }, { title: "Barrage de Vallabrègues", draggable: true })
+    .addTo(carteBarrages).on('click', function (e) {
+      configurerGraphique(19);
+    }).bindTooltip("Barrage de Vallabrègues", 
+    {
+        permanent: false, 
+        direction: 'right'
+    });
 
 
   //*********************************************** IMPORTER FICHIER ******************************************** */

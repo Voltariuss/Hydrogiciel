@@ -69,7 +69,13 @@ class Controller {
     SelectionnerCibles(numBarrage){
     	var barragesOptions;
     	//barragesOptions = une fonction 
-    	barragesOptions = [{label:"Barrage n°1", value:"1"}, {label:"Barrage n°2", value:"2"}, {label:"Barrage n°3", value:"3"}, {label:"Barrage n°4", value:"4"}];
+    	barragesOptions = [{label:"Barrage de Génissiat", value:"1"}, {label:"Barrage de Seyssel", value:"2"}, 
+        {label:"Barrage de Motz", value:"3"}, {label:"Barrage de Lavours", value:"4"}, {label:"Barrage de Savières", value:"5"}, 
+        {label:"Barrage de Champagneux", value:"6"},{label:"Barrage de Villebois", value:"7"}, {label:"Barrage de Pierre-Bénite", value:"8"},
+        {label:"Barrage de Vaugris", value:"9"}, {label:"Barrage de Saint-Pierre-de-Bœuf", value:"10"},{label:"Barrage d'Arras-sur-Rhône", value:"11"},
+        {label:"Barrage de la Roche-de-Glun", value:"12"},{label:"Barrage de Charmes-sur-Rhône", value:"13"},{label:"Barrage de Le Pouzin", value:"14"},
+        {label:"Barrage de Donzère", value:"15"} ,{label:"Barrage de Caderousse", value:"16"},{label:"Barrage de Sauveterre", value:"17"},
+        {label:"Barrage de Villeneuve", value:"18"},{label:"Barrage de Vallabrègues", value:"19"}];
     	let barrageSelectionne = [];
     	for (let i = 0; i < barragesOptions.length; ++i) {
     		if(barragesOptions[i].value == numBarrage)
@@ -88,7 +94,7 @@ class Controller {
     		if(turbines[i].b == numBarrage)
     		{
     			let turbineOption = {
-				label: "Turbine n°"+ turbines[i].t +" du barrage n°"+turbines[i].b,
+				label: "Turbine n°"+ turbines[i].t +" du barrage",
 				value: ""+turbines[i].b+"-"+turbines[i].t,
 				};
 
