@@ -2,97 +2,97 @@
 document.addEventListener("DOMContentLoaded", function (event) {
 
   //initialisation des variables
-    var controlleur = new Controller();
-    controlleur.Initialisation();
-    var grille = GridStack.init();
-    var nombreGs = 0;
+  var controlleur = new Controller();
+  controlleur.Initialisation();
+  var grille = GridStack.init();
+  var nombreGs = 0;
 
   //Initialisation de la grille
-    grille.opts.minWidth = 200;
-    redimensionnerTousLesGraphiques();
-    document.getElementById('grilleVide').style.display = 'block';
-    document.getElementById('grid').style.display = 'none';
+  grille.opts.minWidth = 200;
+  redimensionnerTousLesGraphiques();
+  document.getElementById('grilleVide').style.display = 'block';
+  document.getElementById('grid').style.display = 'none';
 
   // Modale du choix d'un barrage
-    var modaleCarteB = document.getElementById("modaleCarteB");
-    document.getElementsByClassName("close")[1].onclick = function () {
-      modaleCarteB.style.display = "none";
-    };
-    document.getElementById("annulerCarteB").onclick = function () {
-      modaleCarteB.style.display = "none";
-    };
+  var modaleCarteB = document.getElementById("modaleCarteB");
+  document.getElementsByClassName("close")[1].onclick = function () {
+    modaleCarteB.style.display = "none";
+  };
+  document.getElementById("annulerCarteB").onclick = function () {
+    modaleCarteB.style.display = "none";
+  };
 
   // Modale de configuration d'un graphique
-    var modaleConfigG = document.getElementById("modaleConfigG");
+  var modaleConfigG = document.getElementById("modaleConfigG");
 
-    document.getElementsByClassName("close")[2].onclick = annulerAjoutG;
-    document.getElementById("annulerAjoutGB").onclick = annulerAjoutG;
-    document.getElementById("annulerAjoutGT").onclick = annulerAjoutG;
+  document.getElementsByClassName("close")[2].onclick = annulerAjoutG;
+  document.getElementById("annulerAjoutGB").onclick = annulerAjoutG;
+  document.getElementById("annulerAjoutGT").onclick = annulerAjoutG;
 
-    var barrages; //champ de sélection de la cible
-    var turbines; //champ de sélection de la cible
+  var barrages; //champ de sélection de la cible
+  var turbines; //champ de sélection de la cible
 
-    // Conditions liées au clic sur l'onglet turbine
-    document.getElementById("turbineOnglet").addEventListener('click', function (e){
-      if (barrages.value().length ==0 ){
-        alert("Selectionnez d'abord un barrage.");
-        e.stopPropagation();
-      }
-      else if (barrages.value().length > 1){
-        alert('Vous ne pouvez pas accéder à cet onglet car vous avez selectionné plusieurs barrages.');
-        e.stopPropagation();
-      }
-      else{
-        document.getElementById('turbinesConcernees').innerHTML = '';
-        var cibles = controlleur.SelectionnerCibles(barrages.value()[0]);
-        turbines = new SelectPure("#turbinesConcernees", genererChampsSelect(cibles.turbinesOptions, cibles.turbinesSelectionnees));
-      }
-    });
+  // Conditions liées au clic sur l'onglet turbine
+  document.getElementById("turbineOnglet").addEventListener('click', function (e) {
+    if (barrages.value().length == 0) {
+      alert("Selectionnez d'abord un barrage.");
+      e.stopPropagation();
+    }
+    else if (barrages.value().length > 1) {
+      alert('Vous ne pouvez pas accéder à cet onglet car vous avez selectionné plusieurs barrages.');
+      e.stopPropagation();
+    }
+    else {
+      document.getElementById('turbinesConcernees').innerHTML = '';
+      var cibles = controlleur.SelectionnerCibles(barrages.value()[0]);
+      turbines = new SelectPure("#turbinesConcernees", genererChampsSelect(cibles.turbinesOptions, cibles.turbinesSelectionnees));
+    }
+  });
 
-    viderFormConfigG();
+  viderFormConfigG();
 
-    // Validation du formulaire pour un barrage
-    document.getElementById("formB").onsubmit = function(){
-      if(barrages.value().length>0){
-        confirmerAjoutG();
-      }
-      else{
-        alert("Il vous faut sélectionner au moins un barrage.");
-      }
-      return false; //Pour ne pas recharger la page
-    };
+  // Validation du formulaire pour un barrage
+  document.getElementById("formB").onsubmit = function () {
+    if (barrages.value().length > 0) {
+      confirmerAjoutG();
+    }
+    else {
+      alert("Il vous faut sélectionner au moins un barrage.");
+    }
+    return false; //Pour ne pas recharger la page
+  };
 
-    // Validation du formulaire pour une turbine
-    document.getElementById("formT").onsubmit = function(){
-      if(turbines.value().length>0){
-        confirmerAjoutG();
-      }
-      else{
-        alert("Il vous faut sélectionner au moins une turbine.");
-      }
-      return false; //Pour ne pas recharger la page
-    };
+  // Validation du formulaire pour une turbine
+  document.getElementById("formT").onsubmit = function () {
+    if (turbines.value().length > 0) {
+      confirmerAjoutG();
+    }
+    else {
+      alert("Il vous faut sélectionner au moins une turbine.");
+    }
+    return false; //Pour ne pas recharger la page
+  };
 
   // Modale de zoom sur un graphique
-    var modaleZoomG = document.getElementById("modaleZoomG");
-    document.getElementsByClassName("close")[0].onclick = function () {
-      modaleZoomG.style.display = "none";
-      document.getElementById("graphiqueZoome").innerHTML = '';
-    };
+  var modaleZoomG = document.getElementById("modaleZoomG");
+  document.getElementsByClassName("close")[0].onclick = function () {
+    modaleZoomG.style.display = "none";
+    document.getElementById("graphiqueZoome").innerHTML = '';
+  };
 
   // Modale de chargement d'un tableau de bord
-    var modaleChargerGs = document.getElementById("modaleChargerGs");
-    let validerChargerGs = document.getElementById("validerChargerGs");
+  var modaleChargerGs = document.getElementById("modaleChargerGs");
+  let validerChargerGs = document.getElementById("validerChargerGs");
 
-    document.getElementsByClassName("close")[3].onclick = function () {
-      modaleChargerGs.style.display = "none";
-    };
-    document.getElementById("annulerChargerGs").onclick = function () {
-      modaleChargerGs.style.display = "none";
-    };
+  document.getElementsByClassName("close")[3].onclick = function () {
+    modaleChargerGs.style.display = "none";
+  };
+  document.getElementById("annulerChargerGs").onclick = function () {
+    modaleChargerGs.style.display = "none";
+  };
 
   // Modale de sauvegarde du tableau de bord
-    var modaleSauvegarderGs = document.getElementById("modaleSauvegarderGs");
+  var modaleSauvegarderGs = document.getElementById("modaleSauvegarderGs");
 
     document.getElementsByClassName("close")[4].onclick = function () {
       modaleSauvegarderGs.style.display = "none";
@@ -102,29 +102,29 @@ document.addEventListener("DOMContentLoaded", function (event) {
     };
 
   // Fermer les modales par un clic sur l'extérieur de la modale
-    window.onclick = function (event) {
-      if (event.target == modaleZoomG) {
-        modaleZoomG.style.display = "none";
-        document.getElementById("graphiqueZoome").innerHTML = '';
-      }
-      if (event.target == modaleConfigG) {
-        modaleConfigG.style.display = "none";
-        viderFormConfigG();
-      }
-      if (event.target == modaleCarteB) {
-        modaleCarteB.style.display = "none";
-      }
-      if (event.target == modaleChargerGs) {
-        modaleChargerGs.style.display = "none";
-      }
-      if (event.target == modaleSauvegarderGs) {
-        modaleSauvegarderGs.style.display = "none";
-      }
-    };
+  window.onclick = function (event) {
+    if (event.target == modaleZoomG) {
+      modaleZoomG.style.display = "none";
+      document.getElementById("graphiqueZoome").innerHTML = '';
+    }
+    if (event.target == modaleConfigG) {
+      modaleConfigG.style.display = "none";
+      viderFormConfigG();
+    }
+    if (event.target == modaleCarteB) {
+      modaleCarteB.style.display = "none";
+    }
+    if (event.target == modaleChargerGs) {
+      modaleChargerGs.style.display = "none";
+    }
+    if (event.target == modaleSauvegarderGs) {
+      modaleSauvegarderGs.style.display = "none";
+    }
+  };
 
   //Liaison des fonctions
   window.onresize = redimensionnerTousLesGraphiques;
-  document.getElementById('ajouterG').onclick = function(){
+  document.getElementById('ajouterG').onclick = function () {
     modaleCarteB.style.display = "flex";
     //Pour charger correctement toute la carte
     carteBarrages.invalidateSize();
@@ -233,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
       tempsReel = false;
       if (document.getElementById("tempsReelB").checked == true)
         tempsReel = true;
-      
+
       donnees = {
         'titre': document.getElementById('titreB').value,
         'typeG': document.querySelector('input[name=typeGRadioB]:checked').value,
@@ -275,7 +275,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
       var graphique = grille.addWidget(contenant, { width: 4, height: 5, minWidth: 4, minHeight: 4 });
       redimensionnerGraphique(graphique);
       new Chart(document.getElementsByClassName("graphique")[nombreGs], informations.chart);
-      graphique.ondblclick = function(){
+      graphique.ondblclick = function () {
         agrandirGraphique(informations.chart);
       };
       document.getElementsByClassName("supprimerG")[nombreGs].onclick = supprimerGraphiqueVue;
@@ -316,10 +316,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
     new Chart(canvas, contexte);
     document.getElementById("graphiqueZoome").appendChild(canvas);
 
-    modaleZoomG.style.display = "flex"; 
+    modaleZoomG.style.display = "flex";
   }
 
-  
+
 
   // Carte des barrages
 
@@ -525,43 +525,49 @@ document.addEventListener("DOMContentLoaded", function (event) {
     modaleChargerGs.style.display = "none";
     if (typeof fichier != "undefined") {
 
+      let chargerdonnes = true;
+
       //VERIFIER QUE le dashboard n'est pas vide
       //=> s'il est vide alors demander confirmation a l'utilisateur d'écraser les données
       //=> supprimer les grpahiques présents si l'utilisateur valide
       if (nombreGs != 0) {
-        if (confirm("Des données sont encore présente sur le dashboard. Vérifiez que vous les avez bien enregistrées avant d'importer une nouvelle configuration. Dans le cas contraire toutes les données seront perdues. Continuez ?")) {
-          
-          supprimerTousLesGraphiquesVue();
-          
-          //chargement du fichier de config => json (méthode asynchrone => Impossible de la mettre ailleurs car genere des erreurs)
-          fetch("../../configurations/" + fichier.name)
-            .then(function (response) {
-              return response.json();
-            })
-            .then(function (data) {
-              //  une fois que les données sont chargées : appeler le controlleur pour generer les données du programme
-              var listeGraphique = controlleur.OuvrirFichierConfig(fichier, data);
-
-              //affichage des graphiques récupérés sur le fichier de configuration
-              listeGraphique.forEach(function (element, index) {
-
-                if (element.id != -1) {
-
-                  if (nombreGs == 0) {
-                    document.getElementById('grilleVide').style.display = 'none';
-                    document.getElementById('grid').style.display = 'block';
-                  }
-                  let contenant = '<div class="grid-stack-item" idGraphique="' + element.id + '" ><div class="grid-stack-item-content"><button type="button" class="supprimerG btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button><canvas class="graphique"></canvas></div></div>';
-                  var graphique = grille.addWidget(contenant, { width: 4, height: 5, minWidth: 4, minHeight: 4 });
-                  redimensionnerGraphique(graphique);
-                  new Chart(document.getElementsByClassName("graphique")[nombreGs], element.chart);
-                  graphique.ondblclick = agrandirGraphique;
-                  document.getElementsByClassName("supprimerG")[nombreGs].onclick = supprimerGraphiqueVue;
-                  ++nombreGs;
-                }
-              });
-            })
+        if (!confirm("Des données sont encore présente sur le dashboard. Vérifiez que vous les avez bien enregistrées avant d'importer une nouvelle configuration. Dans le cas contraire toutes les données seront perdues. Continuez ?")) {
+          chargerdonnes = false;
         }
+      }
+
+      if (chargerdonnes) {
+        supprimerTousLesGraphiquesVue();
+
+        //chargement du fichier de config => json (méthode asynchrone => Impossible de la mettre ailleurs car genere des erreurs)
+        /*fetch("../../configurations/" + fichier.name)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            //  une fois que les données sont chargées : appeler le controlleur pour generer les données du programme
+            var listeGraphique = controlleur.OuvrirFichierConfig(fichier, data);
+
+            //affichage des graphiques récupérés sur le fichier de configuration
+            listeGraphique.forEach(function (element, index) {
+
+              if (element.id != -1) {
+
+                if (nombreGs == 0) {
+                  document.getElementById('grilleVide').style.display = 'none';
+                  document.getElementById('grid').style.display = 'block';
+                }
+                let contenant = '<div class="grid-stack-item" idGraphique="' + element.id + '" ><div class="grid-stack-item-content"><button type="button" class="supprimerG btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button><canvas class="graphique"></canvas></div></div>';
+                var graphique = grille.addWidget(contenant, { width: 4, height: 5, minWidth: 4, minHeight: 4 });
+                redimensionnerGraphique(graphique);
+                new Chart(document.getElementsByClassName("graphique")[nombreGs], element.chart);
+                graphique.ondblclick = agrandirGraphique;
+                document.getElementsByClassName("supprimerG")[nombreGs].onclick = supprimerGraphiqueVue;
+                ++nombreGs;
+              }
+            });
+          })*/
+          var test = require("../../configurations/"+ fichier.name);
       }
       alert('Le chargement a bien été effectué');
     }
@@ -573,5 +579,5 @@ document.addEventListener("DOMContentLoaded", function (event) {
     controlleur.SauvegarderFichierConfig();
     alert("La sauvegarde a bien été effectuée.");
   }, false);
-  
+
 });
