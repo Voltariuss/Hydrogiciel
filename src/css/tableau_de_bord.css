@@ -16,14 +16,14 @@ body{
 }
 
 #ajouterG{
-	background-color: #b1cbbb;
-	border-color: #b1cbbb;
-}
-
-#supprimerTousGs{
 	background-color: #eea29a;
 	border-color: #eea29a;
 }
+
+/*#supprimerTousGs{
+	background-color: #eea29a;
+	border-color: #eea29a;
+}*/
 
 #chargerGs{
 	background-color: #b1cbbb;

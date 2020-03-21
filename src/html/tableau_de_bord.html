@@ -45,9 +45,9 @@
 		<button type="button" id="ajouterG" class="btn btn-info">
 			Ajouter un graphique &nbsp;<span class="glyphicon glyphicon-plus"></span>
 		</button>
-		<button type="button" id="supprimerTousGs" class="btn btn-danger">
+		<!-- <button type="button" id="supprimerTousGs" class="btn btn-danger">
 			Supprimer tous les graphiques &nbsp;<span class="glyphicon glyphicon-trash"></span>
-		</button>
+		</button> -->
 
 		<button type="button" id="chargerGs" class="btn btn-info">
 			Charger &nbsp;<span class="glyphicon glyphicon-cog"></span>
@@ -76,9 +76,9 @@
 			</div>
 			<div class="modal-body">
 				<div id="graphiqueZoome"></div>
-				<button type="button" id="modifierG" class="btn btn-warning">
-					Modifier <span class="glyphicon glyphicon-pencil"></span>
-				</button>
+				<!-- <button type="button" id="modifierG" class="btn btn-warning">
+					Modifier &nbsp;<span class="glyphicon glyphicon-pencil"></span>
+				</button> -->
 			</div> <!-- Fin modal-body -->
 		</div> <!-- Fin modal-content -->
 	</div> <!-- Fin modaleZoomG -->
@@ -91,7 +91,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<div id="carteBarrages" style="height: 400px; width: 350px;"></div>
+				<div id="carteBarrages" style="height: 480px; width: 400px;"></div>
 				<div id="indications">
 					<p>
 						Cliquez sur l’un des barrages représentés par des carrés oranges
@@ -146,23 +146,17 @@
 							<div class="mesures">
 								<div class="form-group">
 									<label for="mesureXB">Mesure X</label>
-									<select multiple class="form-control" id="mesureXB" required>
-										<option>Mesure 1</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-										<option>5</option>
+									<select multiple class="form-control" id="mesureXB" required disabled>
+										<option selected>Temps</option>
 									</select>
 								</div>
 
 								<div class="form-group">
 									<label for="mesureYB">Mesure Y</label>
 									<select multiple class="form-control" id="mesureYB" required>
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-										<option>5</option>
+										<option selected>Mesure 1</option>
+										<option>Mesure 2</option>
+										<option>Mesure 3</option>
 									</select>
 								</div>
 							</div>
@@ -216,7 +210,7 @@
 									<div class="form-group row">
 										<label for="dateFinB" class="col-2 col-form-label">Date de fin</label>
 										<div class="col-10">
-											<input class="form-control" type="date" id="dateFinB" required>
+											<input class="form-control" type="date" id="dateFinB" disabled="disabled" required>
 										</div>
 									</div>
 								</div>
@@ -251,23 +245,17 @@
 							<div class="mesures">
 								<div class="form-group">
 									<label for="mesureXT">Mesure X</label>
-									<select multiple class="form-control" id="mesureXT" required>
-										<option>Mesure 1</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-										<option>5</option>
+									<select multiple class="form-control" id="mesureXT" required disabled>
+										<option selected>Temps</option>
 									</select>
 								</div>
 
 								<div class="form-group">
 									<label for="mesureYT">Mesure Y</label>
 									<select multiple class="form-control" id="mesureYT" required>
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-										<option>5</option>
+										<option selected>Mesure 1</option>
+										<option>Mesure 2</option>
+										<option>Mesure 3</option>
 									</select>
 								</div>
 							</div>
@@ -321,7 +309,7 @@
 									<div class="form-group row">
 										<label for="dateFinT" class="col-2 col-form-label">Date de fin</label>
 										<div class="col-10">
-											<input class="form-control" type="date" id="dateFinT" required>
+											<input class="form-control" type="date" id="dateFinT" disabled="disabled" required>
 										</div>
 									</div>
 								</div>
