@@ -94,6 +94,17 @@ class Catalogue {
 			}
 		}
 	}
+
+	recupererDonneesFlux(ID, dateDebut) {
+		var retour;
+
+		for (const flux of this.listeFlux) {
+			if (flux.ID == ID) {
+				retour = flux.GetDonnees(dateDebut, Date.now());
+			}
+		}
+		return (retour);
+	}
 }
 
 module.exports.Catalogue = Catalogue;
