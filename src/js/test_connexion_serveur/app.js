@@ -1,6 +1,6 @@
 var http = require('http');
 var fs = require('fs');
-var com = require('./CommunicationServeur.js')
+var com = require('../Catalogue.js')
 
 
 
@@ -16,11 +16,17 @@ function getApp() {
 	return app;
 }
 
-app.ComServeur = new com.CommunicationServeur(8080);
+
+
+app.ComServeur = new com.Catalogue('127.0.0.1', 8081);
 app.CatalogueFlux = [];
 
 module.exports.app = app;
 module.exports.getApp = getApp;
 module.exports.text = "coucou";
 
-app.ComServeur.init();
+app.ComServeur.recupererFichierCatalogue();
+setTimeout(function() {
+	console.log(app.ComServeur);
+	while (1);
+} , 3000);
