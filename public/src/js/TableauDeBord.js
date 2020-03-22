@@ -46,7 +46,19 @@ document.addEventListener("DOMContentLoaded", function (event) {
       document.getElementById('turbinesConcernees').innerHTML = '';
       var cibles = controlleur.SelectionnerCibles(barrages.value()[0]);
       turbines = new SelectPure("#turbinesConcernees", genererChampsSelect(cibles.turbinesOptions, cibles.turbinesSelectionnees));
+
+      let selectMY = document.getElementById("mesureYT");
+      let mesures = controlleur.GetListeAttributs(2);
+      for (let i = 0; i < mesures.length; ++i) {
+        let option = document.createElement("option");
+        option.text = mesures[i];
+        selectMY.add(option);
+      }
     }
+  });
+
+  document.getElementById("barrageOnglet").addEventListener('click', function (e) {
+    document.getElementById("mesureYT").innerHTML = "";
   });
 
   viderFormConfigG();
@@ -201,6 +213,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
   function configurerGraphique(numBarrage) {
     var cibles = controlleur.SelectionnerCibles(numBarrage);
     barrages = new SelectPure("#barragesConcernes", genererChampsSelect(cibles.barragesOptions, cibles.barragesSelectionnes));
+
+    let selectMY = document.getElementById("mesureYB");
+    let mesures = controlleur.GetListeAttributs(1);
+    for (let i = 0; i < mesures.length; ++i) {
+      let option = document.createElement("option");
+      option.text = mesures[i];
+      selectMY.add(option);
+    }
+    
     modaleCarteB.style.display = "none";
     modaleConfigG.style.display = "flex";
     document.getElementById("barrageOnglet").click();
@@ -222,11 +243,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
     document.getElementById('dateFinT').valueAsDate = new Date();
     document.getElementById('barragesConcernes').innerHTML = '';
     document.getElementById('turbinesConcernees').innerHTML = '';
+    document.getElementById("mesureYB").innerHTML = '';
+    document.getElementById("mesureYT").innerHTML = '';
   }
 
   //Créé et ajoute le graphique configuré à la grille
   function confirmerAjoutG() {
-    console.log("wsh");
     var donnees;
 
     if (document.getElementById('barrage').classList.contains('active')) {

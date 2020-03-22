@@ -1,39 +1,17 @@
 var fs = require('fs');
 var path = require('path');
-var com = require(path.join(__dirname , '/public/src/js/Catalogue.js'));
+var moduleCatalogue = require(path.join(__dirname , '/public/src/js/Catalogue.js'));
 var express = require('express');
 var bodyParser = require('body-parser');
-
-
-
-class GlobalApp {
-	// Classe qui regroupe tous les objets globaux de l'appli
-	ComServeur; 	// le module de communication serveur
-	CatalogueFlux;		// liste des flux 
-}
-
-const app = new GlobalApp();
-
-function getApp() {
-	return app;
-}
-
-
-
-app.ComServeur = new com.Catalogue('127.0.0.1', 8081);
-app.CatalogueFlux = [];
-
-module.exports.app = app;
-module.exports.getApp = getApp;
-module.exports.text = "coucou";
 
 /* ************************************************** initialisation du server *********************************************** */
 
 var app2 = express();
+var catalogue;
 
 app2.get('/', function (req, res) {
 
-	app.ComServeur.recupererFichierCatalogue();
+	initialisationCatalogue();
 
 	fs.readFile(path.join(__dirname , '/public/src/html/tableau_de_bord.html'), 'utf-8', function (error, content) {
 		res.writeHead(200, { "Content-Type": "text/html" });
@@ -81,15 +59,20 @@ var server = app2.listen(8080, function () {
 });
 /* ************************************************* FIN initialisation server **************************************************** */
 
-
-// setTimeout(function() {
-// 	var fluxxx = app.ComServeur.GetFlux()[0];
-// 	fluxxx.Connexion();
-// 	fluxxx.StartScheduler();
-// 	setTimeout(function() {
-// 		fluxxx.StopScheduler();
-// 		console.log(fluxxx.GetDonnees('22/03/2020 00:00:00', Date.now()));
-// 		fluxxx.Deconnexion();
-// 		while(1);
-// 	}, 1500)
-// } , 1000);
+function initialisationCatalogue()
+{
+	catalogue = new moduleCatalogue.Catalogue('127.0.0.1', 8081);
+	console.log("Récupération du catalogue.")
+	catalogue.recupererFichierCatalogue();
+	setTimeout(function() {
+		var listeFlux = catalogue.GetFlux();
+		if (listeFlux.length == 0)
+			console.log("Erreur : Aucun flux dans le catalogue.")
+		else {
+			for (const flux of listeFlux) {
+				flux.Connexion();
+				flux.StartScheduler();
+			}
+		}
+	}, 1000);
+}

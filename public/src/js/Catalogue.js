@@ -24,25 +24,28 @@ class Catalogue {
 	GetPortServeur() {return (this.portServeur);}
 	GetFlux() {return (this.listeFlux);}
 	GetListeAttributs()
-	{
-		var attributs = {}
-		attributs["barrage"] = []
-		attributs["turbine"] = [];
-		this.listeFlux.forEach(function(element){
-			var groupe = element.GetGroupe();
-			var n = groupe.indexOf(".");
-			if(n == -1)
-			{
-				if(!attributs["barrage"].includes(element.GetAttribute()))
-					attributs["barrage"].push(element.GetAttribute());
-			}
-				if(!attributs["turbine"].includes(element.GetAttribute()))
-					attributs["turbine"].push(element.GetAttribute());
+    {
+        var attributs = {}
+        attributs["barrage"] = []
+        attributs["turbine"] = [];
+        this.listeFlux.forEach(function(element){
+            var groupe = element.GetGroupe();
+            var n = groupe.indexOf(".");
+            if(n == -1)
+            {
+                if(!attributs["barrage"].includes(element.GetAttribute()))
+                    attributs["barrage"].push(element.GetAttribute());
+            }
+            else
+            {
+                if(!attributs["turbine"].includes(element.GetAttribute()))
+                    attributs["turbine"].push(element.GetAttribute());
+            }
 
-		});
+        });
 
-		return attributs
-	}
+        return attributs
+    }
 
 	// Autres méthodes
 	recupererFichierCatalogue() {
@@ -103,6 +106,17 @@ class Catalogue {
 				flux.Deconnexion();
 			}
 		}
+	}
+
+	recupererDonneesFlux(ID, dateDebut) {
+		var retour;
+
+		for (const flux of this.listeFlux) {
+			if (flux.ID == ID) {
+				retour = flux.GetDonnees(dateDebut, Date.now());
+			}
+		}
+		return (retour);
 	}
 }
 

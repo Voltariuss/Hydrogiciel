@@ -177,5 +177,16 @@ class Controller {
         return { 'barragesOptions': barragesOptions, 'turbinesOptions': turbinesOptions, 'barragesSelectionnes': barrageSelectionne, 'turbinesSelectionnes': turbinesSelectionnes };
     }
 
+    GetListeAttributs(type){
+        let res;
+        if(type == 1){
+            res = Controller.listeAttributs.barrage;
+        }
+        else{
+            res = Controller.listeAttributs.turbine;
+        }
+        return res;
+    }
+
 
 }
