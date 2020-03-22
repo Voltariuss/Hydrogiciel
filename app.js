@@ -66,6 +66,7 @@ function initialisationCatalogue()
 	console.log("Récupération du catalogue.")
 	catalogue.recupererFichierCatalogue();
 	setTimeout(function() {
+		catalogue.construireStructureFlux();
 		var listeFlux = catalogue.GetFlux();
 		if (listeFlux.length == 0)
 			console.log("Erreur : Aucun flux dans le catalogue.")
