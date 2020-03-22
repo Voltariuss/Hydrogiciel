@@ -1,0 +1,65 @@
+body{
+	min-width: 1200px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.jumbotron{
+	width: 100%;
+}
+
+#boutonsDashboard{
+	width:80%;
+	display: flex;
+	justify-content: space-around;
+}
+
+#ajouterG{
+	background-color: #eea29a;
+	border-color: #eea29a;
+}
+
+/*#supprimerTousGs{
+	background-color: #eea29a;
+	border-color: #eea29a;
+}*/
+
+#chargerGs{
+	background-color: #b1cbbb;
+	border-color: #b1cbbb;
+}
+
+#sauvegarderGs{
+	background-color: #eea29a;
+	border-color: #eea29a;
+}
+
+#grilleVide{
+	margin-top: 200px;
+	color: #afafaf;
+}
+
+#grid{
+	width: 100%;
+}
+
+.supprimerG{
+    background-color: #fff;
+    border-color : #eea29a;
+    float: right;
+    margin-top: 10px;
+    margin-right: 15px;
+}
+
+.supprimerG .glyphicon{
+	color: #eea29a;
+}
+
+.supprimerG:hover .glyphicon{
+	color: #fff;
+}
+
+.supprimer:hover {
+	background-color: #c94c4c;
+}
