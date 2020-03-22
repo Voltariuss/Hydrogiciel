@@ -27,7 +27,7 @@ class Graphique {
         this.mesureY = mesureY;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-        this.courbes = this.GenererCourbe();
+        this.courbes = []
     }
 
     static initID(valeur = 0)
@@ -37,19 +37,9 @@ class Graphique {
         }
     }
 
-    //Permet d'ajouter une cible (barrage/turbine) du graphique
-    AjouterCible(cible) {
-        
-    }
-
-    //Permet de supprimer une cible (barrage/turbine) du graphique
-    SupprimerCible(cible) {
-
-    }
-
-    AjouterCourbe()
+    AjouterCourbe(courbe)
     {
-
+        this.courbes.push(courbe);
     }
 
     GenererCourbe()
