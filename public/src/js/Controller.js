@@ -7,15 +7,10 @@ class Controller {
 
     constructor() {
         Controller.graphiques = [];
-        Controller.catalogue = new Catalogue(0,0);
     }
 
     Initialisation() {
         Graphique.initID(0);
-        //initialisation controlleur
-        ajax("POST", '/catalogue', {}, function (res) {
-            Controller.catalogue = res;
-        });
     }
 
     AjouterGraphique(donnees) {

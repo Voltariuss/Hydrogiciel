@@ -77,7 +77,7 @@ var server = app2.listen(8080, function () {
 });
 /* ************************************************* FIN initialisation server **************************************************** */
 
-//app.ComServeur.recupererFichierCatalogue();
+
 // setTimeout(function() {
 // 	var fluxxx = app.ComServeur.GetFlux()[0];
 // 	fluxxx.Connexion();
