@@ -25,10 +25,20 @@ class Catalogue {
 	GetFlux() {return (this.listeFlux);}
 	GetListeAttributs()
 	{
-		var attributs = []
+		var attributs = {}
+		attributs["barrage"] = []
+		attributs["turbine"] = [];
 		this.listeFlux.forEach(function(element){
-			if(!attributs.includes(element.GetAttribute()))
-				attributs.push(element.GetAttribute());
+			var groupe = element.GetGroupe();
+			var n = groupe.indexOf(".");
+			if(n == -1)
+			{
+				if(!attributs["barrage"].includes(element.GetAttribute()))
+					attributs["barrage"].push(element.GetAttribute());
+			}
+				if(!attributs["turbine"].includes(element.GetAttribute()))
+					attributs["turbine"].push(element.GetAttribute());
+
 		});
 
 		return attributs

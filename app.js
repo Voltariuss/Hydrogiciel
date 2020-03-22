@@ -62,12 +62,14 @@ app2.post('/ajax', function (req, res) {
 
 });
 
+
 app2.post('/getAttributs', function(req, res){
 	res.send(app.ComServeur.GetListeAttributs());
 })
 
-app2.post('/updateGraphique', function(req, res){
+app2.post('/getFlux', function(req, res){
 	//TODO : mettre a jour les données des flux
+	console.log("données du flux a retourner");
 })
 
 //app2.post('/catalogue', function(req, res){

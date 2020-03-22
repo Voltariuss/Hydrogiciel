@@ -4,6 +4,7 @@ class Controller {
     //attributs
     graphiques; //tableau de graphique
     listeAttributs;
+    barrages;
 
     constructor() {
         Controller.graphiques = [];
@@ -19,10 +20,9 @@ class Controller {
 
     AjouterGraphique(donnees) {
         var graphique = new Graphique(donnees.cibles, donnees.titre, donnees.type, donnees.tempsReel, donnees.mesureX, donnees.mesureY, donnees.dateDebut, donnees.dateFin);
-        donnees.cibles.forEach(function(){
-            //var courbe = new courbe();
-        });
         Controller.graphiques.push(graphique);
+        
+        this.UpdateGraphique(graphique.id);
 
         //retourn l'id du graphique et le chart
         return { 'id': graphique.id, 'chart': graphique.GenererChart() };
@@ -113,6 +113,30 @@ class Controller {
 
     UpdateGraphique(idGraphique = -1) {
         console.log("update du graph");
+
+        if(idGraphique != -1)   //ajouter un graphique : generation des courbes
+        {
+            for(var i=0; i<Controller.graphiques.length; i++)
+            {
+                if(Controller.graphiques[i].id == idGraphique)
+                {
+                    Controller.graphiques[i].cibles.forEach(function(element){
+                        var courbe = new Courbe(element, Controller.graphiques[i].dateDebut, Date.now());
+                        ajax("POST", '/getFlux', { 'idFlux' : 5, 'dateDebut' : Controller.graphiques[i].dateDebut }, function (res) {
+                            console.log(res);
+
+                        });
+                        Controller.graphiques[i].AjouterCourbe(courbe);
+                    });
+
+                    break;
+                }
+            }
+        }
+        else    //tout mettre a jour
+        {
+
+        }
     }
 
     SelectionnerCibles(numBarrage) {
