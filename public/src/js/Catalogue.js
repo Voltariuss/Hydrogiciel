@@ -113,7 +113,7 @@ class Catalogue {
 
 		for (const flux of this.listeFlux) {
 			if (flux.ID == ID) {
-				retour = flux.GetDonnees(dateDebut, Date.now());
+				retour = flux.GetDonnees(dateDebut, Date.now().toLocaleString());
 			}
 		}
 		return (retour);

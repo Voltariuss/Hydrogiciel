@@ -42,6 +42,9 @@ class Flux {
     GetFrequency() {return (this.frequency);}
 
     GetDonnees(debut, fin) {
+        console.log(debut);
+        console.log(fin);
+        console.log("--------------------------");
         var dateDebut;
         var dateFin;
         // Check debut
@@ -53,6 +56,8 @@ class Flux {
             dateDebut = new Date(debut);
         else
             dateDebut = null;
+
+            console.log(dateDebut);
         // Check fin
         if (typeof fin == "string")
             dateFin = ParseDate(fin);
@@ -62,6 +67,9 @@ class Flux {
             dateFin = new Date(fin);
         else
             dateFin = null;
+
+            console.log(fin);
+            console.log("-------------------------");
         // Check des deux
         if (dateFin == null || dateDebut == null)
             return null;

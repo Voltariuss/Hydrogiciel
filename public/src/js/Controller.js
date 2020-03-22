@@ -121,8 +121,10 @@ class Controller {
                 if(Controller.graphiques[i].id == idGraphique)
                 {
                     Controller.graphiques[i].cibles.forEach(function(element){
-                        var courbe = new Courbe(element, Controller.graphiques[i].dateDebut, Date.now());
-                        ajax("POST", '/getFlux', { 'idFlux' : 5, 'dateDebut' : Controller.graphiques[i].dateDebut }, function (res) {
+                        //console.log(Date.parse(Controller.graphiques[i].dateDebut));
+                        var courbe = new Courbe(5, element, new Date(Controller.graphiques[i].dateDebut).getTime(), Date.now());
+                        
+                        ajax("POST", '/getFlux', { 'idFlux' : courbe.id, 'dateDebut' : courbe.valeurDebutX }, function (res) {
                             console.log(res);
 
                         });
