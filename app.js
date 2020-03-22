@@ -66,6 +66,10 @@ app2.post('/getAttributs', function(req, res){
 	res.send(app.ComServeur.GetListeAttributs());
 })
 
+app2.post('/updateGraphique', function(req, res){
+	//TODO : mettre a jour les données des flux
+})
+
 //app2.post('/catalogue', function(req, res){
 
 //});
