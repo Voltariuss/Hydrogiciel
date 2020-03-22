@@ -35,13 +35,12 @@ app2.get('/', function (req, res) {
 
 	app.ComServeur.recupererFichierCatalogue();
 
-	fs.readFile("C:/wamp64/www/Hydrogiciel/public/src/html/tableau_de_bord.html", 'utf-8', function (error, content) {
-		//console.log("ouiouiouoi");
+	fs.readFile(path.join(__dirname , '/public/src/html/tableau_de_bord.html'), 'utf-8', function (error, content) {
 		res.writeHead(200, { "Content-Type": "text/html" });
 		res.end(content);
 	});
 
-	app2.use(express.static('C:/wamp64/www/Hydrogiciel/public'));
+	app2.use(express.static(path.join(__dirname , '/public')));
 });
 
 //APPELLE AJAX : SAUVEGARDE D'UN FICHIER DE CONFIGURATION
@@ -63,9 +62,8 @@ app2.post('/ajax', function (req, res) {
 
 });
 
-app2.post('/catalogue', function(req, res){
-	console.log("je rentre dans ajax");
-	res.send(app.ComServeur);
+app2.post('/getAttributs', function(req, res){
+	res.send(app.ComServeur.GetListeAttributs());
 })
 
 //app2.post('/catalogue', function(req, res){

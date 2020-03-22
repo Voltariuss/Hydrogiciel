@@ -23,6 +23,16 @@ class Catalogue {
 	GetAdresseServeur() {return (this.adresseServeur);}
 	GetPortServeur() {return (this.portServeur);}
 	GetFlux() {return (this.listeFlux);}
+	GetListeAttributs()
+	{
+		var attributs = []
+		this.listeFlux.forEach(function(element){
+			if(!attributs.includes(element.GetAttribute()))
+				attributs.push(element.GetAttribute());
+		});
+
+		return attributs
+	}
 
 	// Autres méthodes
 	recupererFichierCatalogue() {

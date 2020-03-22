@@ -3,7 +3,7 @@ class Controller {
 
     //attributs
     graphiques; //tableau de graphique
-    catalogue;
+    listeAttributs;
 
     constructor() {
         Controller.graphiques = [];
@@ -11,10 +11,17 @@ class Controller {
 
     Initialisation() {
         Graphique.initID(0);
+        //initialisation controlleur
+        ajax("POST", '/getAttributs', {}, function (res) {
+            Controller.listeAttributs = res;
+        });
     }
 
     AjouterGraphique(donnees) {
         var graphique = new Graphique(donnees.cibles, donnees.titre, donnees.type, donnees.tempsReel, donnees.mesureX, donnees.mesureY, donnees.dateDebut, donnees.dateFin);
+        donnees.cibles.forEach(function(){
+            //var courbe = new courbe();
+        });
         Controller.graphiques.push(graphique);
 
         //retourn l'id du graphique et le chart
