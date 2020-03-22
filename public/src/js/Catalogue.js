@@ -9,6 +9,7 @@ class Catalogue {
 
 	// Attributs (privés)
 	#listeFlux;			// Liste des flux
+	#structureFlux;		// Liste des flux structurée pour être envoyée à la partie graphique
 	#adresseServeur;	// Adresse du serveur http auquel s'adresser pour récupérer le catalogue
 	#portServeur;		// Port du serveur http auquel s'adresser pour récupérer le catalogue
 
@@ -17,6 +18,7 @@ class Catalogue {
 		this.adresseServeur = adresse;
 		this.portServeur = port;
 		this.listeFlux = [];
+		this.structureFlux = [];
 	}
 
 	// Getters
@@ -46,6 +48,8 @@ class Catalogue {
 
         return attributs
     }
+
+    GetStructureFlux() {return (this.structureFlux);}
 
 	// Autres méthodes
 	recupererFichierCatalogue() {
@@ -90,6 +94,74 @@ class Catalogue {
 				this.listeFlux.push(flux);
 			}
 		}
+	}
+
+	construireStructureFlux() {
+		for (const flux of this.listeFlux) {
+			var nomBarrage = flux.GetGroupe().split('.')[0];
+			var nomTurbine = (flux.GetGroupe().split('.').length == 2 ? flux.GetGroupe().split('.')[1] : "");
+			// Test si le barrage a déjà été vu
+			var barrage = [];
+			var boolPremierBarrage = true;
+			for (const barrageIter of this.structureFlux) {
+				if (barrageIter.nomBarrage == nomBarrage) {
+					boolPremierBarrage = false;
+					barrage = barrageIter;
+				}
+			}
+			// Si c'est la première fois, on le construit
+			if (boolPremierBarrage) {
+				barrage['nomBarrage'] = nomBarrage;
+				barrage['turbines'] = [];
+				barrage['flux'] = [];
+			}
+			// 2 cas : barrage simple ou bien turbine
+			if (nomTurbine == "") {
+				// On ajoute le flux
+				var caracFlux = [];
+				caracFlux['ID'] = flux.GetID();
+				caracFlux['attribut'] = flux.GetAttribute();
+				barrage['flux'].push(caracFlux);
+			}
+			else {
+				// Test si la turbine a déjà été vue
+				var turbine = [];
+				var boolPremiereTurbine = true;
+				if (!boolPremierBarrage)
+				{
+					boolPremiereTurbine = true;
+					for (const turbineIter of barrage.turbines) {
+						if (turbineIter.nomTurbine == nomTurbine) {
+							boolPremiereTurbine = false;
+							turbine = turbineIter;
+						}
+					}
+				}
+				// Si c'est la première fois, on la construit
+				if (boolPremiereTurbine) {
+					turbine['nomTurbine'] = nomTurbine;
+					turbine['flux'] = [];
+
+				}
+				// On ajoute le flux
+				var caracFlux = [];
+				caracFlux['ID'] = flux.GetID();
+				caracFlux['attribut'] = flux.GetAttribute();
+				turbine['flux'].push(caracFlux);
+				// Si c'est la premère turbine, on l'ajoute
+				if (boolPremiereTurbine)
+					barrage['turbines'].push(turbine);
+			}
+			
+			// Si c'est le premier barrage, on l'ajoute
+			if (boolPremierBarrage)
+				this.structureFlux.push(barrage);
+			console.log(nomBarrage);
+			console.log(nomTurbine);
+		}
+		console.log(this.structureFlux);
+		console.log(this.structureFlux[0]['turbines']);
+		console.log(this.structureFlux[0]['turbines'][0]['flux']);
 	}
 
 	connexionFlux(groupe) {

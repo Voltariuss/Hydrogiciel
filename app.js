@@ -42,7 +42,7 @@ app2.post('/ajax', function (req, res) {
 
 
 app2.post('/getAttributs', function(req, res){
-	res.send(app.ComServeur.GetListeAttributs());
+	res.send(catalogue.GetListeAttributs());
 })
 
 app2.post('/getFlux', function(req, res){
@@ -65,6 +65,7 @@ function initialisationCatalogue()
 	console.log("Récupération du catalogue.")
 	catalogue.recupererFichierCatalogue();
 	setTimeout(function() {
+		catalogue.construireStructureFlux();
 		var listeFlux = catalogue.GetFlux();
 		if (listeFlux.length == 0)
 			console.log("Erreur : Aucun flux dans le catalogue.")
