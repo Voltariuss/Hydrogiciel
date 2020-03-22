@@ -46,8 +46,9 @@ app2.post('/getAttributs', function(req, res){
 })
 
 app2.post('/getFlux', function(req, res){
-	//TODO : mettre a jour les données des flux
-	console.log("données du flux a retourner");
+	var data = catalogue.recupererDonneesFlux(req.body.idFlux, req.body.dateDebut);
+	console.log(data);
+	res.send(data);
 })
 
 //app2.post('/catalogue', function(req, res){
