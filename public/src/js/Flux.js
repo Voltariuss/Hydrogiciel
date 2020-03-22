@@ -45,7 +45,7 @@ class Flux {
     GetFrequency() {return (this.frequency);}
 
     GetDonnees(debut, fin) {
-        console.log(debut);
+        console.log(debut + ' ' + (typeof debut == "string"));
         console.log(fin);
         console.log("--------------------------");
         var dateDebut;
@@ -71,7 +71,7 @@ class Flux {
         else
             dateFin = null;
 
-            console.log(fin);
+            console.log(dateFin);
             console.log("-------------------------");
         // Check des deux
         if (dateFin == null || dateDebut == null)
@@ -140,7 +140,17 @@ class Flux {
 function ParseDate(chaineDate) {
     regexDate = '^[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9] [0-9][0-9]:[0-9][0-9]:[0-9][0-9]';
     if (!chaineDate.match(regexDate))
+    {
+        chaineDate = chaineDate.replace(/,/g, '');
+        console.log("sans virgule : " + chaineDate);
+        if (chaineDate.match('^[0-9]*$'))
+        {
+            var varint = parseInt(chaineDate);
+            console.log(varint)
+            return (new Date(varint));
+        }
         return null;
+    }
     jour = chaineDate.slice(0, 2);
     mois = chaineDate.slice(3, 5);
     annee = chaineDate.slice(6, 10);
