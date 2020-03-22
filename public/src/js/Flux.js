@@ -79,7 +79,7 @@ class Flux {
     Connexion() {
         const flux = this;
         this.client = net.createConnection({allowHalfOpen: true, host: this.address, port: this.port}, () => {
-            console.log('connected to port ' + this.port);
+            console.log('connecté au serveur ' + this.address + ':' + this.port);
         });
         this.client.on('data', (data) => {
             flux.AddDonnee("" + data);

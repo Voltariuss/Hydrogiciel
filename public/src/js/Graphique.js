@@ -12,7 +12,7 @@ class Graphique {
     dateFin;    //date de fin dugraphique
     courbes;    //tableau des différentes courbes sur le graph
 
-    static listeType = ["line", "line", "line"];
+    static listeType = ["bar", "bubble", "line"];
     static listCouleur = ["#3e95cd","#8e5ea2","#3cba9f","#e8c3b9","#c45850"];
 
     static ID;
