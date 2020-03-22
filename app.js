@@ -40,17 +40,19 @@ app2.post('/ajax', function (req, res) {
 
 });
 
-
 app2.post('/getAttributs', function(req, res){
 	res.send(catalogue.GetListeAttributs());
-})
+});
 
-app2.post('/getFlux', function(req, res){
-	var data = catalogue.recupererDonneesFlux(req.body.idFlux, req.body.dateDebut);
-	console.log(data);
-	res.send(data);
-})
+app2.post('/updateGraphique', function(req, res){
+	//TODO : mettre a jour les données des flux
+});
 
+app2.post('/getCentrales', function(req, res){
+    catalogue.construireStructureFlux();
+    //console.log(catalogue.GetStructureFlux());
+    res.send(catalogue.GetStructureFlux());
+});
 //app2.post('/catalogue', function(req, res){
 
 //});
@@ -62,11 +64,10 @@ var server = app2.listen(8080, function () {
 
 function initialisationCatalogue()
 {
-	catalogue = new moduleCatalogue.Catalogue('127.0.0.1', 8080);
-	console.log("Récupération du catalogue.")
+	catalogue = new moduleCatalogue.Catalogue('127.0.0.1', 8081);
+	console.log("Récupération du catalogue.");
 	catalogue.recupererFichierCatalogue();
 	setTimeout(function() {
-		catalogue.construireStructureFlux();
 		var listeFlux = catalogue.GetFlux();
 		if (listeFlux.length == 0)
 			console.log("Erreur : Aucun flux dans le catalogue.")

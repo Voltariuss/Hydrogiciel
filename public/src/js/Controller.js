@@ -16,6 +16,10 @@ class Controller {
         ajax("POST", '/getAttributs', {}, function (res) {
             Controller.listeAttributs = res;
         });
+
+        ajax("POST", '/getCentrales', {}, function (res) {
+            Controller.centrales = res;
+        });
     }
 
     AjouterGraphique(donnees) {
@@ -111,10 +115,10 @@ class Controller {
         }
     }
 
-    UpdateGraphique(idGraphique = -1) {
+    UpdateGraphique(idGraphique = -1, typeCible) {
         console.log("update du graph");
 
-        var flux = GetIdFlux(donnees.cibles, donnees.mesureY, donnees.typeCible);
+        
 
         if(idGraphique != -1)   //ajouter un graphique : generation des courbes
         {
@@ -122,6 +126,7 @@ class Controller {
             {
                 if(Controller.graphiques[i].id == idGraphique)
                 {
+                    var flux = Controller.GetIdFlux(Controller.graphiques[i].cibles, Controller.graphiques[i].mesureY, typeCible);
                     Controller.graphiques[i].cibles.forEach(function(element){
                         //console.log(Date.parse(Controller.graphiques[i].dateDebut));
                         var courbe = new Courbe(5, element, new Date(Controller.graphiques[i].dateDebut).getTime(), Date.now());
@@ -151,6 +156,7 @@ class Controller {
         { label: "Barrage de la Roche-de-Glun", value: "12" }, { label: "Barrage de Charmes-sur-Rhône", value: "13" }, { label: "Barrage de Le Pouzin", value: "14" },
         { label: "Barrage de Donzère", value: "15" }, { label: "Barrage de Caderousse", value: "16" }, { label: "Barrage de Sauveterre", value: "17" },
         { label: "Barrage de Villeneuve", value: "18" }, { label: "Barrage de Vallabrègues", value: "19" }];*/
+        let centrales = Controller.centrales;
 
         let barragesOptions = [];
         let barrageSelectionne = [];
@@ -190,16 +196,16 @@ class Controller {
 
     GetIdFlux(cibles, mesureY, typeCible)
     {
-        let donnees = Controller.centrales;
+        let centrales = Controller.centrales;
         let flux = [];
 
         if(typeCible == "barrage"){
             for (let j = 0; j < cibles.length; ++j) {
-                for (let i = 0; i < donnees.length; ++i) {
-                    if(donnees[i].nombarrage == cibles[j]){
-                        for (let f = 0; f < donnees[i].flux.length; ++f) {
-                            if(donnees[i].flux[f].attribut == mesureY){
-                                flux.push(donnees[i].flux[f].ID)
+                for (let i = 0; i < centrales.length; ++i) {
+                    if(centrales[i].nombarrage == cibles[j]){
+                        for (let f = 0; f < centrales[i].flux.length; ++f) {
+                            if(centrales[i].flux[f].attribut == mesureY){
+                                flux.push(centrales[i].flux[f].ID)
                             }
                         }
                     }
@@ -207,13 +213,13 @@ class Controller {
             }
         }
         else{
-            for (let i = 0; i < donnees.length; ++i) {
+            for (let i = 0; i < centrales.length; ++i) {
                 for (let j = 0; j < cibles.length; ++j) {
-                    for (let t = 0; t < donnees[i].turbines.length; ++t) {
-                        if(donnees[i].nombarrage + "-" + donnees[i].turbines[t].nomTurbine == cibles[j]){
-                            for (let f = 0; f < donnees[i].flux.length; ++f) {
-                                if(donnees[i].turbines[t].flux[f].attribut == mesureY){
-                                    flux.push(donnees[i].turbines[t].flux[f].ID)
+                    for (let t = 0; t < centrales[i].turbines.length; ++t) {
+                        if(centrales[i].nombarrage + "-" + centrales[i].turbines[t].nomTurbine == cibles[j]){
+                            for (let f = 0; f < centrales[i].flux.length; ++f) {
+                                if(centrales[i].turbines[t].flux[f].attribut == mesureY){
+                                    flux.push(centrales[i].turbines[t].flux[f].ID)
                                 }
                             }
                         }
