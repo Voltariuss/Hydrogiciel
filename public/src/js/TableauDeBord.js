@@ -210,8 +210,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
   }
 
   // Etabli ou ouvre la modale servant à configurer un graphique
-  function configurerGraphique(numBarrage) {
-    var cibles = controlleur.SelectionnerCibles(numBarrage);
+  function configurerGraphique(nomBarrage) {
+    var cibles = controlleur.SelectionnerCibles(nomBarrage);
     barrages = new SelectPure("#barragesConcernes", genererChampsSelect(cibles.barragesOptions, cibles.barragesSelectionnes));
 
     let selectMY = document.getElementById("mesureYB");
@@ -266,6 +266,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         'dateDebut': document.getElementById('dateDebutB').value,
         'dateFin': document.getElementById('dateFinB').value,
         'cibles': barrages.value(),
+        'typeCible': "barrage"
       }
     }
     else {
@@ -283,6 +284,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         'dateDebut': document.getElementById('dateDebutT').value,
         'dateFin': document.getElementById('dateFinT').value,
         'cibles': turbines.value(),
+        'typeCible': "turbine"
       }
     }
 
@@ -367,7 +369,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   });
 
   /*Les marqueurs de barrages*/
-  L.marker([46.052688, 5.812742], { icon: monIcone }, { title: "Barrage de Génissiat", draggable: true })
+/*  L.marker([46.052688, 5.812742], { icon: monIcone }, { title: "Barrage de Génissiat", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(1);
     }).bindTooltip("Barrage de Génissiat",
@@ -523,16 +525,25 @@ document.addEventListener("DOMContentLoaded", function (event) {
       {
         permanent: false,
         direction: 'right'
+      });*/
+
+  L.marker([43.995965, 4.817001], { icon: monIcone }, { title: "Barrage d'Avignon", draggable: true })
+    .addTo(carteBarrages).on('click', function (e) {
+      configurerGraphique("Avignon");
+    }).bindTooltip("Barrage d'Avignon",
+      {
+        permanent: false,
+        direction: 'right'
       });
 
-  L.marker([43.824221, 4.643205], { icon: monIcone }, { title: "Barrage de Vallabrègues", draggable: true })
+/*  L.marker([43.824221, 4.643205], { icon: monIcone }, { title: "Barrage de Vallabrègues", draggable: true })
     .addTo(carteBarrages).on('click', function (e) {
       configurerGraphique(19);
     }).bindTooltip("Barrage de Vallabrègues",
       {
         permanent: false,
         direction: 'right'
-      });
+      });*/
 
 
   //*********************************************** IMPORTER FICHIER ******************************************** */

@@ -59,7 +59,7 @@ var server = app2.listen(8080, function () {
 
 function initialisationCatalogue()
 {
-	catalogue = new moduleCatalogue.Catalogue('127.0.0.1', 8081);
+	catalogue = new moduleCatalogue.Catalogue('127.0.0.1', 8080);
 	console.log("Récupération du catalogue.")
 	catalogue.recupererFichierCatalogue();
 	setTimeout(function() {
