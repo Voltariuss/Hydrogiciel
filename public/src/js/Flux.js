@@ -1,6 +1,9 @@
 // Require des modules node
 var net = require('net');
 
+// Require modules perso
+var moduleDonnee = require('./Donnee.js')
+
 //classe qui permet de gérer les données liées à une mesure et une cible
 class Flux {
 
@@ -13,7 +16,7 @@ class Flux {
     #type;           //temps réel (RT) ou historique (H)
     #protocol;       //nom du protocole pour obtenir les données
     #frequency;      //fréquence de rafraichissement des données
-    #donnees;        // Données récupérees sur ce flux, paires <timestamp, valeur>
+    #donnees;        // Données récupérees sur ce flux, array d'objets Donnee
     #client;         // Socket TCP qui va faire les requêtes pour récupérer les données
     #scheduler;      // ID du scheduler qui envoie des requêtes à intervales réguliers
 
@@ -27,7 +30,7 @@ class Flux {
         this.type = type;               
         this.protocol = protocol;       
         this.frequency = frequency;     
-        this.donnees = new Map();  
+        this.donnees = [];  
         this.scheduler = -1;     
     }
 
@@ -66,10 +69,10 @@ class Flux {
         if (dateFin == null || dateDebut == null)
             return null;
         // Check ok
-        var retour = new Map();
-        for (const [date, valeur] of this.donnees) {
-            if (date >= dateDebut && date <= dateFin) {
-                retour.set(date, valeur);
+        var retour = [];
+        for (const donnee of this.donnees) {
+            if (donnee.GetDate() >= dateDebut && donnee.GetDate() <= dateFin) {
+                retour.push(donnee.GetDate(), donnee.GetMoyenne());
             }
         }
         return (retour);
@@ -107,12 +110,20 @@ class Flux {
         }
     }
 
-    AddDonnee(donnee) {
-        var splitted = donnee.split(" ");
+    AddDonnee(nouvelleDonnee) {
+        var splitted = nouvelleDonnee.split(" ");
         var date  = ParseDate(splitted[0] + ' ' + splitted[1]);
-        if (!this.donnees.has(date)) {
-            var valeur = parseFloat(splitted[2]);
-            this.donnees.set(date, valeur);
+        var boolNouvelleDate = true;
+        for (const donnee of this.donnees) {
+            if (donnee.CompareDate(date)) {
+                var valeur = parseFloat(splitted[2]);
+                donnee.AddValeur(valeur);
+                boolNouvelleDate = false;
+            }
+        }
+        if (boolNouvelleDate) {
+            var donnee = new moduleDonnee.Donnee(date, parseFloat(splitted[2]));
+            this.donnees.push(donnee);
         }
     }
 }

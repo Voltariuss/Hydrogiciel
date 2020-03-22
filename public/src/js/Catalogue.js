@@ -164,17 +164,17 @@ class Catalogue {
 		console.log(this.structureFlux[0]['turbines'][0]['flux']);
 	}
 
-	connexionFlux(groupe) {
+	connexionFlux(ID) {
 		for (const flux of this.listeFlux) {
-			if (flux.groupe == groupe) {
+			if (flux.GetID() == ID) {
 				flux.Connexion();
 			}
 		}
 	}
 
-	deconnexionFlux(groupe) {
+	deconnexionFlux(ID) {
 		for (const flux of this.listeFlux) {
-			if (flux.groupe == groupe) {
+			if (flux.GetID() == ID) {
 				flux.Deconnexion();
 			}
 		}
