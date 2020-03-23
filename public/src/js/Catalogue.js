@@ -101,7 +101,7 @@ class Catalogue {
 			var nomBarrage = flux.GetGroupe().split('.')[0];
 			var nomTurbine = (flux.GetGroupe().split('.').length == 2 ? flux.GetGroupe().split('.')[1] : "");
 			// Test si le barrage a déjà été vu
-			var barrage = [];
+			var barrage = {};
 			var boolPremierBarrage = true;
 			for (const barrageIter of this.structureFlux) {
 				if (barrageIter.nomBarrage == nomBarrage) {
@@ -118,14 +118,14 @@ class Catalogue {
 			// 2 cas : barrage simple ou bien turbine
 			if (nomTurbine == "") {
 				// On ajoute le flux
-				var caracFlux = [];
+				var caracFlux = {};
 				caracFlux['ID'] = flux.GetID();
 				caracFlux['attribut'] = flux.GetAttribute();
 				barrage['flux'].push(caracFlux);
 			}
 			else {
 				// Test si la turbine a déjà été vue
-				var turbine = [];
+				var turbine = {};
 				var boolPremiereTurbine = true;
 				if (!boolPremierBarrage)
 				{

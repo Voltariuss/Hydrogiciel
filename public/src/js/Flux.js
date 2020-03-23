@@ -45,9 +45,6 @@ class Flux {
     GetFrequency() {return (this.frequency);}
 
     GetDonnees(debut, fin) {
-        console.log(debut + ' ' + (typeof debut == "string"));
-        console.log(fin);
-        console.log("--------------------------");
         var dateDebut;
         var dateFin;
         // Check debut
@@ -60,7 +57,6 @@ class Flux {
         else
             dateDebut = null;
 
-            console.log(dateDebut);
         // Check fin
         if (typeof fin == "string")
             dateFin = ParseDate(fin);
@@ -71,13 +67,12 @@ class Flux {
         else
             dateFin = null;
 
-            console.log(dateFin);
-            console.log("-------------------------");
         // Check des deux
         if (dateFin == null || dateDebut == null)
             return null;
         // Check ok
         var retour = [];
+        console.log(this.donnees);
         for (const donnee of this.donnees) {
             if (donnee.GetDate() >= dateDebut && donnee.GetDate() <= dateFin) {
                 retour.push(donnee.GetDate(), donnee.GetMoyenne());
@@ -142,11 +137,9 @@ function ParseDate(chaineDate) {
     if (!chaineDate.match(regexDate))
     {
         chaineDate = chaineDate.replace(/,/g, '');
-        console.log("sans virgule : " + chaineDate);
         if (chaineDate.match('^[0-9]*$'))
         {
             var varint = parseInt(chaineDate);
-            console.log(varint)
             return (new Date(varint));
         }
         return null;

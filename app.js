@@ -12,6 +12,7 @@ var catalogue;
 app2.get('/', function (req, res) {
 
 	initialisationCatalogue();
+	// catalogue.construireStructureFlux();
 
 	fs.readFile(path.join(__dirname , '/public/src/html/tableau_de_bord.html'), 'utf-8', function (error, content) {
 		res.writeHead(200, { "Content-Type": "text/html" });
@@ -46,9 +47,9 @@ app2.post('/getAttributs', function(req, res){
 
 app2.post('/getCentrales', function(req, res){
 	catalogue.construireStructureFlux();
-	var structflux = catalogue.GetStructureFlux()
-	console.log(structflux);
-	res.send(structflux);
+	var arr = catalogue.GetStructureFlux();
+	//var obj = array = [{"nombarrage": "Avigon", "turbines" : [{"nomTurbine" : "Groupe1", "flux" : [{"ID" : 1,"attribut" : "debit"},{"ID" : 3,"attribut" : "puissance"}]},{"nomTurbine" : "Groupe2", "flux" : [{"ID" : 2, "attribut" : "debit"},{"ID" : 4,"attribut" : "puissance"}]}],"flux" : [{"ID" : 2,"attribut" : "hauteur"}]},{"nombarrage" : "Autre"}];
+	res.send(arr);
 });
 
 app2.post('/getFlux', function(req, res){

@@ -17,16 +17,18 @@ class Controller {
             Controller.listeAttributs = res;
         });
 
-        ajax("POST", '/getCentrales', {}, function (res) {
-            Controller.centrales = res;
-        });
+        setTimeout(function(){
+            ajax("POST", '/getCentrales', {}, function (res) {
+                Controller.centrales = res;
+            });
+        },1000);
     }
 
     AjouterGraphique(donnees) {
         var graphique = new Graphique(donnees.cibles, donnees.titre, donnees.type, donnees.tempsReel, donnees.mesureX, donnees.mesureY, donnees.dateDebut, donnees.dateFin);
         Controller.graphiques.push(graphique);
         
-        this.UpdateGraphique(graphique.id);
+        this.UpdateGraphique(graphique.id, donnees.typeCible);
 
         //retourn l'id du graphique et le chart
         return { 'id': graphique.id, 'chart': graphique.GenererChart() };
@@ -115,7 +117,7 @@ class Controller {
         }
     }
 
-    UpdateGraphique(idGraphique = -1, typeCible = 0) {
+    UpdateGraphique(idGraphique = -1, typeCible = "") {
 
         if(idGraphique != -1)   //ajouter un graphique : generation des courbes
         {
@@ -123,7 +125,10 @@ class Controller {
             {
                 if(Controller.graphiques[i].id == idGraphique)
                 {
-                    var flux = Controller.GetIdFlux(Controller.graphiques[i].cibles, Controller.graphiques[i].mesureY, typeCible);
+                    var flux = this.GetIdFlux(Controller.graphiques[i].cibles, Controller.graphiques[i].mesureY, typeCible);
+                    console.log(flux);
+                    console.log(Controller.centrales);
+
                     Controller.graphiques[i].cibles.forEach(function(element){
                         //console.log(Date.parse(Controller.graphiques[i].dateDebut));
                         var courbe = new Courbe(5, element, new Date(Controller.graphiques[i].dateDebut).getTime(), Date.now());
@@ -167,16 +172,16 @@ class Controller {
 
         for (let i = 0; i < centrales.length; ++i) {
             barragesOptions.push({
-                label : "Barrage " + centrales[i].nombarrage,
-                value : centrales[i].nombarrage
+                label : "Barrage " + centrales[i].nomBarrage,
+                value : centrales[i].nomBarrage
             });
-            if (centrales[i].nombarrage == nomBarrage) {
-                barrageSelectionne.push(centrales[i].nombarrage);
+            if (centrales[i].nomBarrage == nomBarrage) {
+                barrageSelectionne.push(centrales[i].nomBarrage);
                 for (let j = 0; j < centrales[i].turbines.length; ++j) {
                     let idT = centrales[i].turbines[j].nomTurbine.slice(-1);
                     turbinesOptions.push({
                         label : "Turbine n°" + idT + " du barrage",
-                        value : centrales[i].nombarrage + "-" + centrales[i].turbines[j].nomTurbine
+                        value : centrales[i].nomBarrage + "-" + centrales[i].turbines[j].nomTurbine
                     });
                 }
             }
