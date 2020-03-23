@@ -156,12 +156,12 @@ class Catalogue {
 			// Si c'est le premier barrage, on l'ajoute
 			if (boolPremierBarrage)
 				this.structureFlux.push(barrage);
-			console.log(nomBarrage);
-			console.log(nomTurbine);
+			// console.log(nomBarrage);
+			// console.log(nomTurbine);
 		}
-		console.log(this.structureFlux);
-		console.log(this.structureFlux[0]['turbines']);
-		console.log(this.structureFlux[0]['turbines'][0]['flux']);
+		// console.log(this.structureFlux);
+		// console.log(this.structureFlux[0]['turbines']);
+		// console.log(this.structureFlux[0]['turbines'][0]['flux']);
 	}
 
 	connexionFlux(ID) {

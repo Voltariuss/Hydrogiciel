@@ -46,8 +46,10 @@ app2.post('/getAttributs', function(req, res){
 })
 
 app2.post('/getCentrales', function(req, res){
-	catalogue.GetStructureFlux();
-	res.send(catalogue.GetStructureFlux());
+	catalogue.construireStructureFlux();
+	var structflux = catalogue.GetStructureFlux()
+	console.log(structflux);
+	res.send(structflux);
 });
 
 app2.post('/getFlux', function(req, res){

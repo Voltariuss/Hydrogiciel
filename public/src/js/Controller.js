@@ -17,6 +17,7 @@ class Controller {
         });
 
         ajax("POST", '/getCentrales', {}, function (res) {
+            console.log(res);
             Controller.centrales = res;
         });
     }
@@ -115,8 +116,6 @@ class Controller {
     }
 
     UpdateGraphique(idGraphique = -1) {
-        console.log("update du graph");
-
         if(idGraphique != -1)   //ajouter un graphique : generation des courbes
         {
             for(var i=0; i<Controller.graphiques.length; i++)
@@ -128,8 +127,7 @@ class Controller {
                         var courbe = new Courbe(5, element, new Date(Controller.graphiques[i].dateDebut).getTime(), Date.now());
 
                         ajax("POST", '/getFlux', { 'idFlux' : courbe.id, 'dateDebut' : courbe.valeurDebutX }, function (res) {
-                            console.log(res);
-
+                            courbe.donnees = res;
                         });
                         Controller.graphiques[i].AjouterCourbe(courbe);
                     });
@@ -142,8 +140,8 @@ class Controller {
         {
             Controller.graphiques.forEach(function(element){
                 element.courbes.forEach(function(courbe){
-                    ajax("POST", '/getFlux', { 'idFlux' : courbe.id, 'dateDebut' : courbe.valeurDebutX }, function (res) {
-                        console.log(res);
+                    ajax("POST", '/getFlux', { 'idFlux' : courbe.id, 'dateDebut' : courbe.valeurFinX }, function (res) {
+                        courbe.donnees.concat(res)
                     });
                 })
             });

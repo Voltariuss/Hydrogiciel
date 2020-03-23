@@ -42,14 +42,6 @@ class Graphique {
         this.courbes.push(courbe);
     }
 
-    GenererCourbe()
-    {
-        var courbe1 = new Courbe("test1", [], 0,0);
-        var courbe2 = new Courbe("test2", [], 0,0);
-
-        return [courbe1, courbe2];
-    }
-
     GenererChart()
     {
         var dataChart = [];
