@@ -45,6 +45,11 @@ app2.post('/getAttributs', function(req, res){
 	res.send(catalogue.GetListeAttributs());
 })
 
+app2.post('/getCentrales', function(req, res){
+	catalogue.GetStructureFlux();
+	res.send(catalogue.GetStructureFlux());
+});
+
 app2.post('/getFlux', function(req, res){
 	var data = catalogue.recupererDonneesFlux(req.body.idFlux, req.body.dateDebut);
 	console.log(data);
@@ -66,7 +71,6 @@ function initialisationCatalogue()
 	console.log("Récupération du catalogue.")
 	catalogue.recupererFichierCatalogue();
 	setTimeout(function() {
-		catalogue.construireStructureFlux();
 		var listeFlux = catalogue.GetFlux();
 		if (listeFlux.length == 0)
 			console.log("Erreur : Aucun flux dans le catalogue.")

@@ -4,7 +4,6 @@ class Controller {
     //attributs
     graphiques; //tableau de graphique
     listeAttributs;
-    barrages;
 
     constructor() {
         Controller.graphiques = [];
@@ -15,6 +14,10 @@ class Controller {
         //initialisation controlleur
         ajax("POST", '/getAttributs', {}, function (res) {
             Controller.listeAttributs = res;
+        });
+
+        ajax("POST", '/getCentrales', {}, function (res) {
+            Controller.centrales = res;
         });
     }
 
@@ -123,7 +126,7 @@ class Controller {
                     Controller.graphiques[i].cibles.forEach(function(element){
                         //console.log(Date.parse(Controller.graphiques[i].dateDebut));
                         var courbe = new Courbe(5, element, new Date(Controller.graphiques[i].dateDebut).getTime(), Date.now());
-                        
+
                         ajax("POST", '/getFlux', { 'idFlux' : courbe.id, 'dateDebut' : courbe.valeurDebutX }, function (res) {
                             console.log(res);
 
@@ -137,7 +140,13 @@ class Controller {
         }
         else    //tout mettre a jour
         {
-
+            Controller.graphiques.forEach(function(element){
+                element.courbes.forEach(function(courbe){
+                    ajax("POST", '/getFlux', { 'idFlux' : courbe.id, 'dateDebut' : courbe.valeurDebutX }, function (res) {
+                        console.log(res);
+                    });
+                })
+            });
         }
     }
 
