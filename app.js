@@ -44,17 +44,16 @@ app2.post('/getAttributs', function(req, res){
 	res.send(catalogue.GetListeAttributs());
 });
 
-app2.post('/updateGraphique', function(req, res){
-	//TODO : mettre a jour les données des flux
-});
-
 app2.post('/getCentrales', function(req, res){
     catalogue.construireStructureFlux();
     res.send(catalogue.GetStructureFlux());
 });
-//app2.post('/catalogue', function(req, res){
 
-//});
+app2.post('/getFlux', function(req, res){
+	var data = catalogue.recupererDonneesFlux(req.body.idFlux, req.body.dateDebut);
+	console.log(data);
+	res.send(data);
+})
 
 var server = app2.listen(8080, function () {
 	console.log('application is listening on port 8080 .');
