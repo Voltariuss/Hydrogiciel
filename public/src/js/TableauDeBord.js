@@ -306,9 +306,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let contenant = '<div class="grid-stack-item" idGraphique="' + informations.id + '" ><div class="grid-stack-item-content"><button type="button" class="supprimerG btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button><canvas class="graphique"></canvas></div></div>';
         var graphique = grille.addWidget(contenant, { width: 4, height: 5, minWidth: 4, minHeight: 4 });
         redimensionnerGraphique(graphique);
-        new Chart(document.getElementsByClassName("graphique")[nombreGs], informations.chart);
+        var newchart = new Chart(document.getElementsByClassName("graphique")[nombreGs], informations.chart);
+        controlleur.SetChartGraphique(informations.id, newchart);
         graphique.ondblclick = function () {
-          agrandirGraphique(informations.chart);
+          agrandirGraphique(informations.chart, newchart);
         };
         document.getElementsByClassName("supprimerG")[nombreGs].onclick = supprimerGraphiqueVue;
         ++nombreGs;

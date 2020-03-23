@@ -7,21 +7,32 @@ class Controller {
     centrales;
     informationsDernierGraphique;
 
+    SetChartGraphique(idGraphique, chart) {
+        this.GetGraphiqueById(idGraphique).SetChart(chart);
+    }
+
+    GetGraphiqueById(idGraphique) {
+        var graph;
+        for (var i = 0; i < Controller.graphiques.length; i++) {
+            if (Controller.graphiques[i].id == idGraphique) {
+                graph = Controller.graphiques[i]
+                break;
+            }
+        }
+
+        return graph;
+    }
+
     constructor() {
         Controller.graphiques = [];
         Controller.informationsDernierGraphique = {};
     }
 
-    GetInformationDernierGraphique()
-    {
+    GetInformationDernierGraphique() {
         return Controller.informationsDernierGraphique;
     }
 
-    SetInformationDernierGraphique(id, chart)
-    {
-        console.log("wwwwsh");
-        console.log(id);
-        console.log(chart);
+    SetInformationDernierGraphique(id, chart) {
         Controller.informationsDernierGraphique = { 'id': id, 'chart': chart };
     }
 
@@ -32,26 +43,26 @@ class Controller {
             Controller.listeAttributs = res;
         });
 
-        setTimeout(function(){
+        setTimeout(function () {
             ajax("POST", '/getCentrales', {}, function (res) {
                 Controller.centrales = res;
             });
-        },1000);
+        }, 1000);
     }
 
     AjouterGraphique(donnees) {
         var graphique = new Graphique(donnees.cibles, donnees.titre, donnees.type, donnees.tempsReel, donnees.mesureX, donnees.mesureY, donnees.dateDebut, donnees.dateFin);
         Controller.graphiques.push(graphique);
-        
+
         this.UpdateGraphique(graphique.id, donnees.typeCible);
 
         var cetObjet = this;
 
         //retourn l'id du graphique et le chart
-        setTimeout(function(){
+        setTimeout(function () {
             cetObjet.SetInformationDernierGraphique(graphique.id, graphique.GenererChart());
-            //return { 'id': graphique.id, 'chart': graphique.GenererChart() };
-        },500);
+            return { 'id': graphique.id, 'chart': graphique.GenererChart() };
+        }, 500);
     }
 
     ModifierGraphique(idGraphique, donnees) {
@@ -62,7 +73,6 @@ class Controller {
 
         let res = false;
 
-        console.log(Controller.graphiques);
         //Mettre a jour les données
         Controller.graphiques.forEach(function (element, index) {
             if (element.id == idGraphique) {
@@ -117,8 +127,8 @@ class Controller {
     //Creer un fichier de configuration par rapport au tableau de bord actuel
     SauvegarderFichierConfig(nomFichier) {
         var data = Controller.graphiques;
-        
-        data.forEach(function(element){
+
+        data.forEach(function (element) {
             delete element["courbes"];
         })
         data = JSON.stringify(data);
@@ -139,36 +149,32 @@ class Controller {
 
     UpdateGraphique(idGraphique = -1, typeCible = "") {
 
-        if(idGraphique != -1)   //ajouter un graphique : generation des courbes
+        if (idGraphique != -1)   //ajouter un graphique : generation des courbes
         {
-            for(var i=0; i<Controller.graphiques.length; i++)
-            {
-                if(Controller.graphiques[i].id == idGraphique)
-                {
-                    var flux = this.GetIdFlux(Controller.graphiques[i].cibles, Controller.graphiques[i].mesureY, typeCible);
-                    var j = 0;
-                    Controller.graphiques[i].cibles.forEach(function(element){
-                        //console.log(Date.parse(Controller.graphiques[i].dateDebut));
-                        var courbe = new Courbe(flux[j], element, new Date(Controller.graphiques[i].dateDebut).getTime(), Date.now());
+            var graph = this.GetGraphiqueById(idGraphique);
 
-                        ajax("POST", '/getFlux', { 'idFlux' : courbe.id, 'dateDebut' : courbe.valeurDebutX }, function (res) {
-                            console.log("ici : setdonnees");
-                            courbe.SetDonnee(res);
-                        });
-                        Controller.graphiques[i].AjouterCourbe(courbe);
-                        j++;
-                    });
+            var flux = this.GetIdFlux(graph.cibles, graph.mesureY, typeCible);
+            var j = 0;
+            graph.cibles.forEach(function (element) {
+                //console.log(Date.parse(Controller.graphiques[i].dateDebut));
+                var courbe = new Courbe(flux[j], element, new Date(graph.dateDebut).getTime(), Date.now());
 
-                    break;
-                }
-            }
+                ajax("POST", '/getFlux', { 'idFlux': courbe.id, 'dateDebut': courbe.valeurDebutX }, function (res) {
+                    courbe.SetDonnee(res);
+                });
+                graph.AjouterCourbe(courbe);
+                j++;
+            });
+
         }
         else    //tout mettre a jour
         {
-            Controller.graphiques.forEach(function(element){
-                element.courbes.forEach(function(courbe){
-                    ajax("POST", '/getFlux', { 'idFlux' : courbe.id, 'dateDebut' : courbe.valeurFinX }, function (res) {
+            Controller.graphiques.forEach(function (element) {
+                element.courbes.forEach(function (courbe) {
+                    ajax("POST", '/getFlux', { 'idFlux': courbe.id, 'dateDebut': courbe.valeurFinX }, function (res) {
                         courbe.ConcatDonnee(res);
+                        element.chart.data.datasets = element.GenererDatasetsChart();
+                        element.chart.update();
                     });
                 })
             });
@@ -192,16 +198,16 @@ class Controller {
 
         for (let i = 0; i < centrales.length; ++i) {
             barragesOptions.push({
-                label : "Barrage " + centrales[i].nomBarrage,
-                value : centrales[i].nomBarrage
+                label: "Barrage " + centrales[i].nomBarrage,
+                value: centrales[i].nomBarrage
             });
             if (centrales[i].nomBarrage == nomBarrage) {
                 barrageSelectionne.push(centrales[i].nomBarrage);
                 for (let j = 0; j < centrales[i].turbines.length; ++j) {
                     let idT = centrales[i].turbines[j].nomTurbine.slice(-1);
                     turbinesOptions.push({
-                        label : "Turbine n°" + idT + " du barrage",
-                        value : centrales[i].nomBarrage + "." + centrales[i].turbines[j].nomTurbine
+                        label: "Turbine n°" + idT + " du barrage",
+                        value: centrales[i].nomBarrage + "." + centrales[i].turbines[j].nomTurbine
                     });
                 }
             }
@@ -210,28 +216,27 @@ class Controller {
         return { 'barragesOptions': barragesOptions, 'turbinesOptions': turbinesOptions, 'barragesSelectionnes': barrageSelectionne, 'turbinesSelectionnes': turbinesSelectionnes };
     }
 
-    GetListeAttributs(type){
+    GetListeAttributs(type) {
         let res;
-        if(type == 1){
+        if (type == 1) {
             res = Controller.listeAttributs.barrage;
         }
-        else{
+        else {
             res = Controller.listeAttributs.turbine;
         }
         return res;
     }
 
-    GetIdFlux(cibles, mesureY, typeCible)
-    {
+    GetIdFlux(cibles, mesureY, typeCible) {
         let centrales = Controller.centrales;
         let flux = [];
 
-        if(typeCible == "barrage"){
+        if (typeCible == "barrage") {
             for (let j = 0; j < cibles.length; ++j) {
                 for (let i = 0; i < centrales.length; ++i) {
-                    if(centrales[i].nomBarrage == cibles[j]){
+                    if (centrales[i].nomBarrage == cibles[j]) {
                         for (let f = 0; f < centrales[i].flux.length; ++f) {
-                            if(centrales[i].flux[f].attribut == mesureY){
+                            if (centrales[i].flux[f].attribut == mesureY) {
                                 flux.push(centrales[i].flux[f].ID)
                             }
                         }
@@ -239,13 +244,13 @@ class Controller {
                 }
             }
         }
-        else{
+        else {
             for (let i = 0; i < centrales.length; ++i) {
                 for (let j = 0; j < cibles.length; ++j) {
                     for (let t = 0; t < centrales[i].turbines.length; ++t) {
-                        if(centrales[i].nomBarrage + "." + centrales[i].turbines[t].nomTurbine == cibles[j]){
+                        if (centrales[i].nomBarrage + "." + centrales[i].turbines[t].nomTurbine == cibles[j]) {
                             for (let f = 0; f < centrales[i].turbines[t].flux.length; ++f) {
-                                if(centrales[i].turbines[t].flux[f].attribut == mesureY){
+                                if (centrales[i].turbines[t].flux[f].attribut == mesureY) {
                                     flux.push(centrales[i].turbines[t].flux[f].ID)
                                 }
                             }

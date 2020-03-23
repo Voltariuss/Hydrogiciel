@@ -1,5 +1,5 @@
 class Graphique {
- 
+
     //attributs
     cibles;     //tableau de cible (barrages ou turbines qui seront source de données du graphique)
     id;         //id du graphique
@@ -11,9 +11,10 @@ class Graphique {
     dateDebut;  //date de debut du graphique
     dateFin;    //date de fin dugraphique
     courbes;    //tableau des différentes courbes sur le graph
+    chart;
 
     static listeType = ["bar", "bubble", "line"];
-    static listCouleur = ["#3e95cd","#8e5ea2","#3cba9f","#e8c3b9","#c45850"];
+    static listCouleur = ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"];
 
     static ID;
 
@@ -30,49 +31,58 @@ class Graphique {
         this.courbes = []
     }
 
-    static initID(valeur = 0)
-    {
-        if(typeof Graphique.ID == 'undefined') {
+    static initID(valeur = 0) {
+        if (typeof Graphique.ID == 'undefined') {
             Graphique.ID = valeur;
         }
     }
 
-    AjouterCourbe(courbe)
-    {
+    AjouterCourbe(courbe) {
         this.courbes.push(courbe);
     }
 
-    GenererChart()
-    {
+    SetChart(chart) {
+        this.chart = chart;
+    }
+
+    GenererDatasetsChart() {
         var dataChart = [];
-        this.courbes.forEach(function(element, index){
+
+        this.courbes.forEach(function (element, index) {
             var dataCourbe = {}
             dataCourbe["borderColor"] = Graphique.listCouleur[index];
             dataCourbe["fill"] = false;
             dataCourbe["label"] = element.label;
             dataCourbe["data"] = element.GetListeValeur();
-            console.log("liste des valeurs :");
-            console.log(element.GetListeValeur());
+            //console.log("liste des valeurs :");
+            //console.log(element.GetListeValeur());
 
             dataChart.push(dataCourbe);
         });
-        console.log("liste des dates :");
-        console.log(this.courbes[0].GetListeDate());
+
+        return dataChart;
+    }
+
+    GenererChart() {
+        var dataChart = this.GenererDatasetsChart();
+
+       // console.log("liste des dates :");
+        //console.log(this.courbes[0].GetListeDate());
         var chart = {
             type: Graphique.listeType[this.type],
             data: {
                 labels: this.courbes[0].GetListeDate(),
-                datasets:  dataChart
+                datasets: dataChart
             },
             options: {
                 title: {
                     display: true,
                     text: this.titre
                 },
-                scales:{
-                    xAxes:[{
-                        scaleLabel:{
-                            display : true,
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
                             labelString: this.mesureX
                         },
                         ticks: {
@@ -80,15 +90,17 @@ class Graphique {
                             maxTicksLimit: 20
                         }
                     }],
-                    yAxes:[{
-                        scaleLabel:{
-                            display : true,
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
                             labelString: this.mesureY
                         }
                     }]
                 }
             }
         }
+
+        //this.chart = chart;
 
         return chart;
     }
