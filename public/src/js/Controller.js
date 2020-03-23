@@ -51,7 +51,7 @@ class Controller {
         setTimeout(function(){
             cetObjet.SetInformationDernierGraphique(graphique.id, graphique.GenererChart());
             //return { 'id': graphique.id, 'chart': graphique.GenererChart() };
-        },500);
+        },1000);
     }
 
     ModifierGraphique(idGraphique, donnees) {
