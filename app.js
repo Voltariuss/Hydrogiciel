@@ -40,10 +40,9 @@ app2.post('/ajax', function (req, res) {
 
 });
 
-
 app2.post('/getAttributs', function(req, res){
 	res.send(catalogue.GetListeAttributs());
-})
+});
 
 app2.post('/getCentrales', function(req, res){
 	catalogue.construireStructureFlux();
@@ -58,10 +57,6 @@ app2.post('/getFlux', function(req, res){
 	res.send(data);
 })
 
-//app2.post('/catalogue', function(req, res){
-
-//});
-
 var server = app2.listen(8080, function () {
 	console.log('application is listening on port 8080 .');
 });
@@ -70,7 +65,7 @@ var server = app2.listen(8080, function () {
 function initialisationCatalogue()
 {
 	catalogue = new moduleCatalogue.Catalogue('127.0.0.1', 8081);
-	console.log("Récupération du catalogue.")
+	console.log("Récupération du catalogue.");
 	catalogue.recupererFichierCatalogue();
 	setTimeout(function() {
 		var listeFlux = catalogue.GetFlux();

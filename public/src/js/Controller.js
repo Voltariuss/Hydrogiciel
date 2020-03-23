@@ -4,6 +4,7 @@ class Controller {
     //attributs
     graphiques; //tableau de graphique
     listeAttributs;
+    centrales;
 
     constructor() {
         Controller.graphiques = [];
@@ -17,7 +18,6 @@ class Controller {
         });
 
         ajax("POST", '/getCentrales', {}, function (res) {
-            console.log(res);
             Controller.centrales = res;
         });
     }
@@ -115,13 +115,15 @@ class Controller {
         }
     }
 
-    UpdateGraphique(idGraphique = -1) {
+    UpdateGraphique(idGraphique = -1, typeCible = 0) {
+
         if(idGraphique != -1)   //ajouter un graphique : generation des courbes
         {
             for(var i=0; i<Controller.graphiques.length; i++)
             {
                 if(Controller.graphiques[i].id == idGraphique)
                 {
+                    var flux = Controller.GetIdFlux(Controller.graphiques[i].cibles, Controller.graphiques[i].mesureY, typeCible);
                     Controller.graphiques[i].cibles.forEach(function(element){
                         //console.log(Date.parse(Controller.graphiques[i].dateDebut));
                         var courbe = new Courbe(5, element, new Date(Controller.graphiques[i].dateDebut).getTime(), Date.now());
@@ -148,38 +150,35 @@ class Controller {
         }
     }
 
-    SelectionnerCibles(numBarrage) {
-        var barragesOptions;
-        //barragesOptions = une fonction 
-        barragesOptions = [{ label: "Barrage de Génissiat", value: "1" }, { label: "Barrage de Seyssel", value: "2" },
+    SelectionnerCibles(nomBarrage) {
+        /*cibles = [{ label: "Barrage de Génissiat", value: "1" }, { label: "Barrage de Seyssel", value: "2" },
         { label: "Barrage de Motz", value: "3" }, { label: "Barrage de Lavours", value: "4" }, { label: "Barrage de Savières", value: "5" },
         { label: "Barrage de Champagneux", value: "6" }, { label: "Barrage de Villebois", value: "7" }, { label: "Barrage de Pierre-Bénite", value: "8" },
         { label: "Barrage de Vaugris", value: "9" }, { label: "Barrage de Saint-Pierre-de-Bœuf", value: "10" }, { label: "Barrage d'Arras-sur-Rhône", value: "11" },
         { label: "Barrage de la Roche-de-Glun", value: "12" }, { label: "Barrage de Charmes-sur-Rhône", value: "13" }, { label: "Barrage de Le Pouzin", value: "14" },
         { label: "Barrage de Donzère", value: "15" }, { label: "Barrage de Caderousse", value: "16" }, { label: "Barrage de Sauveterre", value: "17" },
-        { label: "Barrage de Villeneuve", value: "18" }, { label: "Barrage de Vallabrègues", value: "19" }];
-        let barrageSelectionne = [];
-        for (let i = 0; i < barragesOptions.length; ++i) {
-            if (barragesOptions[i].value == numBarrage) {
-                barrageSelectionne.push(barragesOptions[i].value);
-            }
-        }
+        { label: "Barrage de Villeneuve", value: "18" }, { label: "Barrage de Vallabrègues", value: "19" }];*/
+        let centrales = Controller.centrales;
 
-        var turbines;
-        //turbines = une fonction
-        turbines = [{ 'b': 1, 't': 1 }, { 'b': 1, 't': 2 }, { 'b': 1, 't': 3 }, { 'b': 2, 't': 1 }, { 'b': 2, 't': 2 }, { 'b': 3, 't': 1 }];
+        let barragesOptions = [];
+        let barrageSelectionne = [];
         let turbinesOptions = [];
         let turbinesSelectionnes = [];
-        let nbTurbines = 0;
-        for (let i = 0; i < turbines.length; ++i) {
-            if (turbines[i].b == numBarrage) {
-                let turbineOption = {
-                    label: "Turbine n°" + turbines[i].t + " du barrage",
-                    value: "" + turbines[i].b + "-" + turbines[i].t,
-                };
 
-                turbinesOptions.push(turbineOption);
-
+        for (let i = 0; i < centrales.length; ++i) {
+            barragesOptions.push({
+                label : "Barrage " + centrales[i].nombarrage,
+                value : centrales[i].nombarrage
+            });
+            if (centrales[i].nombarrage == nomBarrage) {
+                barrageSelectionne.push(centrales[i].nombarrage);
+                for (let j = 0; j < centrales[i].turbines.length; ++j) {
+                    let idT = centrales[i].turbines[j].nomTurbine.slice(-1);
+                    turbinesOptions.push({
+                        label : "Turbine n°" + idT + " du barrage",
+                        value : centrales[i].nombarrage + "-" + centrales[i].turbines[j].nomTurbine
+                    });
+                }
             }
         }
 
@@ -197,5 +196,40 @@ class Controller {
         return res;
     }
 
+    GetIdFlux(cibles, mesureY, typeCible)
+    {
+        let centrales = Controller.centrales;
+        let flux = [];
 
+        if(typeCible == "barrage"){
+            for (let j = 0; j < cibles.length; ++j) {
+                for (let i = 0; i < centrales.length; ++i) {
+                    if(centrales[i].nombarrage == cibles[j]){
+                        for (let f = 0; f < centrales[i].flux.length; ++f) {
+                            if(centrales[i].flux[f].attribut == mesureY){
+                                flux.push(centrales[i].flux[f].ID)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            for (let i = 0; i < centrales.length; ++i) {
+                for (let j = 0; j < cibles.length; ++j) {
+                    for (let t = 0; t < centrales[i].turbines.length; ++t) {
+                        if(centrales[i].nombarrage + "-" + centrales[i].turbines[t].nomTurbine == cibles[j]){
+                            for (let f = 0; f < centrales[i].flux.length; ++f) {
+                                if(centrales[i].turbines[t].flux[f].attribut == mesureY){
+                                    flux.push(centrales[i].turbines[t].flux[f].ID)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return flux;
+    }
 }
