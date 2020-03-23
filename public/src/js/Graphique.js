@@ -68,6 +68,24 @@ class Graphique {
                 title: {
                     display: true,
                     text: this.titre
+                },
+                scales:{
+                    xAxes:[{
+                        scaleLabel:{
+                            display : true,
+                            labelString: this.mesureX
+                        },
+                        ticks: {
+                            autoSkip: true,
+                            maxTicksLimit: 20
+                        }
+                    }],
+                    yAxes:[{
+                        scaleLabel:{
+                            display : true,
+                            labelString: this.mesureY
+                        }
+                    }]
                 }
             }
         }

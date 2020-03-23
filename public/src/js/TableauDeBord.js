@@ -64,7 +64,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
   viderFormConfigG();
 
   // Validation du formulaire pour un barrage
-  document.getElementById("validerAjoutGB").onclick = function () {
+  document.getElementById("formB").onsubmit = function (event) {
+    event.preventDefault();
     if (barrages.value().length > 0) {
       confirmerAjoutG();
     }
@@ -75,7 +76,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
   };
 
   // Validation du formulaire pour une turbine
-  document.getElementById("formT").onsubmit = function () {
+  document.getElementById("formT").onsubmit = function (event) {
+    event.preventDefault();
     if (turbines.value().length > 0) {
       confirmerAjoutG();
     }
@@ -147,6 +149,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   };
 
   document.getElementById('sauvegarderGs').onclick = function () {
+    document.getElementById("nomFichier").value = "";
     modaleSauvegarderGs.style.display = "flex";
   };
 
@@ -620,7 +623,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
   }
 
   //*********************************************** EXPORTER FICHIER ******************************************** */
-  document.getElementById("formSauvegarderGs").addEventListener("submit", function () {
+  document.getElementById("formSauvegarderGs").addEventListener("submit", function (event) {
+    event.preventDefault();
     //normalement : tester la valeur de res et affiché un msg en fonction de l'echec/reussite MAIS méthode asynchrone = casse couilles
     var res = controlleur.SauvegarderFichierConfig(document.getElementById("nomFichier").value);
     alert("La sauvegarde a bien été effectuée.");
