@@ -49,7 +49,7 @@ class Catalogue {
         return attributs
     }
 
-    GetStructureFlux() {return (this.structureFlux);}
+    GetStructureFlux() {console.log(this.structureFlux);return (this.structureFlux);}
 
 	// Autres méthodes
 	recupererFichierCatalogue() {

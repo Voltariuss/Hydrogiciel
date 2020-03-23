@@ -46,10 +46,8 @@ app2.post('/getAttributs', function(req, res){
 });
 
 app2.post('/getCentrales', function(req, res){
-	catalogue.construireStructureFlux();
-	var arr = catalogue.GetStructureFlux();
-	//var obj = array = [{"nombarrage": "Avigon", "turbines" : [{"nomTurbine" : "Groupe1", "flux" : [{"ID" : 1,"attribut" : "debit"},{"ID" : 3,"attribut" : "puissance"}]},{"nomTurbine" : "Groupe2", "flux" : [{"ID" : 2, "attribut" : "debit"},{"ID" : 4,"attribut" : "puissance"}]}],"flux" : [{"ID" : 2,"attribut" : "hauteur"}]},{"nombarrage" : "Autre"}];
-	res.send(arr);
+    catalogue.construireStructureFlux();
+    res.send(catalogue.GetStructureFlux());
 });
 
 app2.post('/getFlux', function(req, res){
