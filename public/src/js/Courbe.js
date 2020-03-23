@@ -47,10 +47,12 @@ class Courbe {
 
     GetListeDate()
     {
-        var res = []
+        var res = [];
         for(var i=0; i<this.donnees.length;i++)
         {
-            res.push(this.donnees[i].GetDate());
+            let typeD = new Date(this.donnees[i].GetDate());
+            let mois = typeD.getMonth()+1;
+            res.push(typeD.getDate()+ "/" + mois + "/" + typeD.getFullYear() + " " + typeD.getHours() + ":" + typeD.getMinutes());
         }
 
         return res;
