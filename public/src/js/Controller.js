@@ -140,12 +140,21 @@ class Controller {
 
     //Creer un fichier de configuration par rapport au tableau de bord actuel
     SauvegarderFichierConfig(nomFichier) {
-        var data = Controller.graphiques;
+        var data = []
+
+        Controller.graphiques.forEach(function(donnees){
+            var graphique = new Graphique(donnees.cibles, donnees.titre, donnees.type, donnees.tempsReel, donnees.mesureX, donnees.mesureY, donnees.dateDebut, donnees.dateFin)
+            data.push(graphique);
+        })
+
+        console.log("tamer data ;");
+        console.log(data);
 
         data.forEach(function (element) {
             delete element["courbes"];
             delete element["chart"];
-        })
+        });
+
         data = JSON.stringify(data);
 
         if (data.length == 0)
@@ -197,7 +206,6 @@ class Controller {
                     console.log(datasets);
                     element.chart.data.labels = labelchart;
                     element.chart.data.datasets = datasets;
-                    console.log( element.chart);
                     element.chart.update();
                 })
             });
