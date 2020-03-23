@@ -72,7 +72,6 @@ class Flux {
             return null;
         // Check ok
         var retour = [];
-        console.log(this.donnees);
         for (const donnee of this.donnees) {
             if (donnee.GetDate() >= dateDebut && donnee.GetDate() <= dateFin) {
                 retour.push(donnee.GetDate(), donnee.GetMoyenne());

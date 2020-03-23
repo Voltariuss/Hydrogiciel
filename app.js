@@ -52,7 +52,6 @@ app2.post('/getCentrales', function(req, res){
 
 app2.post('/getFlux', function(req, res){
 	var data = catalogue.recupererDonneesFlux(req.body.idFlux, req.body.dateDebut);
-	console.log(data);
 	res.send(data);
 })
 

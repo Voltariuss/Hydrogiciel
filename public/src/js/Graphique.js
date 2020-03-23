@@ -50,14 +50,16 @@ class Graphique {
             dataCourbe["borderColor"] = Graphique.listCouleur[index];
             dataCourbe["fill"] = false;
             dataCourbe["label"] = element.label;
-            dataCourbe["data"] = element.donnees;
+            dataCourbe["data"] = element.GetListeValeur();
+            console.log(element.GetListeValeur());
 
             dataChart.push(dataCourbe);
         });
+        console.log(this.courbes[0].GetListeDate());
         var chart = {
             type: Graphique.listeType[this.type],
             data: {
-                labels: [1500, 1600, 1700, 1750, 1800, 1850, 1900, 1950, 1999, 2000],
+                labels: this.courbes[0].GetListeDate(),
                 datasets:  dataChart
             },
             options: {
