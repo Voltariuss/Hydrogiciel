@@ -144,7 +144,7 @@ class Catalogue {
 
 				}
 				// On ajoute le flux
-				var caracFlux = [];
+				var caracFlux = {};
 				caracFlux['ID'] = flux.GetID();
 				caracFlux['attribut'] = flux.GetAttribute();
 				turbine['flux'].push(caracFlux);

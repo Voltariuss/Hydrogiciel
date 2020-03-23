@@ -219,7 +219,7 @@ class Controller {
                 for (let j = 0; j < cibles.length; ++j) {
                     for (let t = 0; t < centrales[i].turbines.length; ++t) {
                         if(centrales[i].nomBarrage + "." + centrales[i].turbines[t].nomTurbine == cibles[j]){
-                            for (let f = 0; f < centrales[i].flux.length; ++f) {
+                            for (let f = 0; f < centrales[i].turbines[t].flux.length; ++f) {
                                 if(centrales[i].turbines[t].flux[f].attribut == mesureY){
                                     flux.push(centrales[i].turbines[t].flux[f].ID)
                                 }
