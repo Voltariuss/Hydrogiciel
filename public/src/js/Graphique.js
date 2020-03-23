@@ -51,10 +51,12 @@ class Graphique {
             dataCourbe["fill"] = false;
             dataCourbe["label"] = element.label;
             dataCourbe["data"] = element.GetListeValeur();
+            console.log("liste des valeurs :");
             console.log(element.GetListeValeur());
 
             dataChart.push(dataCourbe);
         });
+        console.log("liste des dates :");
         console.log(this.courbes[0].GetListeDate());
         var chart = {
             type: Graphique.listeType[this.type],

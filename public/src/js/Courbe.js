@@ -39,7 +39,7 @@ class Courbe {
         var res = []
         for(var i=0; i<this.donnees.length;i++)
         {
-            res.push(this.donnees.GetValeurs());
+            res.push(this.donnees[i].GetValeurs());
         }
 
         return res;
@@ -50,7 +50,7 @@ class Courbe {
         var res = []
         for(var i=0; i<this.donnees.length;i++)
         {
-            res.push(this.donnees.GetDate());
+            res.push(this.donnees[i].GetDate());
         }
 
         return res;

@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   viderFormConfigG();
 
   // Validation du formulaire pour un barrage
-  document.getElementById("formB").onsubmit = function () {
+  document.getElementById("validerAjoutGB").onclick = function () {
     if (barrages.value().length > 0) {
       confirmerAjoutG();
     }
@@ -289,24 +289,29 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
     modaleConfigG.style.display = "none";
-    var informations = controlleur.AjouterGraphique(donnees);
-    if (informations.id != -1) {
+    //var informations = controlleur.AjouterGraphique(donnees);
+    controlleur.AjouterGraphique(donnees);
 
-      if (nombreGs == 0) {
-        document.getElementById('grilleVide').style.display = 'none';
-        document.getElementById('grid').style.display = 'block';
+    setTimeout(function(){
+      var informations = controlleur.GetInformationDernierGraphique();
+      if (informations.id != -1) {
+
+        if (nombreGs == 0) {
+          document.getElementById('grilleVide').style.display = 'none';
+          document.getElementById('grid').style.display = 'block';
+        }
+        let contenant = '<div class="grid-stack-item" idGraphique="' + informations.id + '" ><div class="grid-stack-item-content"><button type="button" class="supprimerG btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button><canvas class="graphique"></canvas></div></div>';
+        var graphique = grille.addWidget(contenant, { width: 4, height: 5, minWidth: 4, minHeight: 4 });
+        redimensionnerGraphique(graphique);
+        new Chart(document.getElementsByClassName("graphique")[nombreGs], informations.chart);
+        graphique.ondblclick = function () {
+          agrandirGraphique(informations.chart);
+        };
+        document.getElementsByClassName("supprimerG")[nombreGs].onclick = supprimerGraphiqueVue;
+        ++nombreGs;
       }
-      let contenant = '<div class="grid-stack-item" idGraphique="' + informations.id + '" ><div class="grid-stack-item-content"><button type="button" class="supprimerG btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button><canvas class="graphique"></canvas></div></div>';
-      var graphique = grille.addWidget(contenant, { width: 4, height: 5, minWidth: 4, minHeight: 4 });
-      redimensionnerGraphique(graphique);
-      new Chart(document.getElementsByClassName("graphique")[nombreGs], informations.chart);
-      graphique.ondblclick = function () {
-        agrandirGraphique(informations.chart);
-      };
-      document.getElementsByClassName("supprimerG")[nombreGs].onclick = supprimerGraphiqueVue;
-      ++nombreGs;
-    }
-    viderFormConfigG();
+      viderFormConfigG();
+    },1000);
   }
 
   //Annule la création d'un graphique et donc son ajout au tableau de bord

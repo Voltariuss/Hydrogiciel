@@ -5,9 +5,24 @@ class Controller {
     graphiques; //tableau de graphique
     listeAttributs;
     centrales;
+    informationsDernierGraphique;
 
     constructor() {
         Controller.graphiques = [];
+        Controller.informationsDernierGraphique = {};
+    }
+
+    GetInformationDernierGraphique()
+    {
+        return Controller.informationsDernierGraphique;
+    }
+
+    SetInformationDernierGraphique(id, chart)
+    {
+        console.log("wwwwsh");
+        console.log(id);
+        console.log(chart);
+        Controller.informationsDernierGraphique = { 'id': id, 'chart': chart };
     }
 
     Initialisation() {
@@ -30,8 +45,13 @@ class Controller {
         
         this.UpdateGraphique(graphique.id, donnees.typeCible);
 
+        var cetObjet = this;
+
         //retourn l'id du graphique et le chart
-        return { 'id': graphique.id, 'chart': graphique.GenererChart() };
+        setTimeout(function(){
+            cetObjet.SetInformationDernierGraphique(graphique.id, graphique.GenererChart());
+            //return { 'id': graphique.id, 'chart': graphique.GenererChart() };
+        },500);
     }
 
     ModifierGraphique(idGraphique, donnees) {
@@ -132,6 +152,7 @@ class Controller {
                         var courbe = new Courbe(flux[j], element, new Date(Controller.graphiques[i].dateDebut).getTime(), Date.now());
 
                         ajax("POST", '/getFlux', { 'idFlux' : courbe.id, 'dateDebut' : courbe.valeurDebutX }, function (res) {
+                            console.log("ici : setdonnees");
                             courbe.SetDonnee(res);
                         });
                         Controller.graphiques[i].AjouterCourbe(courbe);
