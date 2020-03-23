@@ -13,8 +13,9 @@ class Graphique {
     courbes;    //tableau des différentes courbes sur le graph
     chart;
 
-    static listeType = ["bar", "bubble", "line"];
-    static listCouleur = ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"];
+    static listeType = ["bar", "line"];
+    static listCouleur = ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#FFD700", "#859c8e", "#FF7F50"];
+    static couleur = 0;
 
     static ID;
 
@@ -50,7 +51,8 @@ class Graphique {
 
         this.courbes.forEach(function (element, index) {
             var dataCourbe = {}
-            dataCourbe["borderColor"] = Graphique.listCouleur[index];
+            dataCourbe["borderColor"] = Graphique.listCouleur[Graphique.couleur % (Graphique.listCouleur.length)];
+            dataCourbe["backgroundColor"] = Graphique.listCouleur[Graphique.couleur % (Graphique.listCouleur.length)];
             dataCourbe["fill"] = false;
             dataCourbe["label"] = element.label;
             dataCourbe["data"] = element.GetListeValeur();
@@ -58,6 +60,7 @@ class Graphique {
             //console.log(element.GetListeValeur());
 
             dataChart.push(dataCourbe);
+            ++Graphique.couleur;
         });
 
         return dataChart;

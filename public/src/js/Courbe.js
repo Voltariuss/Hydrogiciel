@@ -52,7 +52,7 @@ class Courbe {
         {
             let typeD = new Date(this.donnees[i].GetDate());
             let mois = typeD.getMonth()+1;
-            res.push(typeD.getDate()+ "/" + mois + "/" + typeD.getFullYear() + " " + typeD.getHours() + ":" + typeD.getMinutes());
+            res.push(typeD.getDate()+ "/" + mois + "/" + typeD.getFullYear() + " " + typeD.getHours() + ":" + typeD.getMinutes() + ":" + typeD.getSeconds());
         }
 
         return res;

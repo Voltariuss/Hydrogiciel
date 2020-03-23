@@ -75,5 +75,5 @@ function initialisationCatalogue()
 				flux.StartScheduler();
 			}
 		}
-	}, 1000);
+	}, 2000);
 }
