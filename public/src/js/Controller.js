@@ -26,7 +26,7 @@ class Controller {
         var graphique = new Graphique(donnees.cibles, donnees.titre, donnees.type, donnees.tempsReel, donnees.mesureX, donnees.mesureY, donnees.dateDebut, donnees.dateFin);
         Controller.graphiques.push(graphique);
         
-        this.UpdateGraphique(graphique.id);
+        this.UpdateGraphique(graphique.id, donnees.typeCible);
 
         //retourn l'id du graphique et le chart
         return { 'id': graphique.id, 'chart': graphique.GenererChart() };
@@ -126,7 +126,7 @@ class Controller {
             {
                 if(Controller.graphiques[i].id == idGraphique)
                 {
-                    var flux = Controller.GetIdFlux(Controller.graphiques[i].cibles, Controller.graphiques[i].mesureY, typeCible);
+                    var flux = this.GetIdFlux(Controller.graphiques[i].cibles, Controller.graphiques[i].mesureY, typeCible);
                     Controller.graphiques[i].cibles.forEach(function(element){
                         //console.log(Date.parse(Controller.graphiques[i].dateDebut));
                         var courbe = new Courbe(5, element, new Date(Controller.graphiques[i].dateDebut).getTime(), Date.now());
@@ -149,7 +149,7 @@ class Controller {
     }
 
     SelectionnerCibles(nomBarrage) {
-        /*cibles = [{ label: "Barrage de Génissiat", value: "1" }, { label: "Barrage de Seyssel", value: "2" },
+        /*let barragesOptions = [{ label: "Barrage de Génissiat", value: "1" }, { label: "Barrage de Seyssel", value: "2" },
         { label: "Barrage de Motz", value: "3" }, { label: "Barrage de Lavours", value: "4" }, { label: "Barrage de Savières", value: "5" },
         { label: "Barrage de Champagneux", value: "6" }, { label: "Barrage de Villebois", value: "7" }, { label: "Barrage de Pierre-Bénite", value: "8" },
         { label: "Barrage de Vaugris", value: "9" }, { label: "Barrage de Saint-Pierre-de-Bœuf", value: "10" }, { label: "Barrage d'Arras-sur-Rhône", value: "11" },
@@ -165,16 +165,16 @@ class Controller {
 
         for (let i = 0; i < centrales.length; ++i) {
             barragesOptions.push({
-                label : "Barrage " + centrales[i].nombarrage,
-                value : centrales[i].nombarrage
+                label : "Barrage " + centrales[i].nomBarrage,
+                value : centrales[i].nomBarrage
             });
-            if (centrales[i].nombarrage == nomBarrage) {
-                barrageSelectionne.push(centrales[i].nombarrage);
+            if (centrales[i].nomBarrage == nomBarrage) {
+                barrageSelectionne.push(centrales[i].nomBarrage);
                 for (let j = 0; j < centrales[i].turbines.length; ++j) {
                     let idT = centrales[i].turbines[j].nomTurbine.slice(-1);
                     turbinesOptions.push({
                         label : "Turbine n°" + idT + " du barrage",
-                        value : centrales[i].nombarrage + "-" + centrales[i].turbines[j].nomTurbine
+                        value : centrales[i].nomBarrage + "." + centrales[i].turbines[j].nomTurbine
                     });
                 }
             }
@@ -202,7 +202,7 @@ class Controller {
         if(typeCible == "barrage"){
             for (let j = 0; j < cibles.length; ++j) {
                 for (let i = 0; i < centrales.length; ++i) {
-                    if(centrales[i].nombarrage == cibles[j]){
+                    if(centrales[i].nomBarrage == cibles[j]){
                         for (let f = 0; f < centrales[i].flux.length; ++f) {
                             if(centrales[i].flux[f].attribut == mesureY){
                                 flux.push(centrales[i].flux[f].ID)
@@ -216,7 +216,7 @@ class Controller {
             for (let i = 0; i < centrales.length; ++i) {
                 for (let j = 0; j < cibles.length; ++j) {
                     for (let t = 0; t < centrales[i].turbines.length; ++t) {
-                        if(centrales[i].nombarrage + "-" + centrales[i].turbines[t].nomTurbine == cibles[j]){
+                        if(centrales[i].nomBarrage + "." + centrales[i].turbines[t].nomTurbine == cibles[j]){
                             for (let f = 0; f < centrales[i].flux.length; ++f) {
                                 if(centrales[i].turbines[t].flux[f].attribut == mesureY){
                                     flux.push(centrales[i].turbines[t].flux[f].ID)

@@ -50,7 +50,6 @@ app2.post('/updateGraphique', function(req, res){
 
 app2.post('/getCentrales', function(req, res){
     catalogue.construireStructureFlux();
-    //console.log(catalogue.GetStructureFlux());
     res.send(catalogue.GetStructureFlux());
 });
 //app2.post('/catalogue', function(req, res){
