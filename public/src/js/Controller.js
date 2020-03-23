@@ -50,21 +50,6 @@ class Controller {
         }, 1000);
     }
 
-    AjouterGraphique(donnees) {
-        var graphique = new Graphique(donnees.cibles, donnees.titre, donnees.type, donnees.tempsReel, donnees.mesureX, donnees.mesureY, donnees.dateDebut, donnees.dateFin);
-        Controller.graphiques.push(graphique);
-
-        this.UpdateGraphique(graphique.id, donnees.typeCible);
-
-        var cetObjet = this;
-
-        //retourn l'id du graphique et le chart
-        setTimeout(function () {
-            cetObjet.SetInformationDernierGraphique(graphique.id, graphique.GenererChart());
-            return { 'id': graphique.id, 'chart': graphique.GenererChart() };
-        }, 500);
-    }
-
     ModifierGraphique(idGraphique, donnees) {
 
     }
@@ -108,20 +93,49 @@ class Controller {
         }
 
         if (erreur == false) {
-            if (typeof tmplisteGraphiques != undefined)
-                Controller.graphiques = tmplisteGraphiques
-            else
-                Controller.graphiques = [];
+            // if (typeof tmplisteGraphiques != undefined)
+            //     Controller.graphiques = tmplisteGraphiques
+            // else
+            //     Controller.graphiques = [];
 
 
-            Controller.graphiques.forEach(function (element, index) {
-                listeGraphiques.push({ 'id': element.id, 'chart': element.GenererChart() });
-            })
-            return listeGraphiques;
+            // Controller.graphiques.forEach(function (element, index) {
+            //     listeGraphiques.push({ 'id': element.id, 'chart': element.GenererChart() });
+            // })
+            return tmplisteGraphiques;
         }
         else {
             return false;
         }
+    }
+
+    AjouterGraphique(donnees) {
+        var graphique = new Graphique(donnees.cibles, donnees.titre, donnees.type, donnees.tempsReel, donnees.mesureX, donnees.mesureY, donnees.dateDebut, donnees.dateFin);
+        Controller.graphiques.push(graphique);
+
+        var typeCible;
+
+        if(donnees.typeCible == undefined)
+        {
+            if(graphique.cibles[0].indexOf('.') == -1)
+                typeCible = "barrage";
+            else
+                typeCible = "turbine";
+        }
+        else
+        {
+            typeCible = donnees.typeCible
+        }
+
+        this.UpdateGraphique(graphique.id, typeCible);
+
+        var cetObjet = this;
+
+        //retourn l'id du graphique et le chart
+        setTimeout(function () {
+            cetObjet.SetInformationDernierGraphique(graphique.id, graphique.GenererChart());
+            return { 'id': graphique.id, 'chart': graphique.GenererChart() };
+        }, 1000);
     }
 
     //Creer un fichier de configuration par rapport au tableau de bord actuel
@@ -130,6 +144,7 @@ class Controller {
 
         data.forEach(function (element) {
             delete element["courbes"];
+            delete element["chart"];
         })
         data = JSON.stringify(data);
 
@@ -156,7 +171,6 @@ class Controller {
             var flux = this.GetIdFlux(graph.cibles, graph.mesureY, typeCible);
             var j = 0;
             graph.cibles.forEach(function (element) {
-                //console.log(Date.parse(Controller.graphiques[i].dateDebut));
                 var courbe = new Courbe(flux[j], element, new Date(graph.dateDebut).getTime(), Date.now());
 
                 ajax("POST", '/getFlux', { 'idFlux': courbe.id, 'dateDebut': courbe.valeurDebutX }, function (res) {
@@ -169,13 +183,22 @@ class Controller {
         }
         else    //tout mettre a jour
         {
+            console.log(Controller.graphiques);
             Controller.graphiques.forEach(function (element) {
                 element.courbes.forEach(function (courbe) {
                     ajax("POST", '/getFlux', { 'idFlux': courbe.id, 'dateDebut': courbe.valeurFinX }, function (res) {
                         courbe.ConcatDonnee(res);
-                        element.chart.data.datasets = element.GenererDatasetsChart();
-                        element.chart.update();
+                        console.log(courbe.donnees);
                     });
+
+                    var labelchart = element.courbes[0].GetListeDate();
+                    var datasets = element.GenererDatasetsChart();
+                    console.log(labelchart);
+                    console.log(datasets);
+                    element.chart.data.labels = labelchart;
+                    element.chart.data.datasets = datasets;
+                    console.log( element.chart);
+                    element.chart.update();
                 })
             });
         }

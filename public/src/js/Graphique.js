@@ -54,20 +54,21 @@ class Graphique {
             dataCourbe["fill"] = false;
             dataCourbe["label"] = element.label;
             dataCourbe["data"] = element.GetListeValeur();
-            //console.log("liste des valeurs :");
-            //console.log(element.GetListeValeur());
 
             dataChart.push(dataCourbe);
         });
+
+        this.dateDebut = dataChart[0]["data"][0];
+        // console.log("datedebut :");
+        // console.log(this.dateDebut);
+
+        console.log(dataChart);
 
         return dataChart;
     }
 
     GenererChart() {
         var dataChart = this.GenererDatasetsChart();
-
-       // console.log("liste des dates :");
-        //console.log(this.courbes[0].GetListeDate());
         var chart = {
             type: Graphique.listeType[this.type],
             data: {
